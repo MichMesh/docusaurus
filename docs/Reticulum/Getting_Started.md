@@ -1,4 +1,25 @@
-## Setup
+# Connect to the Reticulum Network
+## Clients
+### nomadnet (*nix text based interface)
+If you want to install the console based nomadnet:
+`pip install nomadnet`
+### meshchat (Cross Platform/Portable)
+If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md)
+
+### Sideband (Linux/Android/MacOS/Windows)
+Sideband is a LXMF client. 
+For mobile connectivity or if you already have a transport node configured above on the network, you dont need to do the following. 
+To setup TCP connection to the test net:
+- click the hamburger menu,
+- click `Connectivity` 
+- enable `Connect via TCP`
+- TCP Host: RNS.MichMesh.net
+- TCP Port: 7822
+- x out of the config 
+- restart Sideband.
+You should now be seeing things show up in the announce stream.
+# Host your own Node!
+##  Setup
 ### You will probably want to create a python venv specifically for reticulum stuff.
 `cd ~/ ; python -m venv reticulum`
 ### load the new python venv
@@ -12,7 +33,9 @@ Start rnsd to generate the config files, then ctrl-c out:
 rnsd
 ^c
 ``` 
-### edit ~/.reticulum/config 
+### Sample interface configuration
+
+#### edit ~/.reticulum/config 
 Use the following to configure your machine as a bridge to all on the same subnet with the michmesh test net. This test net is also connected to the Chicago test net, which is connected to a European test net. The connection to the euro net will likely be dropped once we get a critical mass of services running.
 ```
 [reticulum]
@@ -39,26 +62,7 @@ Use the following to configure your machine as a bridge to all on the same subne
     selected_interface_mode = 1
     configured_bitrate = None
 ```
-## Clients
-### nomadnet
-If you want to install the console based nomadnet:
-`pip install nomadnet`
-### meshchat
-If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md)
-
-### Sideband
-Sideband is a Linux/Android/MacOS/Windows LXMF client. 
-For mobile connectivity or if you already have a transport node configured above on the network, you dont need to do the following. 
-To setup TCP connection to the test net:
-- click the hamburger menu,
-- click `Connectivity` 
-- enable `Connect via TCP`
-- TCP Host: RNS.MichMesh.net
-- TCP Port: 7822
-- x out of the config 
-- restart Sideband.
-You should now be seeing things show up in the announce stream.
-## Radio interfaces
+# Radio interfaces
 ### LoRa
 Reticulum is not like other meshes - the LoRa node acts more like a [TNC](https://en.wikipedia.org/wiki/Terminal_node_controller) - at current time, you need to install the [rnode firmare](https://liamcottle.github.io/rnode-flasher/) and create an [interface in your config](https://reticulum.network/manual/interfaces.html#rnode-lora-interface).
 [We use the common settings for the US.](https://github.com/markqvist/Reticulum/wiki/Popular-RNode-Settings#united-states)
