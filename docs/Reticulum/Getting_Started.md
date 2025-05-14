@@ -1,9 +1,6 @@
 # Connect to the Reticulum Network
 ## Clients
-### nomadnet (*nix text based interface)
-If you want to install the console based nomadnet:
-`pip install nomadnet`
-### meshchat (Cross Platform/Portable)
+### Meshchat (Cross Platform/Portable)
 If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md)
 
 ### Sideband (Linux/Android/MacOS/Windows)
@@ -17,7 +14,11 @@ To setup TCP connection to the test net:
 - TCP Port: 7822
 - x out of the config 
 - restart Sideband.
+
 You should now be seeing things show up in the announce stream.
+### nomadnet (*nix text based interface)
+If you want to install the console based nomadnet:
+`pip install nomadnet`
 # Host your own Node!
 ##  Setup
 ### You will probably want to create a python venv specifically for reticulum stuff.
@@ -36,7 +37,7 @@ rnsd
 ### Sample interface configuration
 
 #### edit ~/.reticulum/config 
-Use the following to configure your machine as a bridge to all on the same subnet with the michmesh test net. This test net is also connected to the Chicago test net, which is connected to a European test net. The connection to the euro net will likely be dropped once we get a critical mass of services running.
+Use the following to configure your machine as a bridge to all on the same subnet with the MichMesh test net. This test net is also connected to the Chicago test net, which is connected to a European test net. The connection to the euro net will likely be dropped once we get a critical mass of services running.
 ```
 [reticulum]
   enable_transport = True
@@ -98,3 +99,14 @@ add the following to your ~/.reticulum/config interfaces
   mode = boundary
 ```
 
+# Vocabulary
+Node - A participant in the reticulum network
+
+Propagation Node - A node which runs a buffer of encrypted 
+messages, allowing for later delivery if a node is offline
+
+LXMF - protocol for resilient delivery of data
+
+RNS - shorthand for Reticulum Network Stack
+
+Transport Mode - This setting enables routing and traffic forwarding
