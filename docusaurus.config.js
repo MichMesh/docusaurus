@@ -59,10 +59,20 @@ const config = {
       navbar: {
         title: 'MichMesh',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Michmesh Logo',
           src: 'img/michmesh-logo.jpeg',
         },
         items: [
+		{
+		  href:     'https://signal.group/#CjQKIG5-o6UUXvto66c1wN4fbinuguy614cJtRPmMxUA6JWyEhBKp6Q70OkA2MpcjsBYU1r9',
+		  label:    'Signal',
+		  position: 'right'
+		},
+		{
+		  href:     'https://discord.gg/skgWyPuft8',
+		  label:    'Discord',
+		  position: 'right'
+		}	
         ],
       },
       footer: {
@@ -84,6 +94,10 @@ const config = {
                 label: 'Discord',
                 href: 'https://discord.gg/DmM6cMPRTz',
               },
+	      {
+      	        href:     'https://signal.group/#CjQKIG5-o6UUXvto66c1wN4fbinuguy614cJtRPmMxUA6JWyEhBKp6Q70OkA2MpcjsBYU1r9',
+		label:    'Signal',
+	      },
             ],
           },
           {
