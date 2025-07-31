@@ -43,7 +43,10 @@ For Rak4631 WisBlock nodes, choose:
 `firmware-rak4631-2.7.3cf574c7-ota.zip`
 
 *Tip:* Look for filenames that start with `firmware-rak4631` and end with `-ota.zip`.
- - ![Firmware](../images/firmware.png)
+  <pre>
+    <img src="/assets/images/firmware-f3ba7365282ef10a20a8814279b83310.png" width="400"></img>
+  </pre>
+
 ---
 
 ### 5. Choose the Device
