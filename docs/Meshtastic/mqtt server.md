@@ -51,12 +51,13 @@ topic read $SYS/#
 # This affects all clients.
 pattern write $SYS/broker/connection/%c/state
 ```
-- `sudo mosquitto_passwd -c meshdev /etc/mosquitto/passwd` 
--- password: `large4cats`
+- `sudo mosquitto_passwd -c meshdev /etc/mosquitto/passwd`  
 
+password: large4cats
 - `sudo systemctl enable mosquitto`
 - `sudo systemctl restart mosquitto`
-You will have to do a bit of a permissions dance. I have it running with a letsencrypt cert.
+
+You will have to do a bit of a permissions dance to get certs working. I have it running with a letsencrypt cert, this is what I had to do.
 - create a group called `certreader`
 - change the group ownership of the /etc/letsencrypt/archive/ to certreader
 `sudo chgrp -R certreader /etc/letsencrypt/archive/$YOURCERTDIR`

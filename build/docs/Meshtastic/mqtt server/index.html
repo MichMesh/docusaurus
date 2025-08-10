@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v3.7.0">
 <title data-rh="true">Installation and configuration of the Mosquitto MQTT server | MichMesh</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:image" content="https://michmesh.com/img/docusaurus-social-card.jpg"><meta data-rh="true" name="twitter:image" content="https://michmesh.com/img/docusaurus-social-card.jpg"><meta data-rh="true" property="og:url" content="https://michmesh.com/docs/Meshtastic/mqtt server"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Installation and configuration of the Mosquitto MQTT server | MichMesh"><meta data-rh="true" name="description" content="This is based on a debian install, ubuntu should be similar."><meta data-rh="true" property="og:description" content="This is based on a debian install, ubuntu should be similar."><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://michmesh.com/docs/Meshtastic/mqtt server"><link data-rh="true" rel="alternate" href="https://michmesh.com/docs/Meshtastic/mqtt server" hreflang="en"><link data-rh="true" rel="alternate" href="https://michmesh.com/docs/Meshtastic/mqtt server" hreflang="x-default"><link rel="stylesheet" href="/assets/css/styles.15cbc4ab.css">
-<script src="/assets/js/runtime~main.b4b2e71c.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.d1910c80.js" defer="defer"></script>
 <script src="/assets/js/main.80f8a53c.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -20,24 +20,18 @@
 </ul>
 <div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#393A34"><span class="token plain"># This affects access control for clients with no username.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">topic read $SYS/#</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># This only affects clients with username &quot;testuser&quot;.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">user testuser</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">topic readwrite test/#</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">#topic read $SYS/#</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">user meshdev</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">topic readwrite msh/#</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">topic read $SYS/#</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#393A34"><span class="token plain"># This affects all clients.</span><br></span><span class="token-line" style="color:#393A34"><span class="token plain">pattern write $SYS/broker/connection/%c/state</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <ul>
-<li>
-<p><code>sudo mosquitto_passwd -c meshdev /etc/mosquitto/passwd</code>
--- password: <code>large4cats</code></p>
-</li>
-<li>
-<p><code>sudo systemctl enable mosquitto</code></p>
-</li>
-<li>
-<p><code>sudo systemctl restart mosquitto</code>
-You will have to do a bit of a permissions dance. I have it running with a letsencrypt cert.</p>
-</li>
-<li>
-<p>create a group called <code>certreader</code></p>
-</li>
-<li>
-<p>change the group ownership of the /etc/letsencrypt/archive/ to certreader
-<code>sudo chgrp -R certreader /etc/letsencrypt/archive/$YOURCERTDIR</code></p>
-</li>
+<li><code>sudo mosquitto_passwd -c meshdev /etc/mosquitto/passwd</code></li>
+</ul>
+<p>password: large4cats</p>
+<ul>
+<li><code>sudo systemctl enable mosquitto</code></li>
+<li><code>sudo systemctl restart mosquitto</code></li>
+</ul>
+<p>You will have to do a bit of a permissions dance to get certs working. I have it running with a letsencrypt cert, this is what I had to do.</p>
+<ul>
+<li>create a group called <code>certreader</code></li>
+<li>change the group ownership of the /etc/letsencrypt/archive/ to certreader
+<code>sudo chgrp -R certreader /etc/letsencrypt/archive/$YOURCERTDIR</code></li>
 </ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/docs/Meshtastic/OTA_Meshtastic_Updates"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">OTA Meshtastic Updates on Android</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/docs/Reticulum/"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Intro To Reticulum</div></a></nav></div></div></div></div></main></div></div></div><footer class="footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/docs/intro">Docs</a></li></ul></div><div class="col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://discord.gg/DmM6cMPRTz" target="_blank" rel="noopener noreferrer" class="footer__link-item">Discord<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li><li class="footer__item"><a href="https://signal.group/#CjQKIG5-o6UUXvto66c1wN4fbinuguy614cJtRPmMxUA6JWyEhBKp6Q70OkA2MpcjsBYU1r9" target="_blank" rel="noopener noreferrer" class="footer__link-item">Signal<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div><div class="col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/MichMesh/docusaurus" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-hidden="true" viewBox="0 0 24 24" class="iconExternalLink_nPIU"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"></path></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2025 My Project, Inc. Built with Docusaurus.</div></div></div></footer></div>
 </body>
 </html>
