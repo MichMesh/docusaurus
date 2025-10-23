@@ -40,10 +40,20 @@ The node will now reboot.
 7. Enable Position if you want to send your location out over the mesh.
 8. click save
 
-> WMI
+> WMI (Western Michigan)
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `WMI`
+4. iOS: Key Size: `8 bit`
+5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
+6. Enable Uplink/Downlink 
+7. Enable Position if you want to send your location out over the mesh.
+8. click save
+
+> EMI (Eastern Michigan)
+1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
+2. Click `+`
+3. Channel Name: `EMI`
 4. iOS: Key Size: `8 bit`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
