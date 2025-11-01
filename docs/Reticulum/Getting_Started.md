@@ -2,6 +2,19 @@
 ## Clients
 ### Meshchat (Cross Platform/Portable)
 If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md)
+To join the Michmesh testnet:
+- click Interfaces on the left.
+- click add interface
+- Name: Michmesh Testnet
+- Type: TCP Client Interface
+- Target Host: RNS.MichMesh.net
+- Target Port: 7822
+- click Add Interface
+- Optional: enable transport mode - this will make it so other instances on your home network will have access to the testnet.
+- - click Settings on the left
+- - check Enable Transport Mode
+- Restart the app.
+After it restarts, you should see announces under Messages or Nomad Network. You can click them and send messages or browse the nomadnet
 
 ### Sideband (Linux/Android/MacOS/Windows)
 Sideband is a LXMF client. 
