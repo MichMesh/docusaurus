@@ -40,7 +40,7 @@ The node will now reboot.
 7. Enable Position if you want to send your location out over the mesh.
 8. click save
 
-> WMI (Western Michigan)
+> Western Michigan
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `WMI`
@@ -50,7 +50,7 @@ The node will now reboot.
 7. Enable Position if you want to send your location out over the mesh.
 8. click save
 
-> EMI (Eastern Michigan)
+> Eastern Michigan
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `EMI`
