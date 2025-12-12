@@ -1,3 +1,6 @@
+---
+sidebar_label: Getting Started
+---
 # Connect to the Reticulum Network
 ## Clients
 ### Meshchat (Cross Platform/Portable)

@@ -1,3 +1,6 @@
+---
+sidebar_label: Reticulum
+---
 # Intro To Reticulum
 ### What is it?
 Reticulum Network Stack (RNS) is just as it says on the tin, a network stack with a chat protocol (as well as other protocols). The other players in the open source LoRa scene are mainly chat or telemetry tools.
