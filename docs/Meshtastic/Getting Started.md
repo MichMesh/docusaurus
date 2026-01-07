@@ -90,6 +90,16 @@ The node will now reboot.
 7. Enable Position if you want to send your location out over the mesh.
 8. click save
 
+> Washtenaw County
+1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
+2. Click `+`
+3. Channel Name: `Washtenaw`
+4. iOS: Key Size: `8 bit`
+5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
+6. Enable Uplink/Downlink 
+7. Enable Position if you want to send your location out over the mesh.
+8. click save
+
 #### After channel config
 click `Send` to push new channels to node.
 
