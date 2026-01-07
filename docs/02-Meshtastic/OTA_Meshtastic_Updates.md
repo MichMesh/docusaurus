@@ -1,3 +1,6 @@
+---
+sidebar_label: ota updating
+---
 # OTA Meshtastic Updates on Android
 
 It’s simple to push **OTA Meshtastic updates** with Android-based devices. You just need to gather a few things first. Before proceeding, adjust your Android settings:

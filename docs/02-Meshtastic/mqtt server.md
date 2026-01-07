@@ -1,3 +1,6 @@
+---
+sidebar_label: setting up an MQTT server
+---
 # Installation and configuration of the Mosquitto MQTT server
 This is based on a debian install, ubuntu should be similar.
 - `sudo apt install mosquitto`

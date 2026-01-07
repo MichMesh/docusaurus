@@ -1,3 +1,6 @@
+---
+sidebar_label: Getting Started
+---
 ## Wait, ANOTHER Mesh?
 From the MeshCore official page:
 >MeshCore is a multi platform system for enabling secure text based communications utilizing LoRa radio hardware. It can be used for Off-Grid Communication, Emergency Response & Disaster Recovery, Outdoor Activities, Tactical Security including law enforcement, private security and also IoT sensor networks.

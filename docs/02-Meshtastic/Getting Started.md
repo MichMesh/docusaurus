@@ -1,3 +1,6 @@
+---
+sidebar_label: Getting Started
+---
 ## Wait a minute, this is confusing!
 Yeah, there are some terms that get used differently depending on where they are used. Freq channels are also called channel slots or just channels, but general chat channels are also called channels? Yeah, it's a mess. Organic growth in the app and documentation have made things confusing. Dont worry about asking questions if you are unsure - we all had to figure it out and most of us are pretty friendly about answering questions.
 

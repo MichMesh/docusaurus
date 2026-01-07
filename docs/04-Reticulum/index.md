@@ -13,7 +13,7 @@ You can currently:
 - send messages to any other node connected on your network (even offline nodes if a propagation node is on your network)
 
 ### Why create another mesh? 
-Reticulum was created with a broader scope than Meshtastic or Meshcore. Reticulum is designed with both very large and small scale meshing and automatic discovery in mind.  You can create a local area network (BT/wifi/wired), medium area (RF, LoRa), and large area (TCP) networks in mind
+Reticulum was created 15+ years ago with a broader scope than Meshtastic or Meshcore. It was designed with both very large and small scale meshing and automatic discovery in mind.  You can create a local area network (BT/wifi/wired), medium area (RF, LoRa), and large area (TCP) networks in mind
 
 ### What is the reticulum topology like?
 It can be however you want it. It supports a variety of physical transport mediums such as RF, LoRa, Wifi, Bluetooth, Serial, and both tcp and udp networking.  IPv6 can be used to automatically discover local network nodes without any configuration.  IP based networking is not required by Reticulum.
