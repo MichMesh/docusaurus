@@ -1,17 +1,17 @@
 #!/bin/bash
 
 # check if venv already exists
-if [[ -d ${HOME}/venv ]]; then
-  read -p "Do you want to use the existing ${HOME}/venv? y|n: " use_existing_venv && use_existing_venv=`echo $use_existing_venv |tr '[:upper:]' '[:lower:]'|cut -c 1`
+if [[ -d ${HOME}/reticulum ]]; then
+  read -p "Do you want to use the existing ${HOME}/reticulum? y|n: " use_existing_venv && use_existing_venv=`echo $use_existing_venv |tr '[:upper:]' '[:lower:]'|cut -c 1`
   if [[ "${use_existing_venv}" == "y" ]] ; then
-    venv_path=${HOME}"/venv"
+    venv_path=${HOME}"/reticulum"
   else 
     read -p "enter the existing venv path: " venv_path
   fi
 else  
-  read -p "Do you want to create a venv under ~/venv? y|n: " create_new_venv && create_new_venv=`echo $create_new_venv |tr '[:upper:]' '[:lower:]'|cut -c 1`
+  read -p "Do you want to create a venv under ~/reticulum? y|n: " create_new_venv && create_new_venv=`echo $create_new_venv |tr '[:upper:]' '[:lower:]'|cut -c 1`
   if [[ "${create_new_venv}" == "y" ]] || [[ "${use_existing_venv}" == "y" ]] ; then
-    venv_path=${HOME}"/venv"
+    venv_path=${HOME}"/reticulum"
   else
     read -p "Please supply path for new venv. This script expects to run in a venv.: " venv_path
   fi
@@ -173,7 +173,7 @@ Type=simple
 Restart=always
 RestartSec=3
 User=$rns_user
-ExecStart=/home/$rns_user/venv/bin/python /home/$rns_user/venv/bin/rnsd --service
+ExecStart=/home/$rns_user/reticulum/bin/python /home/$rns_user/reticulum/bin/rnsd --service
 
 [Install]
 WantedBy=lxmd.service
@@ -197,7 +197,7 @@ Type=simple
 Restart=always
 RestartSec=3
 User=${rns_user}
-ExecStart=/home/${rns_user}/venv/bin/python3 /home/${rns_user}/venv/bin/lxmd --propagation-node
+ExecStart=/home/${rns_user}/reticulum/bin/python3 /home/${rns_user}/reticulum/bin/lxmd --propagation-node
 
 EOF
   sudo cp /tmp/lxmd.service /etc/systemd/system/
@@ -218,8 +218,12 @@ if [[ "${rns_service}" == "y" ]] ; then
   sudo systemctl start lxmd
 fi
 
-rnstatus && echo "
+sleep 3 rnstatus && echo "
 
 Looks good!" 
 
-
+read -p "Would you like to setup an RNode? y/n" setupRnode
+if [[ "${setupRnode}" == "y" ]] ; then
+  rnodeconf --autoinstall
+  echo Finish the interface config with help from https://michme.sh/docs/Reticulum/RNode 
+fi
