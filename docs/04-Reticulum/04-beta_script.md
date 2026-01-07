@@ -14,7 +14,7 @@ sidebar_label: Beta Script
 - RNS is the base for everything else. If it is already installed, choose `n`, otherwise `y`.
 - LXMD is the propagation server - this is what stores messages for later pickup when you are not around.
 - NomadNet is a text based interface as well as a web server equiv.
-- It will now ask if you want to setup Reticulum.
+- It will now ask if you want to setup Reticulum. If yes, it will start the service to generate the config and identity, then kill the service. You will see an error here and that's ok.
 - It will then ask if you want to enable transport mode. If enabled, this will act like a router or gateway between interfaces.
 - It will then ask if you want to enable an ipv4 backbone interface - this is what you would want if you are going to host an external server like rns.michmesh.net. If you do this, it will ask which interface you want to attach to.
 - It will then ask if you want to enable an ipv6 backbone. same as above.
