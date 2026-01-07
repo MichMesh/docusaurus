@@ -12,7 +12,7 @@ sidebar_label: Beta Script
 - Do you want to create a new python venv or use an existing. Unless you are really tight on space, create a new one - it will use around 350mb. We put it in a venv to isolate it from other python projects.
 - Which services to you want to install. 
 - RNS is the base for everything else. If it is already installed, choose `n`, otherwise `y`.
-- LXMD is the propagation server - this is what stores messages for later pickup when you are not around.
+- LXMD is the propagation server - this is what stores messages for later pickup when you are not around. You probably dont want to enable this if you are on a public testnet *and* running off an SD card.
 - NomadNet is a text based interface as well as a web server equiv.
 - It will now ask if you want to setup Reticulum. If yes, it will start the service to generate the config and identity, then kill the service. You will see an error here and that's ok.
 - It will then ask if you want to enable transport mode. If enabled, this will act like a router or gateway between interfaces.
