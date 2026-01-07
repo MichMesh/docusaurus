@@ -8,7 +8,7 @@ sidebar_label: Beta Script
 ## How to use it.
 1. Download the file using wget and the link above `wget PASTEDLINK`
 2. Make the file executable `chmod +x setup_rns.sh`
-3. Run it. It will ask the following questions:
+3. Run it with `./setup_rns.sh` . It will ask the following questions:
 - Do you want to create a new python venv or use an existing. Unless you are really tight on space, create a new one - it will use around 350mb. We put it in a venv to isolate it from other python projects.
 - Which services to you want to install. 
 - RNS is the base for everything else. If it is already installed, choose `n`, otherwise `y`.
@@ -25,3 +25,8 @@ sidebar_label: Beta Script
 - It will then ask if you want to be a propagation node. If so, it will then ask what you want to name your node. 
 - It will then ask if you want to enable RNS and LXMD systemctl.services. This will auto-start the services on boot.
 - It will then ask if you want to deploy an RNode. If so, plug in a compatible device and hit enter. After that you will need to manually setup your config using [our rnode config page](RNode) or [the reticulum interface page](https://reticulum.network/manual/interfaces.html#rnode-lora-interface) 
+
+## How to uninstall after using the script.
+1. If you let is setup rns and lxmd services `sudo systemctl stop rnsd ; sudo systemctl stop lxmd; sudo systemctl disable rnsd; sudo systemctl disable lxmd`
+2. Clean up the install and config dirs `rm -rf ~/reticulum ~/.reticulum; test -d ~/.lxmd && rm -rf ~/.lxmd` 
+
