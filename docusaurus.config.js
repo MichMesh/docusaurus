@@ -20,13 +20,7 @@ const config = {
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'MichMesh', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
-
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
@@ -110,13 +104,39 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyleft ${new Date().getFullYear()} MichMesh disorganization. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
     }),
+  markdown: {
+    format: 'mdx',
+    mermaid: true,
+    emoji: true,
+    preprocessor: ({filePath, fileContent}) => {
+      return fileContent.replaceAll('{{MY_VAR}}', 'MY_VALUE');
+    },
+    parseFrontMatter: async (params) => {
+      const result = await params.defaultParseFrontMatter(params);
+      result.frontMatter.description =
+        result.frontMatter.description?.replaceAll('{{MY_VAR}}', 'MY_VALUE');
+      return result;
+    },
+    mdx1Compat: {
+      comments: true,
+      admonitions: true,
+      headingIds: true,
+    },
+    anchors: {
+      maintainCase: true,
+    },
+    hooks: {
+      onBrokenMarkdownLinks: 'warn',
+      onBrokenMarkdownImages: 'throw',
+    },
+  },
 };
 
 export default config;
