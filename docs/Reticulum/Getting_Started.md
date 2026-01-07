@@ -35,8 +35,9 @@ You should now be seeing things show up in the announce stream.
 ### nomadnet (*nix text based interface)
 If you want to install the console based nomadnet:
 `pip install nomadnet`
+
 # Host your own Node!
-##  Setup
+## Initial Setup
 ### You will probably want to create a python venv specifically for reticulum stuff.
 `cd ~/ ; python -m venv reticulum`
 ### load the new python venv
@@ -50,6 +51,25 @@ Start rnsd to generate the config files, then ctrl-c out:
 rnsd
 ^c
 ``` 
+### If you want the services to start on boot, setup a systemd.service file
+Use your favorite text editor to create `/etc/systemd/system/rnsd.service`, you will need to use sudo. 
+Use the following as a template, change the username to match the user we installed reticulum with above.
+```
+[Unit]
+Description=Reticulum Network Service Daemon
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+User=YOURUSERNAME
+ExecStart=/home/YOURUSERNAME/reticulum/bin/python3 /home/YOURUSERNAME/reticulum/bin/rnsd
+
+[Install]
+WantedBy=multi-user.target
+```
+Now run `sudo systemctl start rnsd`. If that worked, you can now run `sudo systemctl enable rnsd` to start it on boot.
 ### Sample interface configuration
 
 #### edit ~/.reticulum/config 
@@ -79,41 +99,14 @@ Use the following to configure your machine as a bridge to all on the same subne
     selected_interface_mode = 1
     configured_bitrate = None
 ```
+Restart RNSd after any changes to the config file using `sudo systemctl restart rnsd`
 # Radio interfaces
 ### LoRa
-Reticulum is not like other meshes - the LoRa node acts more like a [TNC](https://en.wikipedia.org/wiki/Terminal_node_controller) - at current time, you need to install the [rnode firmare](https://liamcottle.github.io/rnode-flasher/) and create an [interface in your config](https://reticulum.network/manual/interfaces.html#rnode-lora-interface).
-[We use the common settings for the US.](https://github.com/markqvist/Reticulum/wiki/Popular-RNode-Settings#united-states)
-For Sideband, connect to the rnode via bluetooth, then enable `Connect via RNode` under connectivity, then restart sideband.
-For rns/nomadnet/Meshchat, add the following connection to your ~/.reticulum/config
-```
-[[RnodeUSB]]
-  type = RNodeInterface
-  interface_enabled = true
-  port = /path/to/usb/or/bluetooh/port
-  frequency = 914875000
-  bandwidth = 125000
-  txpower = 20
-  spreadingfactor = 8
-  codingrate = 5
-  name = RnodeUSB
-  selected_interface_mode = 1
-  configured_bitrate = None
-  mode = boundary
-```
-### HF FreeDV-TNC2 6.792mhz - in flux
+Take a look at the [RNode setup](RNode)
+
+### HF FreeDV-TNC2 6.822mhz - freq in flux
 Connect your radio to your computer using whatever radio interface you choose.
-Follow the install instructions for [FreeDV-TNC2](https://github.com/xssfox/freedvtnc2)
-Start freedvtnc2 with the reqd sound options as well as the following `--kiss-tcp-port 8001 --kiss-tcp-address 127.0.0.1`
-add the following to your ~/.reticulum/config interfaces
-```
-[[TCP KISS Interface]]
-  type = TCPClientInterface
-  enabled = yes
-  kiss_framing = True
-  target_host = 127.0.0.1
-  target_port = 8001
-  mode = boundary
-```
+Follow the install instructions for the [FreeDVinterface](https://github.com/RFnexus/FreeDVInterface)
 
 # Vocabulary
 Node - A participant in the reticulum network
