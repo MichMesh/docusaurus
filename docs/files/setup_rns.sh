@@ -218,12 +218,13 @@ if [[ "${rns_service}" == "y" ]] ; then
   sudo systemctl start lxmd
 fi
 
-sleep 3 rnstatus && echo "
-
-Looks good!" 
-
-read -p "Would you like to setup an RNode? y/n" setupRnode && echo setupRnode=`echo $setupRnode |tr '[:upper:]' '[:lower:]'|cut -c 1`
+read -p "Would you like to setup an RNode? y/n: " setupRnode && echo setupRnode=`echo $setupRnode |tr '[:upper:]' '[:lower:]'|cut -c 1`
 if [[ "${setupRnode}" == "y" ]] ; then
   rnodeconf --autoinstall
   echo Finish the interface config with help from https://michme.sh/docs/Reticulum/RNode 
 fi
+
+sleep 3 ; rnstatus && echo "
+
+Looks good!" 
+
