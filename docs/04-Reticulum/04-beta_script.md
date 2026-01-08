@@ -25,6 +25,7 @@ sidebar_label: Beta Script
 - It will then ask if you want to be a propagation node. If so, it will then ask what you want to name your node. 
 - It will then ask if you want to enable RNS and LXMD systemctl.services. This will auto-start the services on boot.
 - It will then ask if you want to deploy an RNode. If so, plug in a compatible device and hit enter. After that you will need to manually setup your config using [our rnode config page](RNode) or [the reticulum interface page](https://reticulum.network/manual/interfaces.html#rnode-lora-interface) 
+![rns_setup.sh screenshot](../images/rns_setup.sh_beta.png)
 
 ## How to uninstall after using the script.
 1. If you let is setup rns and lxmd services `sudo systemctl stop rnsd ; sudo systemctl stop lxmd; sudo systemctl disable rnsd; sudo systemctl disable lxmd`
