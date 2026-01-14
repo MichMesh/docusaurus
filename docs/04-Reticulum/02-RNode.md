@@ -36,7 +36,7 @@ Enter the number of the serial port your device is connected to:
   [[rnode]]
     type = RNodeInterface
     interface_enabled = true 
-    port = tcp://rnodeD45D.lan # for a wifi node, or the path to your usb or bluetooth device e.g. /dev/ttyACM0 or ble://rnoded45d
+    port = tcp://10.20.30.40 # for a wifi node, or the path to your usb or bluetooth device e.g. /dev/ttyACM0 or ble://rnoded45d
     frequency = 914875000
     bandwidth = 125000
     txpower = 22
