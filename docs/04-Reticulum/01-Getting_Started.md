@@ -70,8 +70,8 @@ ExecStart=/home/YOURUSERNAME/reticulum/bin/python3 /home/YOURUSERNAME/reticulum/
 WantedBy=multi-user.target
 ```
 Now run `sudo systemctl start rnsd`. If that worked, you can now run `sudo systemctl enable rnsd` to start it on boot.
-### Sample interface configuration
-
+## Sample interface configuration
+To make use of the RNS stack, you need something to connect to. The `Default Interface` will connect to anyone else on your network. `Michmesh TCP` will connect to the Michigan test network. You can also connect to many RF networks, here we will outline a few.
 #### edit ~/.reticulum/config 
 Use the following to configure your machine as a bridge to all on the same subnet with the MichMesh test net. This test net is also connected to the Chicago test net, which is connected to a European test net. The connection to the euro net will likely be dropped once we get a critical mass of services running.
 ```
@@ -90,7 +90,7 @@ Use the following to configure your machine as a bridge to all on the same subne
     name = Default Interface
     selected_interface_mode = 1
     configured_bitrate = None
-  [[michmesh TCP]]
+  [[Michmesh TCP]]
     type = TCPClientInterface
     interface_enabled = true
     target_host = rns.michmesh.net
@@ -100,13 +100,52 @@ Use the following to configure your machine as a bridge to all on the same subne
     configured_bitrate = None
 ```
 Restart RNSd after any changes to the config file using `sudo systemctl restart rnsd`
-# Radio interfaces
-### LoRa
+### Radio interfaces
+#### LoRa
 Take a look at the [RNode setup](RNode)
 
-### HF FreeDV-TNC2 6.822mhz - freq in flux
+#### HF FreeDV-TNC2 6.822mhz - freq in flux
 Connect your radio to your computer using whatever radio interface you choose.
 Follow the install instructions for the [FreeDVinterface](https://github.com/RFnexus/FreeDVInterface)
+#### Btech UV-Pro and similar radios
+Thanks to [HamRadioTech](https://www.hamradiotech.de/posts/2025-09-11-VR-N76-KISS-TNC/) for figuring this out for us. This method assumes using linux. If someone wants to test it out on other platforms and get me a write up, I'll gladly post it. 
+1. On the radion enable `KISS TNC` under `menu` -> `General Settings` -> `KISS TNC` -> `Enable KISS TNC`
+2. Make sure the app on your phone is not connected to the radio. I removed it from my BT pairings just to make sure it didnt try as it will boot your KISS comms.
+3. Setup the radio's bluetooth connection.
+- In a terminal, run `bluetoothctl`. 
+- Once in the bluetoothctl shell, run `scan on`
+- Enable pairing on the radio by going to `menu` -> `Pairing`
+- You should see your radio listed in the `bluetoothctl` shell. Once you do, run `scan off`
+- Copy the bluetooth mac address
+- run `pair 38:D2:00:AA:BB:CC`, pasting your mac address instead of `38:D2:00:AA:BB:CC`
+- run `trust 38:D2:00:AA:BB:CC`, again pasting your mac address instead of `38:D2:00:AA:BB:CC`
+- run `sudo rfcomm bind /dev/rfcomm0 38:D2:00:AA:BB:CC 1` to create the /dev/rfcomm0 device. If you need to delete it and recreate, the delete command is `sudo rfcomm release 0`
+- ctrl-d will exit out of the `bluetoothctl` shell. ctrl-d again will exit out of your terminal.
+- Restart your radio. Delete the device with `sudo rfcomm release 0`, once your radio is back up, re-create the device. (This part might be cargo-culting, but it's what I had to do to get it to work the first time)
+4. edit your ~/.reticulum/config file and add the following to the `[interfaces]` section:
+```
+  [[uv-pro]]
+    type = KISSInterface 
+    interface_enabled = true
+    port = /dev/rfcomm0
+    speed = 1200
+    databits = 8
+    parity = none
+    stopbits = 1
+    flow_control = false
+    preamble = 150 
+    txtail = 10
+    persistence = 200
+    slottime = 20
+```
+5. Save and restart rnsd - If you are using the `systemd` config above, you can do this with `sudo systemctl restart rnsd`. You will need to restart `rnsd` whenever any changes are made to the rns config.
+6. If the bluetooth connection is lost, you may need to restart the radio, recreate the device, and restart rns. I made this little script to do so:
+```
+#!/bin/bash
+sudo sudo rfcomm release 0
+sudo rfcomm bind /dev/rfcomm0 38:D2:00:AA:BB:CC 1 ### change the mac address to match your radio
+sudo systemctl restart rnsd
+```
 
 # Vocabulary
 Node - A participant in the reticulum network
