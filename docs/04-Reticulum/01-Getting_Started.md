@@ -139,12 +139,22 @@ Thanks to [HamRadioTech](https://www.hamradiotech.de/posts/2025-09-11-VR-N76-KIS
     slottime = 20
 ```
 5. Save and restart rnsd - If you are using the `systemd` config above, you can do this with `sudo systemctl restart rnsd`. You will need to restart `rnsd` whenever any changes are made to the rns config.
-6. If the bluetooth connection is lost, you may need to restart the radio, recreate the device, and restart rns. I made this little script to do so:
+6. If the bluetooth connection is lost, or you are having issues getting the connection to work, you may need to stop rns, turn off the radio, remove the device file, restart the radio, recreate the device, and restart rns. I made this little script to do so - it assumes you setup the rnsd service file simlar to above. Save this somewhere and make it executable with `chmod +x filename.sh`:
 ```
 #!/bin/bash
-sudo sudo rfcomm release 0
+clear
+echo "Stopping rnsd"
+sudo systemctl stop rnsd
+read -p "please turn off the radio and hit enter" stopRadio
+if [[ -f /dev/rfcomm0 ]] ; then
+  echo removing the rfcomm file
+  sudo sudo rfcomm release 0
+fi
+read -p "Please turn on your radio and hit enter" startRadio
+echo "creating new /dev/rfcomm0
 sudo rfcomm bind /dev/rfcomm0 38:D2:00:AA:BB:CC 1 ### change the mac address to match your radio
 sudo systemctl restart rnsd
+
 ```
 
 # Vocabulary
