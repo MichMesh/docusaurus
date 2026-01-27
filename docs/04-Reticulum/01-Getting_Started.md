@@ -4,7 +4,7 @@ sidebar_label: Getting Started
 # Connect to the Reticulum Network
 ## Clients
 ### Meshchat (Cross Platform/Portable)
-If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md)
+If you prefer a web based interface, use meshchat. You can install from the [releases](https://github.com/liamcottle/reticulum-meshchat/releases) section of the [meshchat repo](https://github.com/liamcottle/reticulum-meshchat) or build using the instructions from the main [README.md](https://github.com/liamcottle/reticulum-meshchat/blob/master/README.md).  
 To join the Michmesh testnet:
 - click Interfaces on the left.
 - click add interface
@@ -13,7 +13,7 @@ To join the Michmesh testnet:
 - Target Host: RNS.MichMesh.net
 - Target Port: 7822
 - click Add Interface
-- Optional: enable transport mode - this will make it so other instances on your home network will have access to the testnet.
+- Optional: enable transport mode - this will make it so other devices on your home network will have access to the testnet.
 - - click Settings on the left
 - - check Enable Transport Mode
 - Restart the app.
