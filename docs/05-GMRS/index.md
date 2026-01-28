@@ -1,6 +1,7 @@
 ---
-sidebar_label: GMRS - What is it?
+sidebar_label: GMRS 
 ---
+# GMRS
 ## It's Time to Get Nerdy...
 Thats right... No off-grid or SHTF preparations are complete without voice communications, right? WELL. GMRS hits the spot. While you don't get the range you can with a HAM radio set-up, you also don't have the complications of a HAM setup. Even better, while the license is $35, its good for ten years, is shareable to your immediate family, AND requires no test! Even more so, some radios have built in GPS, compass, and the ability to share GPS information.
 
