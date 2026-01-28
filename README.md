@@ -1,41 +1,10 @@
-# Website
+# Docusaurus page for MichMesh
+## How to contribute from a debian based system
+- Fork this repo
+- Clone the repo `git clone git@github.com:YOUR_FORK_/docusaurus.git` 
+- Run `./dev.sh` - this will install everything needed to run the dev server so you can see your changes as they are saved.
+- Once you are happy with your changes, run `./build.sh "Your commit message"` to package your changes. 
+- Open a Pull Request (PR) and message yNos on Reticulum, Meshtastic, Signal or Discord letting me know that you've run the build and opened a PR
+## How to contribute from a windows system
+TBD - If you know how to do this, please update this doc or send me the info on how to do it.
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
-
-### Installation
-
-```
-$ yarn
-```
-
-### Local Development
-
-```
-$ yarn start
-```
-
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
-
-### Build
-
-```
-$ yarn build
-```
-
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
-
-### Deployment
-
-Using SSH:
-
-```
-$ USE_SSH=true yarn deploy
-```
-
-Not using SSH:
-
-```
-$ GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
