@@ -8,11 +8,12 @@ This is going to be like going into a forum (yeah they still exist!) or Facebook
 
 ## HT (Hand Held aka Walkie-Talkie)
 ### As Basic as Ugz (Cheap and Simple):
-Coming Soon
+BF-888s - No frills, A knob for 16 channels, usually less than $10/radio in a 6 pack.
 ### Less Basic
-Coming Soon
+GM15    - A screen and buttons to switch channels/program the radio. USB charging
 ### Feature Rich
-Coming Soon
+UV-GMRS - Waterproof, Bluetooth, GPS, Texting, NOAA, Location sharing
+UV-Pro  - Waterproof, UHF/VHF, Bluetooth, GPS, APRS, TNC, Texting, NOAA, Location sharing, GMRS, FRS, MURS, Ham. 
 ### Bonus Content - Antennas
 
 ---
