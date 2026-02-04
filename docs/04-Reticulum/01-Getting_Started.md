@@ -143,14 +143,15 @@ Thanks to [HamRadioTech](https://www.hamradiotech.de/posts/2025-09-11-VR-N76-KIS
 ```
 #!/bin/bash
 clear
-echo "Stopping rnsd"
-sudo systemctl stop rnsd
-read -p "please turn off the radio and hit enter" stopRadio
 if [[ -f /dev/rfcomm0 ]] ; then
+  echo "Stopping rnsd"
+  sudo systemctl stop rnsd
+  read -p "please turn off the radio and hit enter" stopRadio
   echo removing the rfcomm file
   sudo sudo rfcomm release 0
+  read -p "Please turn on your radio and hit enter" startRadio
 fi
-read -p "Please turn on your radio and hit enter" startRadio
+read -p "Hit enter when your radio is on and bluetooth is connected" startRadio
 echo "creating new /dev/rfcomm0
 sudo rfcomm bind /dev/rfcomm0 38:D2:00:AA:BB:CC 1 ### change the mac address to match your radio
 sudo systemctl restart rnsd
