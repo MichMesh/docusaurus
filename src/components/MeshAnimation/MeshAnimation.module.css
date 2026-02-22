@@ -1,0 +1,33 @@
+.meshWrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  overflow: hidden;
+}
+
+.meshSvg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Dark mode: slightly dimmer */
+[data-theme='dark'] .meshWrapper {
+  opacity: 0.25;
+}
+
+/* Mobile: more subtle so text stays readable */
+@media screen and (max-width: 768px) {
+  .meshWrapper {
+    opacity: 0.2;
+  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .meshWrapper svg * {
+    animation-play-state: paused !important;
+  }
+}
