@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'MichMesh',
-  tagline: 'All things Michigan Mesh',
+  tagline: 'Free Off-Grid Mesh Network for Everyone',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here

@@ -1,23 +1,429 @@
 /**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
+ * Homepage styles - themed to match the Michigan Mesh trifold handout.
+ * Color palette: dark olive green, coral/salmon accents, mint green highlights.
  */
 
+/* ===== HERO BANNER ===== */
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+  background: linear-gradient(135deg, var(--michmesh-dark-green) 0%, #3d6b45 60%, var(--michmesh-coral) 100%);
   position: relative;
   overflow: hidden;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
+.heroBanner::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  background: var(--michmesh-coral);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.heroBanner::after {
+  content: '';
+  position: absolute;
+  bottom: -40px;
+  left: -40px;
+  width: 200px;
+  height: 200px;
+  background: var(--michmesh-mint);
+  border-radius: 50%;
+  opacity: 0.15;
+}
+
+.heroOverlay {
+  position: relative;
+  z-index: 1;
+  padding: 5rem 0 4rem;
+}
+
+.heroContent {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.heroMeshtasticBadge {
+  display: inline-block;
+  background: var(--michmesh-mint);
+  color: #1a1a1a;
+  font-weight: 800;
+  font-size: 0.9rem;
+  letter-spacing: 0.15em;
+  padding: 0.4rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-family: sans-serif;
+}
+
+.heroTitle {
+  color: #ffffff;
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1.1;
+}
+
+.heroTagline {
+  color: #ffffff;
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  opacity: 0.95;
+}
+
+.heroSubtag {
+  color: var(--michmesh-coral-light);
+  font-size: 1.1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  background: var(--michmesh-mint) !important;
+  color: #1a1a1a !important;
+  border: none !important;
+  font-weight: 700;
+}
+
+.btnPrimary:hover {
+  background: #4ddf7a !important;
+  color: #1a1a1a !important;
+}
+
+.btnSecondary {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  font-weight: 700;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+
+@media screen and (max-width: 768px) {
+  .heroOverlay {
+    padding: 3rem 1rem;
+  }
+  .heroTitle {
+    font-size: 2.2rem;
+  }
+  .heroTagline {
+    font-size: 1.2rem;
   }
 }
 
-.buttons {
+/* ===== SECTION TITLES ===== */
+.sectionTitle {
+  color: var(--michmesh-dark-green);
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+[data-theme='dark'] .sectionTitle {
+  color: var(--michmesh-mint);
+}
+
+/* ===== FREE OFF-GRID COMMUNICATION ===== */
+.freeOffGrid {
+  padding: 4rem 0;
+  background: var(--michmesh-light-gray);
+}
+
+.freeOffGrid .sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.featureItem {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: #ffffff;
+  border-radius: 8px;
+  border-left: 4px solid var(--michmesh-dark-green);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme='dark'] .featureItem {
+  background: var(--michmesh-medium-gray);
+  border-left-color: var(--michmesh-mint);
+}
+
+.featureIcon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.featureText {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+/* ===== WHO WE ARE ===== */
+.whoWeAre {
+  padding: 4rem 0;
+}
+
+.whoWeAre .sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.whoWeAreContent {
+  max-width: 750px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.leadText {
+  font-size: 1.2rem;
+  color: var(--michmesh-dark-green);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+[data-theme='dark'] .leadText {
+  color: var(--michmesh-mint);
+}
+
+.whoWeAreContent > p:last-child {
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ===== COMMUNITY BENEFITS ===== */
+.communityBenefits {
+  padding: 4rem 0;
+  background: var(--michmesh-light-gray);
+}
+
+.communityBenefits .sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+}
+
+.sectionSubtitle {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.benefitsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 960px;
+  margin: 0 auto 2.5rem;
+}
+
+.benefitCard {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-top: 4px solid var(--michmesh-coral);
+}
+
+[data-theme='dark'] .benefitCard {
+  background: var(--michmesh-medium-gray);
+}
+
+.benefitIcon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.benefitTitle {
+  color: var(--michmesh-dark-green);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+[data-theme='dark'] .benefitTitle {
+  color: var(--michmesh-mint);
+}
+
+.benefitCard p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.noFeesBanner {
+  text-align: center;
+  background: var(--michmesh-dark-green);
+  color: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.noFeesBanner span {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.noFeesBanner small {
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* ===== HOST A NODE ===== */
+.hostANode {
+  padding: 4rem 0;
+}
+
+.hostGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+@media screen and (max-width: 768px) {
+  .hostGrid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.hostSubtitle {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--michmesh-coral);
+  margin-bottom: 0.75rem;
+}
+
+.hostWhy p,
+.hostWhat p {
+  line-height: 1.7;
+}
+
+.hostList {
+  padding-left: 1.2rem;
+}
+
+.hostList li {
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+/* ===== FUN & FREE ===== */
+.funAndFree {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, var(--michmesh-dark-green) 0%, #3d6b45 100%);
+  color: #ffffff;
+}
+
+.funAndFree .sectionTitle {
+  text-align: center;
+  color: #ffffff;
+  font-size: 2rem;
+}
+
+.funContent {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.funText {
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.funText strong {
+  color: var(--michmesh-mint);
+}
+
+/* ===== RESOURCES ===== */
+.resources {
+  padding: 4rem 0;
+  background: var(--michmesh-light-gray);
+}
+
+.resources .sectionTitle {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+}
+
+.resourceLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.resourceCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  text-decoration: none !important;
+  color: inherit !important;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.resourceCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme='dark'] .resourceCard {
+  background: var(--michmesh-medium-gray);
+}
+
+.resourceIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.resourceCard strong {
+  color: var(--michmesh-dark-green);
+  font-size: 1.1rem;
+}
+
+[data-theme='dark'] .resourceCard strong {
+  color: var(--michmesh-mint);
+}
+
+.resourceCard p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
 }
