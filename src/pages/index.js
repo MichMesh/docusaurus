@@ -183,7 +183,7 @@ function HostANode() {
             <p className={styles.hostSubtitle}>Hosting is Easy & Free:</p>
             <ul className={styles.hostList}>
               <li>
-                We provide and install the node at no cost to you &mdash; a
+                We may provide and install a node at no cost to you* &mdash; a
                 small solar-powered device about the size of a solar garden
                 light
               </li>
@@ -196,6 +196,9 @@ function HostANode() {
                 on solar with battery backup
               </li>
             </ul>
+            <p className={styles.hostDisclaimer}>
+              <small>*Free node provided for locations in strategic areas that help extend network coverage.</small>
+            </p>
           </div>
         </div>
       </div>
