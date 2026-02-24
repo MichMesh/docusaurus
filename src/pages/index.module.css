@@ -338,6 +338,11 @@
   line-height: 1.6;
 }
 
+.hostDisclaimer {
+  margin-top: 1rem;
+  opacity: 0.8;
+}
+
 /* ===== FUN & FREE ===== */
 .funAndFree {
   padding: 4rem 0;
