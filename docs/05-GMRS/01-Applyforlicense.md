@@ -7,7 +7,7 @@ We all know the Unites States federal government and the ABC clubs are about as 
 
 So lets get started!
 ## !!!IMPORTANT NOTE!!!
-The FCC pages that are part of this process, at times, can be VERY slow. Like 1996 AOL dial-up slow. Just be patient. Dont click the back arrow on your browser or start clicking random things. You will only upset the FCC gods.
+The FCC pages that are part of this process, at times, can be VERY slow. Like 1996 AOL dial-up slow. Just be patient. Don't click the back arrow on your browser or start clicking random things. You will only upset the FCC gods.
 
 ### Step 1 - Registration with the FCC overlords! (Part 1)
 Remember when I mentioned the inefficiencies of our ABC clubs? It wasn't a joke. During this process, it will require registering with the FCC twice, using two different sites of theirs. NOW, IF you already have your HAM license, or any other license with the FCC, you can skip this part. You'll need to first visit this site [FCC - Commission Registration System (CORES)](https://apps.fcc.gov/cores/userLogin.do) and click register. Go through that process, and eventually you end up with a 10-digit FRN number. You will need that so write it down or copy it into notepad for the next step.

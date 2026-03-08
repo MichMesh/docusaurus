@@ -9,7 +9,7 @@ Follow the install instructions for the [FreeDVinterface](https://github.com/RFn
 ## Btech UV-Pro and similar radios
 Thanks to [HamRadioTech](https://www.hamradiotech.de/posts/2025-09-11-VR-N76-KISS-TNC/) for figuring this out for us. This method assumes using linux. If someone wants to test it out on other platforms and get me a write up, I'll gladly post it. 
 1. On the radion enable `KISS TNC` under `menu` -> `General Settings` -> `KISS TNC` -> `Enable KISS TNC`
-2. Make sure the app on your phone is not connected to the radio. I removed it from my BT pairings just to make sure it didnt try as it will boot your KISS comms.
+2. Make sure the app on your phone is not connected to the radio. I removed it from my BT pairings just to make sure it didn't try as it will boot your KISS comms.
 3. Setup the radio's bluetooth connection.
 - In a terminal, run `bluetoothctl`. 
 - Once in the bluetoothctl shell, run `scan on`
@@ -38,7 +38,7 @@ Thanks to [HamRadioTech](https://www.hamradiotech.de/posts/2025-09-11-VR-N76-KIS
     slottime = 20
 ```
 5. Save and restart rnsd - If you are using the `systemd` config above, you can do this with `sudo systemctl restart rnsd`. You will need to restart `rnsd` whenever any changes are made to the rns config.
-6. If the bluetooth connection is lost, or you are having issues getting the connection to work, you may need to stop rns, turn off the radio, remove the device file, restart the radio, recreate the device, and restart rns. I made this little script to do so - it assumes you setup the rnsd service file simlar to above. Save this somewhere and make it executable with `chmod +x filename.sh`:
+6. If the bluetooth connection is lost, or you are having issues getting the connection to work, you may need to stop rns, turn off the radio, remove the device file, restart the radio, recreate the device, and restart rns. I made this little script to do so - it assumes you setup the rnsd service file similar to above. Save this somewhere and make it executable with `chmod +x filename.sh`:
 ```
 #!/bin/bash
 clear

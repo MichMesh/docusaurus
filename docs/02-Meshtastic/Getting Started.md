@@ -2,13 +2,13 @@
 sidebar_label: Getting Started
 ---
 ## Wait a minute, this is confusing!
-Yeah, there are some terms that get used differently depending on where they are used. Freq channels are also called channel slots or just channels, but general chat channels are also called channels? Yeah, it's a mess. Organic growth in the app and documentation have made things confusing. Dont worry about asking questions if you are unsure - we all had to figure it out and most of us are pretty friendly about answering questions.
+Yeah, there are some terms that get used differently depending on where they are used. Freq channels are also called channel slots or just channels, but general chat channels are also called channels? Yeah, it's a mess. Organic growth in the app and documentation have made things confusing. Don't worry about asking questions if you are unsure - we all had to figure it out and most of us are pretty friendly about answering questions.
 
 ## Do I need to change frequency/channel number in order to connect with other people?
 Most likely, no. The standard `LongFast` channel preset will cover your area. Some people are playing with using faster (shorter range) and slower (longer range) channels, but this is usually coordinated and not used long term.
 
 ## MQTT
-If you dont already have an MQTT gateway on your mesh or if you are a mobile node, you may want to setup an MQTT gateway.
+If you don't already have an MQTT gateway on your mesh or if you are a mobile node, you may want to setup an MQTT gateway.
 You likely do *not* want to use the `msh/US` topic, so let's setup the `msh/US/MI` topic. 
 
 ### To Join the Michigan Meshtastic MQTT Topic

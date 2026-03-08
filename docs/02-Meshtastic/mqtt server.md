@@ -1,5 +1,5 @@
 ---
-sidebar_label: setting up an MQTT server
+sidebar_label: Custom MQTT Server
 ---
 # Installation and configuration of the Mosquitto MQTT server
 This is based on a debian install, ubuntu should be similar.

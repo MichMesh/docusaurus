@@ -2,7 +2,7 @@
 sidebar_label: Equipment
 ---
 # Equipment!
-This is going to be like going into a forum (yeah they still exist!) or Facebook group, and asking motorcycle guys which oil is the best oil to use. Ask the question, grab some popcorn, and watch the chaos you started. In the end, its going to come down to personal opinon, but we will do our best to break down some use cases and the options that we believe will go best. We are not responsible for any divorce that may commence after buying equipment.
+This is going to be like going into a forum (yeah they still exist!) or Facebook group, and asking motorcycle guys which oil is the best oil to use. Ask the question, grab some popcorn, and watch the chaos you started. In the end, its going to come down to personal opinion, but we will do our best to break down some use cases and the options that we believe will go best. We are not responsible for any divorce that may commence after buying equipment.
 
 ---
 
