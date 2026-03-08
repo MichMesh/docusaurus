@@ -21,7 +21,7 @@ After it restarts, you should see announces under Messages or Nomad Network. You
 
 ### Sideband (Linux/Android/MacOS/Windows)
 Sideband is a LXMF client. 
-For mobile connectivity or if you already have a transport node configured above on the network, you dont need to do the following. 
+For mobile connectivity or if you already have a transport node configured above on the network, you don't need to do the following. 
 To setup TCP connection to the test net:
 - click the hamburger menu,
 - click `Connectivity` 

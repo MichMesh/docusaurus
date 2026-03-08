@@ -6,7 +6,7 @@ This assumes that you have already have a running RNS instance in a python venv 
 1. Connect a supported ESP32 node, in my example I will be using a Heltec V4. Make sure to use a data cable and not a charging cable.
 2. Load your python venv. `. ~/reticulum/bin/activate`
 3. Run `rnodeconf --autoinstall`
-- It will ask if your node is connceted. Hit enter when it is.
+- It will ask if your node is connected. Hit enter when it is.
 - It will now ask which device you want to install to, I am installing to #1:
 ```
 Hello!

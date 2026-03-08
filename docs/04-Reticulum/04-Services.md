@@ -8,7 +8,7 @@ If we want to chat with more than one person at a time, we need to setup a Distr
 1. Clone the repo: `mkdir -p ~/src/ ; git clone https://github.com/SebastianObi/LXMF-Tools.git ~/src/LXMF-Tools`
 2. Copy `LXMF-Tools/lxmf_distribution_group_extended/lxmf_distribution_group_extended.py` to your `reticulum/bin` dir with the name of your dg. `cp ~/src/LXMF-Tools/lxmf_distribution_group_extended/lxmf_distribution_group_extended.py ~/reticulum/bin/My_DG.py`
 3. Make it executable. `chmod 755 ~/reticulum/bin/My_DG.py`
-4. Run it once to create the needed config/itentities. `~/reticulum/bin/My_DG.py` - you may need to ctrl-c to stop it after it creates it's files.
+4. Run it once to create the needed config/identities. `~/reticulum/bin/My_DG.py` - you may need to ctrl-c to stop it after it creates it's files.
 5. Create an override config at `~/.config/My_DG/config.cfg.owr`, us this as a template:
 ```
 [main]
@@ -40,7 +40,7 @@ peer =
 [statistic]
 enabled = False
 ```
-6. Create `/etc/systemd/system/My_DG.service` to more easily manage starting/stoping/auto-start the DG.
+6. Create `/etc/systemd/system/My_DG.service` to more easily manage starting/stopping/auto-start the DG.
 ```
 [Unit]
 Description=My LXMF Distribution Group
@@ -62,7 +62,7 @@ WantedBy=multi-user.target
 8. If the service is running, you can enable automatic startup by running `sudo systemctl enable My_DG`
 9. Logs 
 - If you want to see the dg logs, you can check them with `sudo journalctl -u My_DG` 
-- if you want to follow thte logs, you can do that with `sudo journalctl -fu My_DG`
+- if you want to follow the logs, you can do that with `sudo journalctl -fu My_DG`
 - If you want to trim all logs older than 1 week, you can run `sudo journalctl --vacuum-time=7d` to clean all logs older than 7 days, or `sudo journalctl --vacuum-time=7d -fu My_DG` the clear only the logs older than 7d for `My_DG`.
 
 ### Weather Bot
@@ -73,7 +73,7 @@ A bot that fetches the weather for your area, as well as grabbing live satellite
 #bot = LXMFBot("Weather Bot - Send 'Help' for more info",announce=36000)
 bot = LXMFBot("My Weather Bot - Send 'Help' for more info",announce=3600)
 ```
-3. Create `/etc/systemd/system/wxbot.service` to more easily manage starting/stoping/auto-start the wxbot.
+3. Create `/etc/systemd/system/wxbot.service` to more easily manage starting/stopping/auto-start the wxbot.
 ```
 [Unit]
 Description=LXMF WXbot
