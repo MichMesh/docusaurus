@@ -18,10 +18,6 @@ if (-not $npmInstalled) {
 
 # If node_modules doesn't exist, reinstall dependencies
 if (-not (Test-Path node_modules)) {
-    npm run clear
-    Remove-Item -Recurse -Force node_modules -ErrorAction SilentlyContinue
-    Remove-Item -Force yarn.lock -ErrorAction SilentlyContinue
-    Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue
     npm install
 }
 
