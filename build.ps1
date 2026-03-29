@@ -5,8 +5,7 @@ param(
 
 if ($Message.Count -gt 0) {
     npm run build
-    if (Test-Path build) { git add build/* }
-    if (Test-Path docs) { git add docs/* }
+    git add build docs -ErrorAction SilentlyContinue
     git commit -am ($Message -join " ")
     git push
 }
