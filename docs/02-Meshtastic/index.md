@@ -22,7 +22,7 @@ These are what 99% of the nodes out there should be using.
 - Client: Use this in locations where you want the node to repeat, but after the infrastructure nodes have had time to transmit. Use this for your MQTT gateways and for mesh nodes mounted *outside* the car.
 #### The infrastructure roles
 These should only be used if you are at least 100ft [HAAT](https://recnet.com/haat). If using the calculator, put in your lat/long, put in your antenna height above ground level (it will get the elevation above sea level for you), and select the `Above Ground Level` radio button, then get HAAT. 
-- Repeater: Use this if you have a great location (greater than 500ft HAAT), don't have screen, and need prioritized routing. These are AND statements, if one doesn't apply to you, don't use this role. This role will not show up in your node lists.
+- Repeater: Use this if you have a great location (greater than 500ft HAAT), don't have a screen, and need prioritized routing. These are AND statements, if one doesn't apply to you, don't use this role. This role will not show up in your node lists.
 - Router_Late: Use this if you have an OK location (100-500ft HAAT) **AND** need prioritized routing. If one doesn't apply to you don't use this role.
 
 
