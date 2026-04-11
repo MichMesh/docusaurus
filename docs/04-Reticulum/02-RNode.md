@@ -28,8 +28,8 @@ Enter the number of the serial port your device is connected to:
 - It will now download and write the latest firmware and do all prep work needed to use it.
 - The scripted shutdown may error out, if so, hit the reset button and check the screen.
 3. WiFi (optional)
-- We can now tell it to connect to our WiFi. `rnodeconf /dev/ttyACM0 -w --wifi-mode sta --ssid MyWiFi --psk ontheceiling`
-- If you want to have the device act as an access point (a mobile node in your car/truck for example) you can use  `rnodeconf /dev/ttyACM0 -w --wifi-mode ap --ssid MyMobileWiFi --psk ItReallyIsMadeOfStarStuff`
+- We can now tell it to connect to our WiFi. `rnodeconf /dev/ttyACM0 --wifi station --ssid MyWiFi --psk MyWiFiPassword`
+- If you want to have the device act as an access point (a mobile node in your car/truck for example) you can use  `rnodeconf /dev/ttyACM0 -w --wifi-mode ap --ssid MyMobileWiFi --psk MyMobileWifiPassword`
 4. Now to configure the rnode interface in your `~/.reticulum/config`
 - Add the following to the `[interfaces]` section of your `~/.reticulum/config`, changing the port to match either the IP address or name of your rnode. The ip should be displayed on your rnode if it has a screen.
 ```
