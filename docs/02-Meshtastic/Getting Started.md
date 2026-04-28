@@ -37,7 +37,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `Michigan`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -47,7 +47,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `WMI`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -57,7 +57,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `EMI`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -67,7 +67,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `Muskegon`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -77,7 +77,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `NMI`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -87,7 +87,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `YOOPER`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
@@ -97,7 +97,7 @@ The node will now reboot.
 1. iOS: Go to >config>channels - Android: ☰ > Radio Configuration > channels
 2. Click `+`
 3. Channel Name: `Washtenaw`
-4. iOS: Key Size: `8 bit`
+4. iOS: Key Size: `1 byte`
 5. PSK: `MA==` - this is case sensitive, it *must* be uppercase and without spaces.
 6. Enable Uplink/Downlink 
 7. Enable Position if you want to send your location out over the mesh.
