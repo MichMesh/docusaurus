@@ -3,7 +3,7 @@ sidebar_label: Getting Started
 ---
 # Getting Started
 ## Flashing Your Device
-Using the [MeshCore Web Flasher](https://flasher.meshcore.co.uk/) is similar to the Meshtastic one if you are already familiar with the process with one exception.
+Using the [MeshCore Web Flasher](https://flasher.meshcore.io/) is similar to the Meshtastic one if you are already familiar with the process with one exception.
 
 - Connect your device to your computer via USB
 - Select your device from the list (MichMesh Node is ProMicro nrf52 (faketec))
@@ -13,7 +13,7 @@ Using the [MeshCore Web Flasher](https://flasher.meshcore.co.uk/) is similar to 
 - Click Flash, select your device from the pop-up.
 
 ## Setting Up Your Device (Companion)
-If your device has a screen, like the T114, you will get the bluetooth pin. I suggest paying attention and writing it down because the screen time out on some of these units is quick. If you missed it, simply reset it and it will pop up and give you a new pin. OTHERWISE, the default is 123456.
+If your device has a screen, like the Heltec v3/v4 or T114, you will get the bluetooth pin. I suggest paying attention and writing it down because the screen time out on some of these units is quick. If you missed it, simply reset it and it will pop up and give you a new pin. OTHERWISE, the default is 123456.
 
 - Connect via Bluetooth. IF This is a device you previously paired, you'll first want to "forget" the device in your phone's/computer's bluetooth settings.
 - Go to Settings (Cog Icon in Android App)
