@@ -17,3 +17,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .claude
+build-and-commit-mac.sh
+build/
