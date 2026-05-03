@@ -5,7 +5,7 @@ sidebar_label: Car Solar Node
 
 A mag-mounted solar node build for your car! For wardriving, or just for an external node you carry around. The build I am using here in the picture is a T114, with a 3000mah battery. Works with both **Meshtastic** and **MeshCore** firmware.
 
-You can find the 3D printed parts on (https://www.printables.com/model/994724-low-profile-solar-meshtastic-car-node)[https://www.printables.com/model/994724-low-profile-solar-meshtastic-car-node] - works with SMA and N-type antennas.
+You can find the 3D printed parts on [Printables](https://www.printables.com/model/994724-low-profile-solar-meshtastic-car-node) - works with SMA and N-type antennas.
 
 This BoM here are what *I* used. You can use your own stuff if it fits and you have a preference. 
 
