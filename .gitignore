@@ -15,5 +15,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+build/.nojekyll
 
 # build - this is required for deployment
