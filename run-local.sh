@@ -20,8 +20,6 @@ fi
 
 # if we dont have a node_modules dir, we need to install it.
 if [ ! -d node_modules ] ; then
-  npm run clear
-  rm -rf node_modules yarn.lock package-lock.json
   npm install
 fi
 
