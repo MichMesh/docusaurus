@@ -228,7 +228,7 @@ stats-core
 stats-radio
 stats-packets
 discover.neighbors
-neighbor
+neighbors
 ```
 
 ### Optional Site-Specific Checks
