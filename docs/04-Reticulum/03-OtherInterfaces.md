@@ -3,7 +3,7 @@ sidebar_label: Interfaces
 ---
 # Interfaces
 Reticulum is great in the fact that it is agnostic of what interface type it is using. You can run over LoRa, WiFi, Ethernet, HaLow, SSB on the VLF/HF ISM bands, 1200/4800/9600 baud packet radio, serial interfaces, or just about any other method where you can pass more than about 100 *BITS* per second! Here are a few to give you some inspiration.
-## HF FreeDV-TNC2 6.822mhz - freq in flux
+## HF FreeDV-TNC2 6.782mhz - freq in flux
 Connect your radio to your computer using whatever radio interface you choose.
 Follow the install instructions for the [FreeDVinterface](https://github.com/RFnexus/FreeDVInterface)
 ## Btech UV-Pro and similar radios

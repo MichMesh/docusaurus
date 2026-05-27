@@ -4,7 +4,7 @@
 # Contact Information
 
 Join us at the MichMesh Discord 🌐[here](https://discord.gg/3A5RREcBcc) or the [Signal room](https://signal.group/#CjQKIG5-o6UUXvto66c1wN4fbinuguy614cJtRPmMxUA6JWyEhBKp6Q70OkA2MpcjsBYU1r9)
-Chat with us on Reticulum by sending a message to MichMesh Distribution Group 🌐[30a7737136f61f3b6e5c3ac336e72204](lxmf://30a7737136f61f3b6e5c3ac336e72204)
+Chat with us on Reticulum by sending a message to MichMesh Distribution Group 🌐[6e54f24ffb316ce6f5e5217e98664fa7](lxmf://6e54f24ffb316ce6f5e5217e98664fa7)
 
 Or via MQTT/Meshtastic on the `Michigan` channel
 
