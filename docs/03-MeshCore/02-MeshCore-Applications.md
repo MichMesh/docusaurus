@@ -7,10 +7,12 @@ sidebar_label: Applications
 [MeshMapper](https://meshmapper.net) MeshMapper visualizes real-world MeshCore coverage using data collected by local mesh operators. Gathered data from Observers both static and via "wardriving", the project is great for visualizing node coverage if your area has been onboarded.
 
 As of April 2026, the following 'zones' have been onboarded and have activity:
+- [Detroit / DET](https://det.meshmapper.net) - Covers the Detroit Metro area.
+- [Flint / FNT](https://fnt.meshmapper.net) - Covers Genesee County and parts of Lapeer.
 - [Gladwin / GDW](https://gdw.meshmapper.net) - Covers Midland, parts of Mount Pleasant and Houghton Lake.
 - [Kent County / Grand Rapids](https://grr.meshmapper.net) - Covers the Grand Rapids Metro area including a few parts of Ottawa county.
+- [Midland/Bay City/Saginaw / MBS](https://mbs.meshmapper.net/index.php?lat=43.675&lon=-83.526&zoom=10.35) - Covers parts of Mid Michigan and the Thumb.
 - [Pontiac / PTK](https://ptk.meshmapper.net) - This area covers the south part of Flint down to Romulous, parts of Ann Arbor and Detroit.
-- [Flint / FNT](https://fnt.meshmapper.net) - Covers Genesee County and parts of Lapeer.
 
 ## MeshCore Analyzer
 [MeshCore Analyzer](https://analyzer.letsmesh.net/map?lat=43.35599&long=-84.7746&zoom=7) is a real-time packet and reliability analysis tool for the MeshCore network aimed at helping repeater owners (MeshCore network operators) improve the reliability, monitor for abuse or bugs, ensure uptime, and optimize the mesh network for everyone's benefit. Packet data is collected by observers (MQTT-connected nodes) and ingested into the service for realtime analysis, enabling the website to "hear" and visualize the network from many perspectives.
