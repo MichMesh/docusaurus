@@ -15,6 +15,7 @@ If you flashed with Repeater firmware from the [MeshCore Web Flasher](https://fl
 - **Mount high with line of sight** and use a real external antenna. Elevation and antenna quality matter more than transmit power.
 - **Use a stable power supply** — wall adapter, POE, or solar with battery backup. Avoid bus-powered USB hubs.
 - **Verify and tune via USB / Web Serial** — walk through the checklist below.
+- **Claim a unique public key prefix** so your repeater doesn't collide with one already on the mesh.
 
 :::note nRF52 boards only: Install OTAFIX
 Flash [OTAFIX](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) before the repeater firmware as it falls back to DFU mode when an OTA update fails. See the [install instructions here](https://blog.meshcore.io/2026/04/06/otafix-bootloader).
@@ -49,6 +50,11 @@ Repeater firmware ships with an airtime budget factor of `1.0`. The dispatcher c
 Drops a flood packet once its recorded path has reached this many hops. Repeater firmware defaults to `64`.
 
 Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it.
+
+### Public Key Prefix
+A repeater stamps itself into a packet's routing path using the leading bytes of its public key — its **prefix** — and matches inbound direct packets against that same prefix. `path.hash.mode` sets the width: mode `1` means 2 bytes, so four hex characters out of 65,536 possibilities.
+
+Don't confuse that with the 1-byte prefix apps display. Destination addressing is a fixed 1 byte regardless of `path.hash.mode`, and with only 256 values duplicates are routine; the firmware handles them by attempting decryption, so they're cosmetic. The 2-byte path prefix is the one that must be unique — two repeaters sharing it both claim the same path entry and both retransmit. The prefix is part of the keypair, so claiming a different one means generating a new key.
 
 ## First-Run CLI Checklist
 
@@ -138,6 +144,88 @@ reboot
 clock
 get role
 ```
+
+## Claim a Unique Public Key Prefix
+
+Repeaters identify each other by the leading bytes of their public key. The firmware generates that key at random on first boot, and nothing stops it from landing on a prefix a nearby repeater already uses.
+
+:::warning Prior to going online
+The public key *is* the repeater's identity. Rekeying means everyone who already has this repeater as a contact has to re-add it, and admin sessions tied to the old identity stop working. Check your prefix now — rekeying a repeater that's already carrying traffic disrupts everyone using it.
+:::
+
+### 1. Read Your Current Prefix
+
+```bash path=null start=null
+get public.key
+```
+
+- The **first 2 hex characters** (1 byte) are what apps and contact lists show. There are only 256 of these, so duplicates turn up quickly in any busy area.
+- The **first 4 hex characters** (2 bytes) are what `path.hash.mode 1` stamps into routing paths. This is the one that has to be unique. Two repeaters sharing it both answer to the same path entry and both retransmit, which causes routing issues.
+
+### 2. Back Up the Key You Already Have
+
+Before changing anything, save the private key. It's the only way to restore this repeater's identity after a flash erase, or to move that identity onto replacement hardware.
+
+```bash path=null start=null
+get prv.key
+```
+
+### 3. Check It Against the Repeaters You Can Hear
+
+Collisions only cause problems between repeaters in range of each other. So the check that counts is a local one. Ask your own node what it actually hears:
+
+```bash path=null start=null
+neighbors
+```
+
+Each line reads `<8 hex chars>:<seconds since heard>:<SNR>`, so `a1b2c530:143:8` is a neighbour whose key starts `a1b2c530`, heard 143 seconds ago at 8 dB SNR. Compare the **first four characters** of each line against your own. Run this from your repeater once it's on the air,.
+
+Your companion app's contact list is worth checking too — it collects every repeater it has heard an advert from, which usually reaches further than a single node's neighbour table.
+
+If `neighbors` replies `-none-`, either nothing has been heard yet or the neighbour table isn't compiled into that variant; fall back to the app contact list.
+
+[MeshMapper](https://meshmapper.net/) is another way to see what's already on the air in your region. However you go about it, the goal is the same: no collision with the repeaters near you.
+
+### 4. Generate and Apply a Replacement Key
+
+There is no on-device key generation command, so this step happens in the browser. Open the [MeshCore config tool](https://config.meshcore.io/) in a Chromium-based browser — it uses Web Serial, same as the flasher — and connect to the repeater.
+
+Click **Edit** (the pencil icon) next to Public Key, enter the four-character prefix you claimed, click **Generate**, then **Use This Key** once it finishes.
+
+:::tip Set your own prefix
+Avoiding collisions is the requirement; picking a prefix you actually recognise is the bonus — your callsign, your initials, anything that makes your repeater easy to spot in a contact list. The [MeshCore Key Generator](https://gessaman.com/mc-keygen/) will grind keys until it finds one starting with the characters you want, entirely in your browser, so your keys never leave your device.
+
+To apply a key from it, connect through USB serial or log in to the repeater from a companion node and run:
+
+```bash path=null start=null
+set prv.key <your_private_key>
+reboot
+```
+:::
+
+### 5. Reboot and Verify
+
+Back in the Web Serial console, reboot and confirm the new prefix took.
+
+```bash path=null start=null
+reboot
+get public.key
+```
+
+The first four hex characters should be the prefix you claimed. Back up this new key as well, it's replaced the key from step 2.
+
+```bash path=null start=null
+get prv.key
+```
+
+To restore a saved key later paste it back and reboot:
+
+```bash path=null start=null
+set prv.key <128_hex_characters>
+reboot
+```
+
+The firmware validates the key before accepting it and replies `OK, reboot to apply! New pubkey: ...`. If you see `Error, bad key`, check you copied all 128 characters.
 
 ## Delay Profiles
 
@@ -287,17 +375,6 @@ gps off
 # Power saving
 powersaving on
 powersaving off
-```
-
-## Protip: Set your own Prefix
-
-MeshCore uses the beginning of your public key as your node identifier. If you want a recognizable prefix or need to avoid a collision with a nearby node, use the [MeshCore Key Generator](https://gessaman.com/mc-keygen/) to generate a matching public and private key. The generator runs entirely in your browser, so your keys never leave your device.
-
-To apply the generated key to a repeater, connect through USB serial or log in to the repeater from a companion node and run:
-
-```bash
-set prv.key <your_private_key>
-reboot
 ```
 
 ---
