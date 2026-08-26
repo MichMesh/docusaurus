@@ -11,10 +11,14 @@ If you flashed with Repeater firmware from the [MeshCore Web Flasher](https://fl
 
 **The essentials:**
 
-- **Flash Repeater firmware** via the web flasher — this sets the role automatically.
+- **Flash Repeater firmware** via the [web flasher](https://flasher.meshcore.io/) — use a Chromium-based browser, since the flasher needs the Web Serial API.
 - **Mount high with line of sight** and use a real external antenna. Elevation and antenna quality matter more than transmit power.
 - **Use a stable power supply** — wall adapter, POE, or solar with battery backup. Avoid bus-powered USB hubs.
 - **Verify and tune via USB / Web Serial** — walk through the checklist below.
+
+:::note nRF52 boards only: Install OTAFIX
+Flash [OTAFIX](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) before the repeater firmware as it falls back to DFU mode when an OTA update fails. See the [install instructions here](https://blog.meshcore.io/2026/04/06/otafix-bootloader).
+:::
 
 :::caution Clock Sync Required
 Repeaters boot with an old date. Without a correct clock, relayed message timestamps will be wrong.
@@ -38,9 +42,17 @@ Only affects flood packets — direct (point-to-point) packets are always proces
 ### agc.reset.interval — Radio Deafness Prevention
 Periodically resets the LoRa radio's Automatic Gain Control (AGC) to prevent "deafness" caused by strong out-of-band RF interference. Without this, the SX1262 AGC can lock up, clamping the noise floor at -120 dBm and making the repeater unable to hear weaker signals until rebooted. Especially important for repeaters near broadcast towers or other RF sources.
 
+### dutycycle — Airtime Throttle
+Repeater firmware ships with an airtime budget factor of `1.0`. The dispatcher computes `duty_cycle = 1 / (1 + airtime_factor)`, so that default works out to **50%**: the repeater accrues transmit budget at half of elapsed time and defers sending once it runs dry. The US 915 MHz ISM band has no duty cycle limit, so a repeater left at the default is giving away half its airtime. `set dutycycle 100` drives the factor to `0` and removes the throttle.
+
+### flood.max — Flood Hop Limit
+Drops a flood packet once its recorded path has reached this many hops. Repeater firmware defaults to `64`.
+
+Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it.
+
 ## First-Run CLI Checklist
 
-The minimum steps after flashing Repeater firmware. Use the Web Serial console.
+The minimum steps after flashing Repeater firmware. Use the Web Serial console at [config.meshcore.io](https://config.meshcore.io).
 
 ### 1. Confirm Firmware and Role
 
@@ -54,7 +66,14 @@ get role
 
 ### 2. Verify Radio Settings
 
-Read back the radio configuration and confirm it matches your network's preset. If you selected **USA/Canada (Recommended)** during flashing, you should be good.
+Read back the radio configuration and confirm it matches your network's preset. If you selected **USA/Canada (Recommended)** in the [web flasher](https://flasher.meshcore.io/), you should be good — that preset applies:
+
+| Setting | Value |
+| --- | --- |
+| Frequency (MHz) | 910.525 |
+| Bandwidth (kHz) | 62.5 |
+| Spreading factor | 7 |
+| Coding rate | 5 |
 
 ```bash path=null start=null
 get radio
@@ -70,7 +89,25 @@ set radio <freq>,<bandwidth>,<spreading_factor>,<coding_rate>
 set tx <power>
 ```
 
-### 4. Enable 2-Byte Path Hashes
+### 4. Set Name and Location
+
+Set the name the rest of the mesh will see, and the repeater's coordinates. Location isn't required, but it's what lets everyone see where coverage already exists and where the gaps are. Coordinates are decimal degrees, not degrees/minutes/seconds.
+
+```bash path=null start=null
+set name <YourRepeaterName>
+set lat <42.7336>
+set lon <-84.5555>
+```
+
+### 5. Set an Admin Password
+
+Repeater firmware ships with the admin password set to the literal string `password`. Until you change it, anyone in radio range can log in over the mesh and reconfigure your node. Change it before the repeater goes up.
+
+```bash path=null start=null
+password <your_admin_password>
+```
+
+### 6. Enable 2-Byte Path Hashes
 
 Current MeshCore flood routing expects `path.hash.mode 1`. Older firmware defaulted to mode 0 (1-byte) and will look like packet loss.
 
@@ -81,7 +118,7 @@ set path.hash.mode 1
 get path.hash.mode
 ```
 
-### 5. Sync the Clock
+### 7. Sync the Clock
 
 ```bash path=null start=null
 # GPS-capable firmware + hardware:
@@ -92,7 +129,7 @@ gps sync
 clock sync
 ```
 
-### 6. Reboot and Verify
+### 8. Reboot and Verify
 
 Reboot, reconnect serial, then confirm settings persisted and time is correct.
 
@@ -159,13 +196,17 @@ Apply these after the first-run checklist, regardless of delay profile. Use spac
 set path.hash.mode 1
 set advert.interval 240
 set flood.advert.interval 24
+set flood.max 32
 set agc.reset.interval 500
+set dutycycle 100
 ```
 
 - **path.hash.mode 1** — 2-byte path hashes (required for current flood routing)
 - **advert.interval 240** — local advert every 4 hours (neighbors only)
 - **flood.advert.interval 24** — network-wide advert every 24 hours
+- **flood.max 32** — drops floods past 32 hops to match `path.hash.mode 1`
 - **agc.reset.interval 500** — resets radio AGC every ~8 min to prevent deafness from RF interference
+- **dutycycle 100** — removes the 50% airtime throttle the repeater firmware ships with; the US 915 MHz band has no duty cycle limit
 - **guest.password** — left alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status. Only set one (`set guest.password <secret>`) if you want to lock that down
 
 ## USB Serial Preflight
@@ -191,6 +232,7 @@ get role
 get radio
 get tx
 get af
+get dutycycle
 get repeat
 get path.hash.mode
 get public.key
@@ -260,4 +302,4 @@ reboot
 
 ---
 
-*This guide is adapted from the [Colorado Mesh Repeater Setup Guide](https://meshcore.coloradomesh.org/guides/repeater-setup). Thank you to the Colorado Mesh community for the thorough documentation.*
+*This guide is adapted from the [Colorado Mesh Repeater Setup Guide](https://meshcore.coloradomesh.org/guides/repeater-setup), with additional recommendations from the [Bay Area MeshCore Repeater Setup Guide](https://bayareameshcore.org/repeater-setup/). Thank you to the Colorado Mesh and Bay Area MeshCore communities for the thorough documentation.*
