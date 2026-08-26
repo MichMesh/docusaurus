@@ -58,7 +58,6 @@ Read back the radio configuration and confirm it matches your network's preset. 
 
 ```bash path=null start=null
 get radio
-get freq
 get tx
 ```
 
@@ -67,8 +66,7 @@ get tx
 If step 2 showed incorrect values, set them manually. Adjust these to match your network's agreed-upon preset.
 
 ```bash path=null start=null
-set freq <your_frequency>
-set radio bw <bandwidth> sf <spreading_factor> cr <coding_rate>
+set radio <freq>,<bandwidth>,<spreading_factor>,<coding_rate>
 set tx <power>
 ```
 
@@ -148,8 +146,8 @@ set rxdelay 3
 Vehicle, hiking, bike. Always defers to fixed infrastructure.
 
 ```bash path=null start=null
-set txdelay 3
-set direct.txdelay 2.5
+set txdelay 2
+set direct.txdelay 2
 set rxdelay 3
 ```
 
@@ -162,14 +160,13 @@ set path.hash.mode 1
 set advert.interval 240
 set flood.advert.interval 24
 set agc.reset.interval 500
-set guest.password
 ```
 
 - **path.hash.mode 1** — 2-byte path hashes (required for current flood routing)
 - **advert.interval 240** — local advert every 4 hours (neighbors only)
 - **flood.advert.interval 24** — network-wide advert every 24 hours
 - **agc.reset.interval 500** — resets radio AGC every ~8 min to prevent deafness from RF interference
-- **guest.password (blank)** — lets community members query repeater status
+- **guest.password** — left alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status. Only set one (`set guest.password <secret>`) if you want to lock that down
 
 ## USB Serial Preflight
 
@@ -192,7 +189,6 @@ clock sync
 get name
 get role
 get radio
-get freq
 get tx
 get af
 get repeat
@@ -215,7 +211,6 @@ get allow.read.only
 
 ```bash path=null start=null
 get owner.info
-get acl
 get rxdelay
 get txdelay
 get direct.txdelay
