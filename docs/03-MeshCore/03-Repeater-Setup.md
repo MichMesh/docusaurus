@@ -3,7 +3,7 @@ sidebar_label: Repeater Setup
 ---
 # Repeater Setup Guide
 
-So you've decided to run a repeater — nice. This guide walks you through getting a MeshCore repeater node online, tuned, and verified. Much of this is adapted from the excellent [Colorado Mesh Repeater Setup Guide](https://meshcore.coloradomesh.org/guides/repeater-setup) and adjusted for MichMesh.
+So you've decided to run a repeater. Nice. This guide walks you through getting a MeshCore repeater node online, tuned, and verified.
 
 ## Before You Start
 
@@ -35,10 +35,10 @@ The MeshCore CLI uses **spaces**, not `=`. Typing `set path.hash.mode = 1` can s
 ## Understanding the Settings
 
 ### txdelay / direct.txdelay
-Controls how long a repeater waits before retransmitting a received packet. The formula is `unit = estimated_airtime × txdelay`, then `delay = random(0..5) × unit`. Higher values create a wider random window, meaning more deference to other nodes. `direct.txdelay` is the same but for routed point-to-point messages (usually set lower for faster delivery).
+Controls how long a repeater waits before retransmitting a received packet. The firmware works out `unit = estimated_airtime × txdelay`, then picks the actual delay uniformly at random between `0` and `5 × unit`. Higher values create a wider random window, meaning more deference to other nodes. `direct.txdelay` is the same but for routed point-to-point messages (usually set lower for faster delivery). Both accept `0`–`2`; repeater firmware ships at `txdelay 0.5` and `direct.txdelay 0.3`.
 
 ### rxdelay — SNR-Based Path Selection
-Only affects flood packets — direct (point-to-point) packets are always processed immediately. Delays processing of floods based on signal quality (SNR). Strong signal = processed immediately. Weak signal = delayed and likely dropped as a duplicate. The mesh naturally prefers the strongest, cleanest paths without manual routing.
+Only affects flood packets. Direct (point-to-point) packets are always processed immediately. Delays processing of floods based on signal quality (SNR). Strong signal = processed immediately. Weak signal = delayed and likely dropped as a duplicate. The mesh naturally prefers the strongest, cleanest paths without manual routing. It accepts `0`–`20` and ships **off** (`0`).
 
 ### agc.reset.interval — Radio Deafness Prevention
 Periodically resets the LoRa radio's Automatic Gain Control (AGC) to prevent "deafness" caused by strong out-of-band RF interference. Without this, the SX1262 AGC can lock up, clamping the noise floor at -120 dBm and making the repeater unable to hear weaker signals until rebooted. Especially important for repeaters near broadcast towers or other RF sources.
@@ -46,10 +46,41 @@ Periodically resets the LoRa radio's Automatic Gain Control (AGC) to prevent "de
 ### dutycycle — Airtime Throttle
 Repeater firmware ships with an airtime budget factor of `1.0`. The dispatcher computes `duty_cycle = 1 / (1 + airtime_factor)`, so that default works out to **50%**: the repeater accrues transmit budget at half of elapsed time and defers sending once it runs dry. The US 915 MHz ISM band has no duty cycle limit, so a repeater left at the default is giving away half its airtime. `set dutycycle 100` drives the factor to `0` and removes the throttle.
 
+### loop.detect: Packet Storm Protection
+Before repeating a flood, the repeater counts how many times its own hash already appears in that packet's path and drops the packet once the count hits a threshold. Defaults to `off`. The three levels set how many repeats it tolerates, and the threshold tightens as the hash gets wider:
+
+| Level | 1-byte | 2-byte | 3-byte |
+| --- | --- | --- | --- |
+| `minimal` | 4 | 2 | 1 |
+| `moderate` | 2 | 1 | 1 |
+| `strict` | 1 | 1 | 1 |
+
+### advert.interval: Local Advert Timer
+How often the repeater sends a zero-hop advert, heard only by nodes in direct range. Accepts 60–240 minutes and defaults to `0`, which is off.
+
+### flood.advert.interval: Network-Wide Advert Timer
+How often the repeater floods an advert across the whole mesh, so nodes out of direct range can still find it. Accepts 3–168 hours and defaults to `47`.
+
 ### flood.max — Flood Hop Limit
 Drops a flood packet once its recorded path has reached this many hops. Repeater firmware defaults to `64`.
 
 Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it.
+
+### path.hash.mode: Path ID Size
+
+:::note Michigan Standard
+Michigan settled on `path.hash.mode 1` as of May 20, 2026. Make sure to set this on any repeater, and on your companion too. It sets the ID size on the packets your node floods, including the advert the rest of the mesh uses to learn a path back to you. It has no effect on what your node receives.
+:::
+
+Every node has a short ID taken from its public key. As a packet floods across the mesh, each repeater that relays it stamps its own ID into the packet, building up a record of the route it took. That record is what lets the mesh learn a path back. `path.hash.mode` sets how many bytes long your ID is in that record.
+
+| Mode | ID size | Possible IDs |
+| --- | --- | --- |
+| `0` | 1 byte | 256 |
+| `1` | 2 bytes | 65,536 |
+| `2` | 3 bytes | 16,777,216 |
+
+Repeater firmware still ships on mode `0`. With only 256 IDs to go around, two repeaters in the same area will sooner or later end up with the same one, and the mesh can no longer tell which of them a path actually goes through. Mode `1` makes that vanishingly unlikely. The [MeshCore CLI reference](https://docs.meshcore.io/cli_commands/#view-or-change-this-nodes-advert-path-hash-size) has the full details.
 
 ### Public Key Prefix
 A repeater stamps itself into a packet's routing path using the leading bytes of its public key — its **prefix** — and matches inbound direct packets against that same prefix. `path.hash.mode` sets the width: mode `1` means 2 bytes, so four hex characters out of 65,536 possibilities.
@@ -105,7 +136,15 @@ set lat <42.7336>
 set lon <-84.5555>
 ```
 
-### 5. Set an Admin Password
+### 5. Set Owner Info
+
+Free-text contact details so somebody can reach you about the node. An email address, a Discord handle, an amateur radio callsign, or whatever else will actually reach you. Optional, but a repeater nobody can contact is a repeater nobody can tell you is misbehaving. `|` characters become line breaks.
+
+```bash path=null start=null
+set owner.info <your_contact_details>
+```
+
+### 6. Set an Admin Password
 
 Repeater firmware ships with the admin password set to the literal string `password`. Until you change it, anyone in radio range can log in over the mesh and reconfigure your node. Change it before the repeater goes up.
 
@@ -113,18 +152,16 @@ Repeater firmware ships with the admin password set to the literal string `passw
 password <your_admin_password>
 ```
 
-### 6. Enable 2-Byte Path Hashes
+### 7. Enable 2-Byte Path Hashes
 
-Current MeshCore flood routing expects `path.hash.mode 1`. Older firmware defaulted to mode 0 (1-byte) and will look like packet loss.
-
-**Michigan settled on `path.hash.mode 1` as of May 20, 2026. Make sure to set this on any repeater. Note that `path.hash.mode 0` will still work on a companion node, but you will not be able to see any repeaters in apps.**
+Michigan runs `path.hash.mode 1`. See [path.hash.mode](#pathhashmode-Path-ID-Size) above for what it does and why it matters.
 
 ```bash path=null start=null
 set path.hash.mode 1
 get path.hash.mode
 ```
 
-### 7. Sync the Clock
+### 8. Sync the Clock
 
 ```bash path=null start=null
 # GPS-capable firmware + hardware:
@@ -135,7 +172,7 @@ gps sync
 clock sync
 ```
 
-### 8. Reboot and Verify
+### 9. Reboot and Verify
 
 Reboot, reconnect serial, then confirm settings persisted and time is correct.
 
@@ -178,7 +215,9 @@ Collisions only cause problems between repeaters in range of each other. So the 
 neighbors
 ```
 
-Each line reads `<8 hex chars>:<seconds since heard>:<SNR>`, so `a1b2c530:143:8` is a neighbour whose key starts `a1b2c530`, heard 143 seconds ago at 8 dB SNR. Compare the **first four characters** of each line against your own. Run this from your repeater once it's on the air,.
+Each line reads `<8 hex chars>:<seconds since heard>:<SNR>`, so `a1b2c530:143:8` is a neighbor whose key starts `a1b2c530`, heard 143 seconds ago. That last number is SNR times four, so halve it twice; `8` means 2 dB. Compare the **first four characters** of each line against your own, and run this from your repeater once it's on the air.
+
+You'll see roughly the eight most recently heard, even though the repeater tracks more than that.
 
 Your companion app's contact list is worth checking too — it collects every repeater it has heard an advert from, which usually reaches further than a single node's neighbour table.
 
@@ -278,7 +317,7 @@ set rxdelay 3
 
 ## Common Repeater Settings
 
-Apply these after the first-run checklist, regardless of delay profile. Use spaces, never `=`.
+Apply these after the first-run checklist, regardless of delay profile.
 
 ```bash path=null start=null
 set path.hash.mode 1
@@ -287,21 +326,25 @@ set flood.advert.interval 24
 set flood.max 32
 set agc.reset.interval 500
 set dutycycle 100
+set loop.detect moderate
 ```
 
-- **path.hash.mode 1** — 2-byte path hashes (required for current flood routing)
-- **advert.interval 240** — local advert every 4 hours (neighbors only)
-- **flood.advert.interval 24** — network-wide advert every 24 hours
-- **flood.max 32** — drops floods past 32 hops to match `path.hash.mode 1`
-- **agc.reset.interval 500** — resets radio AGC every ~8 min to prevent deafness from RF interference
-- **dutycycle 100** — removes the 50% airtime throttle the repeater firmware ships with; the US 915 MHz band has no duty cycle limit
-- **guest.password** — left alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status. Only set one (`set guest.password <secret>`) if you want to lock that down
+- [**path.hash.mode 1**](#pathhashmode-Path-ID-Size): 2-byte path hashes (required for current flood routing)
+- [**advert.interval 240**](#advertinterval-Local-Advert-Timer): local advert every 4 hours (neighbors only)
+- [**flood.advert.interval 24**](#floodadvertinterval-Network-Wide-Advert-Timer): network-wide advert every 24 hours
+- [**flood.max 32**](#floodmax--Flood-Hop-Limit): drops floods past 32 hops to match `path.hash.mode 1`
+- [**agc.reset.interval 500**](#agcresetinterval--Radio-Deafness-Prevention): resets radio AGC every ~8 min to prevent deafness from RF interference
+- [**loop.detect moderate**](#loopdetect-Packet-Storm-Protection): drops a flood that already carries this repeater's hash
+- [**dutycycle 100**](#dutycycle--Airtime-Throttle): removes the 50% airtime throttle the repeater firmware ships with
+- **guest.password**: left alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status
 
-## USB Serial Preflight
+## Full Settings Audit
 
 A deeper audit than the first-run checklist. Run this before and after a field install to verify everything persisted.
 
-**Serial connection settings:** 115200 baud, 8 data bits, 1 stop bit, no parity, no flow control, CRLF line ending.
+You do not need to be at the repeater for most of this. A companion node logged in as admin can run it over the mesh. Only `stats-core`, `stats-radio` and `stats-packets` need a direct USB connection.
+
+**Serial connection settings:** 115200 baud, 8 data bits, 1 stop bit, no parity, no flow control. The line ending has to include a carriage return, so CR or CRLF both work. LF on its own does not: the firmware discards it and your command never runs.
 
 ### Identify and Time-Sync
 
@@ -319,10 +362,10 @@ get name
 get role
 get radio
 get tx
-get af
 get dutycycle
 get repeat
 get path.hash.mode
+get loop.detect
 get public.key
 ```
 
@@ -334,7 +377,7 @@ get lon
 get advert.interval
 get flood.advert.interval
 get flood.max
-get allow.read.only
+get flood.max.advert
 ```
 
 ### Audit Owner and Delay Tuning
@@ -379,4 +422,4 @@ powersaving off
 
 ---
 
-*This guide is adapted from the [Colorado Mesh Repeater Setup Guide](https://meshcore.coloradomesh.org/guides/repeater-setup), with additional recommendations from the [Bay Area MeshCore Repeater Setup Guide](https://bayareameshcore.org/repeater-setup/). Thank you to the Colorado Mesh and Bay Area MeshCore communities for the thorough documentation.*
+*This guide is adapted from the [Colorado Mesh Repeater Setup Guide](https://meshcore.coloradomesh.org/guides/repeater-setup), with additional recommendations from the [Bay Area MeshCore Repeater Setup Guide](https://bayareameshcore.org/repeater-setup/) and the [PugetMesh Repeater Setup Guide](https://pugetmesh.org/meshcore/repeater_setup/). Thank you to the Colorado Mesh, Bay Area MeshCore and PugetMesh communities for the thorough documentation.*
