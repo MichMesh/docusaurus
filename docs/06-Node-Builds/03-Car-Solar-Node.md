@@ -45,3 +45,9 @@ Place TPU gasket inside of upper shell and press-fit the lower shell inside. Sec
 
 ![Build Angle 2](../images/node-builds/carsolarnode1.jpg)
 
+
+## Firmware Compatibility
+
+This build works with both:
+- **Meshtastic**: see the [Meshtastic section](/docs/Meshtastic) for setup guides
+- **MeshCore**: see the [MeshCore section](/docs/MeshCore) for setup guides
