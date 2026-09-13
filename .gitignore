@@ -4,7 +4,7 @@
 # Generated files
 .docusaurus
 .cache-loader
-/build
+#/build
 
 # Misc
 .DS_Store
@@ -18,4 +18,4 @@ yarn-debug.log*
 yarn-error.log*
 
 .claude
-build-and-commit-mac.sh
+#build-and-commit-mac.sh
