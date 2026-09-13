@@ -29,7 +29,7 @@ if (-not (Test-Path node_modules)) {
 if ($Message.Count -gt 0) {
     npm run clear
     npm run build
-    git add build/* docs/*
+    git add docs/*
     git commit -am ($Message -join " ")
     git push
 }

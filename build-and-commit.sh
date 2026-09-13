@@ -27,7 +27,7 @@ fi
 
 if [ -n "$1" ] ; then
   npm run build
-  git add build/* docs/*
+  git add docs/*
   git commit -am "$@"
   git push
 else
