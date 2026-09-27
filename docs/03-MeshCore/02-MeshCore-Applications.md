@@ -23,7 +23,7 @@ As of August 2026, the following 'zones' have been onboarded and have activity:
 ## MeshCore Client Apps
 You can find all of the links to the official apps on the [MeshCore](https://meshcore.io) website.
 
-### MeshCore Hardened
+### MeshCore Hardened {#meshcore-hardened}
 [MeshCore Hardened](https://github.com/thatSFguy/meshcore-mobile-app) is an independent, open-source MeshCore client for Android. It needs no Google Play Services and nothing phones home: no analytics, accounts, or servers. Messages are encrypted on the phone as well as on the air. It connects over Bluetooth, USB-C, or TCP and covers direct messages, channels, a node map, repeater administration, and firmware updates for nRF52 boards over Bluetooth. It can also show the route a message actually took across the mesh, hop by hop.
 
 It can join a mesh by scanning a settings QR code. See [Quick Setup by QR](./01-Getting-Started.md#quick-setup-by-qr-android) for Michigan's. Install it through [Obtainium](https://obtainium.imranr.dev/) for automatic updates, or grab the APK from the [latest release](https://github.com/thatSFguy/meshcore-mobile-app/releases/latest). Needs Android 8.0 or later; AGPL-3.0.

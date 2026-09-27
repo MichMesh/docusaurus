@@ -28,7 +28,7 @@ Flash [OTAFIX](https://github.com/oltaco/Adafruit_nRF52_Bootloader_OTAFIX) befor
 The MeshCore CLI uses **spaces**, not `=`. Typing `set path.hash.mode = 1` can silently fail or store garbage. Always use `set path.hash.mode 1`.
 :::
 
-## Quick Start
+## Quick Start {#quick-start}
 
 The full setup for a new repeater on firmware 1.16 or later. Replace everything in `<angle brackets>`, and swap the region line for your area (see [Pick Your Regions](#pick-your-regions)). Each block links to a step below that explains it.
 
@@ -76,7 +76,7 @@ After it reboots, reconnect and run `clock`, `region`, and `get public.key`. Bef
 Repeaters boot with an old date. Without a correct clock, relayed message timestamps will be wrong. With GPS-capable firmware and hardware, run `gps on` then `gps sync`. Otherwise run `clock sync` from the companion app or Web Serial after every reboot or power cycle.
 :::
 
-## Step-by-Step Setup
+## Step-by-Step Setup {#step-by-step-setup}
 
 ### 1. Confirm Firmware and Role {#step-1-firmware}
 
@@ -204,7 +204,7 @@ get flood.max.unscoped
 region
 ```
 
-## Regions
+## Regions {#regions}
 
 Regions let traffic be scoped so it only floods as far as it's useful. A repeater forwards scoped traffic only for regions it carries, so the regions you configure decide what your repeater will pass on. Michigan's region names and county assignments come from the draft [Michigan MeshCore Regions RFC](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), developed by Michigan operators.
 
@@ -334,7 +334,7 @@ Channel scopes are set per channel and are separate from the channel name: namin
 
 Scope narrowly: use the smallest region the conversation needs.
 
-## Claim a Unique Public Key Prefix
+## Claim a Unique Public Key Prefix {#claim-a-unique-public-key-prefix}
 
 Repeaters identify each other by the leading bytes of their public key. The firmware generates that key at random on first boot, and nothing stops it from landing on a prefix a nearby repeater already uses. See [Public Key Prefix](#public-key-prefix) for why the 2-byte prefix matters.
 
@@ -414,7 +414,7 @@ reboot
 
 The firmware validates the key before accepting it and replies `OK, reboot to apply! New pubkey: ...`. If you see `Error, bad key`, check you copied all 128 characters.
 
-## Delay Profiles
+## Delay Profiles {#delay-profiles}
 
 Higher elevation nodes wait longer before retransmitting, letting local nodes handle nearby traffic first. The network self-organizes without manual routing. Choose the profile that best matches your repeater's location.
 
@@ -471,7 +471,7 @@ set direct.txdelay 2
 set rxdelay 3
 ```
 
-## Settings Reference
+## Settings Reference {#settings-reference}
 
 ### path.hash.mode: Path ID Size {#path-hash-mode}
 
@@ -526,7 +526,7 @@ Drops a flood packet once its recorded path has reached this many hops. Repeater
 
 Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it. For unscoped traffic, [`flood.max.unscoped`](#flood-max-unscoped) is what does that.
 
-## Full Settings Audit
+## Full Settings Audit {#full-settings-audit}
 
 A deeper audit than the setup steps. Run this before and after a field install to verify everything persisted.
 
