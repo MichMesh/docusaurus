@@ -5,9 +5,6 @@ After=network.target
 [Service]
 User=ynos
 WorkingDirectory=/var/www/MichMesh/webhooks/
-# Holds WEBHOOK_SECRET (see README.md). Optional: without it, requests are
-# accepted unsigned.
-EnvironmentFile=-/etc/michmesh-webhook.env
 ExecStart=/var/www/MichMesh/webhooks/venv-webhook/bin/gunicorn -w 2 -b 127.0.0.1:5000 michmesh-webhooks:app
 Restart=always
 
