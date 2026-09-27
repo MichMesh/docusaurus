@@ -4,7 +4,7 @@
 # Generated files
 .docusaurus
 .cache-loader
-#/build
+/build
 
 # Misc
 .DS_Store
