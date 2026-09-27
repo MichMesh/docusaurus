@@ -1,2 +1,2 @@
-cd /var/www/michmesh/
+cd /var/www/MichMesh/
 git pull
