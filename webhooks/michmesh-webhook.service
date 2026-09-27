@@ -1,0 +1,12 @@
+[Unit]
+Description=Michmesh Webhook Listener
+After=network.target
+
+[Service]
+User=ynos
+WorkingDirectory=/var/www/michmesh/webhooks/
+ExecStart=/var/www/michmesh/webhooks/venv-webhook/bin/gunicorn -w 2 -b 127.0.0.1:5000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
