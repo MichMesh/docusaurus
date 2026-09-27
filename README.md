@@ -12,3 +12,8 @@
 
 ## How the site is served
 michmesh.com is served by nginx from `build/` in a checkout of `master` on the server. The listener in [`webhooks/`](webhooks/README.md) runs `git pull` when GitHub reports a push, which is why `build/` stays in git.
+- Commit your changes to `docs/` (or `src/`, `static/`) and open a Pull Request (PR). Don't commit `build/`; it's generated.
+- Once a PR is merged, GitHub Actions builds the site and commits `build/` to `master` ("Publish build for …"). The server pulls on GitHub's webhook and michmesh.com updates within a few minutes. Nobody needs to build or deploy by hand.
+## How the site is served
+MichMesh.com is served by nginx from `build/` in a checkout of `master` on the server. The listener in [`webhooks/`](webhooks/README.md) runs `git pull` when GitHub reports a push, which is why `build/` stays in git.
+

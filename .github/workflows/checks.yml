@@ -51,3 +51,4 @@ jobs:
 
       - name: Check redirects
         run: npm run check:build
+

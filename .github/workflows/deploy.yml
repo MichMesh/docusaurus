@@ -75,3 +75,4 @@ jobs:
       - name: Wait for michmesh.com to serve this build
         if: steps.publish.outputs.published == 'true'
         run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
+

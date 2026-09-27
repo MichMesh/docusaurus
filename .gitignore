@@ -13,6 +13,9 @@
 /webhooks/venv-webhook/
 __pycache__/
 
+/webhooks/venv-webhook/
+__pycache__/
+
 # Misc
 .DS_Store
 .env.local
