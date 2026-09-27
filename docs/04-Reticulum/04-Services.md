@@ -19,7 +19,7 @@ MichMesh's group chat runs [reticulum-group-chat](https://github.com/thatSFguy/r
 
 ### Join the MichMesh Group Chat {#join-group-chat}
 
-1. In your LXMF client, start a conversation with the MichMesh group chat: `<MICHMESH_GROUP_CHAT_HASH>`
+1. In your LXMF client, start a conversation with the MichMesh group chat: [`6e54f24ffb316ce6f5e5217e98664fa7`](lxmf://6e54f24ffb316ce6f5e5217e98664fa7)
 2. Send `/join`. You'll get a confirmation, followed by the most recent messages so you can catch up on the conversation.
 3. Send `/nick <name>` to pick the name others see. Until you do, it uses your announced display name.
 4. Say hi. Everything you send from now on goes to the whole group.
@@ -55,9 +55,9 @@ Members who haven't been heard from in a few weeks are removed automatically. Ju
 
 ### Join the MichMesh Hub {#join-rrc}
 
-1. In your RRC client, add the MichMesh hub: `<MICHMESH_RRC_HUB_HASH>`
+1. In your RRC client, add the MichMesh hub: `1303a636cf76ffffcf359761f0867e37`
 2. Connect. You'll land in `#lobby`, with its recent history.
-3. Send `/list` to see the other rooms, and `/join <room>` to enter one. You can also open a room link like `rrc://<MICHMESH_RRC_HUB_HASH>/lobby`.
+3. Send `/list` to see the other rooms, and `/join <room>` to enter one. You can also open a room link like `rrc://1303a636cf76ffffcf359761f0867e37/lobby`.
 
 Nicknames are first come, first served, and stay yours between visits. If someone already has the name you ask for, you'll get `name1` and a notice saying so.
 
