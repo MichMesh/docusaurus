@@ -15,7 +15,7 @@ So you've decided to run a repeater. Nice. This guide gets a MeshCore repeater o
 
 ## Before You Start
 
-- **Flash Repeater firmware** via the [web flasher](https://flasher.meshcore.io/). Use a Chromium-based browser, since the flasher needs the Web Serial API. Firmware **1.16 or later** supports every command in this guide.
+- **Flash Repeater firmware** via the [web flasher](https://flasher.meshcore.io/). Use a Chromium-based browser, since the flasher needs the Web Serial API. This guide requires firmware **1.16 or later**; if a repeater is running anything older, upgrade it first.
 - **Mount high with line of sight** and use a real external antenna. Elevation and antenna quality matter more than transmit power.
 - **Use a stable power supply**: wall adapter, POE, or solar with battery backup. Avoid bus-powered USB hubs.
 - **Connect over USB** with the Web Serial console at [config.meshcore.io](https://config.meshcore.io).
@@ -80,7 +80,7 @@ Repeaters boot with an old date. Without a correct clock, relayed message timest
 
 ### 1. Confirm Firmware and Role {#step-1-firmware}
 
-Repeater firmware sets the role automatically. You should see `role = Repeater`. Note the version from `ver`: region commands differ below 1.16.
+Repeater firmware sets the role automatically. You should see `role = Repeater`. If `ver` shows a version older than 1.16, [upgrade](https://flasher.meshcore.io/) before going further: the region commands in this guide need it.
 
 ```bash path=null start=null
 ver
@@ -165,7 +165,7 @@ set loop.detect moderate
 
 ### 7. Set Regions {#step-7-regions}
 
-Tag the repeater with the full region ancestry for the area it serves, set its default scope to `mi`, and cap unscoped floods at 3 hops. See [Regions](#regions) for what to carry and the commands for older firmware.
+Tag the repeater with the full region ancestry for the area it serves, set its default scope to `mi`, and cap unscoped floods at 3 hops. See [Regions](#regions) for what to carry.
 
 ```bash path=null start=null
 region def midwest mi <subregion> <local_region>
@@ -275,33 +275,6 @@ Don't block unscoped traffic outright with `region denyf *`. Every new user star
 :::note Sparse areas
 Where a new user would need more than 3 hops to reach anyone (much of the northern Lower Peninsula and the Upper Peninsula today), it's reasonable to leave the cap at its default until coverage fills in. If you do, say so in the group.
 :::
-
-### Older Firmware {#region-older-firmware}
-
-Check your version with `ver`. Grand Rapids shown; substitute your own regions.
-
-**Firmware 1.15** (no `region def`):
-
-```bash path=null start=null
-region put midwest
-region put mi midwest
-region put mi-west mi
-region put grr mi-west
-region default mi
-region save
-```
-
-**Firmware 1.10 – 1.14** (no `region default`; the repeater's own adverts stay unscoped, but it forwards scoped traffic correctly):
-
-```bash path=null start=null
-region put midwest
-region put mi midwest
-region put mi-west mi
-region put grr mi-west
-region save
-```
-
-`flood.max.unscoped` needs 1.16 on any of these. Below 1.10 regions don't exist, so upgrade first. If the site can't be reached to reflash, mention it in the group.
 
 ### Repeaters on a Boundary {#region-boundary}
 
