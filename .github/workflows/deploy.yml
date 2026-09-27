@@ -1,8 +1,13 @@
 name: Build and publish site
 
-# Builds the site on every push to master and publishes it to the gh-pages
-# branch. The michmesh.com server deploys gh-pages when GitHub's webhook
-# reports the push.
+# michmesh.com serves build/ from a checkout of master, and pulls when
+# GitHub's webhook reports a push (see webhooks/). This workflow keeps that
+# build/ current: on every push to master it builds the site and commits
+# build/ back to master. That push fires the webhook, the server pulls, and
+# the last step checks that michmesh.com is serving the new build.
+#
+# Pushes made with GITHUB_TOKEN don't start workflows, so the commit this
+# makes doesn't trigger another run.
 
 on:
   push:
@@ -12,15 +17,15 @@ on:
 permissions:
   contents: write
 
-# One publish at a time, in order, so an older build never lands on top of
-# a newer one.
+# One publish at a time, in order. A run whose commit is no longer the tip
+# of master skips publishing: the run for the newer commit publishes it.
 concurrency:
   group: publish-site
   cancel-in-progress: false
 
 jobs:
   publish:
-    name: Build and publish to gh-pages
+    name: Build and commit build/ to master
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -35,18 +40,39 @@ jobs:
       - name: Build
         run: npm run build
 
-      # Lets the next step tell which build michmesh.com is serving.
+      # Lets the last step tell which build michmesh.com is serving.
       - name: Stamp the build with this commit
         run: echo "$GITHUB_SHA" > build/version.txt
 
-      - name: Publish to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          # Keep gh-pages to a single commit instead of a full copy of the
-          # site per merge; the server's fetch + reset --hard handles it.
-          force_orphan: true
+      - name: Check the build is complete
+        run: npm run check:build
+
+      - name: Commit build/ to master
+        id: publish
+        run: |
+          git fetch -q origin master
+          if [ "$(git rev-parse origin/master)" != "$GITHUB_SHA" ]; then
+            echo "::notice::master has moved past $GITHUB_SHA; the run for the newer commit publishes it."
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git add -A build
+          if git diff --cached --quiet; then
+            echo "build/ is unchanged; nothing to publish."
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Publish build for ${GITHUB_SHA:0:7}"
+          if ! git push -q origin HEAD:master; then
+            echo "::notice::master moved while publishing; the run for the newer commit publishes it."
+            echo "published=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "published=true" >> "$GITHUB_OUTPUT"
 
       - name: Wait for michmesh.com to serve this build
+        if: steps.publish.outputs.published == 'true'
         run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
+

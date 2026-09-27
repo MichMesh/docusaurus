@@ -10,6 +10,9 @@
 .cache-loader
 /static/version.txt
 
+/webhooks/venv-webhook/
+__pycache__/
+
 # Misc
 .DS_Store
 .env.local
