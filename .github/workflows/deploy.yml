@@ -32,6 +32,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Lets the next step tell which build michmesh.com is serving.
+      - name: Stamp the build with this commit
+        run: echo "$GITHUB_SHA" > static/version.txt
+
       - name: Build
         run: npm run build
 
@@ -43,3 +47,6 @@ jobs:
           # Keep gh-pages to a single commit instead of a full copy of the
           # site per merge; the server's fetch + reset --hard handles it.
           force_orphan: true
+
+      - name: Wait for michmesh.com to serve this build
+        run: scripts/wait-for-deploy.sh "$GITHUB_SHA"

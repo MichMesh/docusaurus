@@ -5,6 +5,7 @@
 .docusaurus
 .cache-loader
 /build
+/static/version.txt
 
 # Misc
 .DS_Store
