@@ -1,0 +1,38 @@
+name: Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Build and check docs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check docs source
+        run: npm run check:docs
+
+      # Before the build: it reads build/ from git, and the build overwrites it.
+      - name: Check committed build output
+        run: node scripts/check-build.mjs committed
+
+      - name: Build
+        run: npm run build
+
+      - name: Check redirects
+        run: node scripts/check-build.mjs redirects build
