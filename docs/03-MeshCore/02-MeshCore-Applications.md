@@ -23,5 +23,10 @@ As of August 2026, the following 'zones' have been onboarded and have activity:
 ## MeshCore Client Apps
 You can find all of the links to the official apps on the [MeshCore](https://meshcore.io) website.
 
+### MeshCore Hardened
+[MeshCore Hardened](https://github.com/thatSFguy/meshcore-mobile-app) is an independent, open-source MeshCore client for Android. It needs no Google Play Services and nothing phones home: no analytics, accounts, or servers. Messages are encrypted on the phone as well as on the air. It connects over Bluetooth, USB-C, or TCP and covers direct messages, channels, a node map, repeater administration, and firmware updates for nRF52 boards over Bluetooth. It can also show the route a message actually took across the mesh, hop by hop.
+
+It can join a mesh by scanning a settings QR code. See [Quick Setup by QR](./01-Getting-Started.md#quick-setup-by-qr-android) for Michigan's. Install it through [Obtainium](https://obtainium.imranr.dev/) for automatic updates, or grab the APK from the [latest release](https://github.com/thatSFguy/meshcore-mobile-app/releases/latest). Needs Android 8.0 or later; AGPL-3.0.
+
 ### MeshCore One
 [MeshCore One](https://meshcoreone.com) is a third-party client for iPhone, iPad, and Apple Silicon Macs. It is not the official app, and it is open source under the GPLv3. Alongside the usual messages, channels, and QR contact sharing, it leans into diagnostics: trace path, line of sight analysis, RX logging, and remote management of repeaters and room servers. Free on the [App Store](https://apps.apple.com/us/app/meshcore-one/id6757419477), needs iOS 18 or later; source and sideload builds are on [GitHub](https://github.com/Avi0n/MeshCoreOne).
