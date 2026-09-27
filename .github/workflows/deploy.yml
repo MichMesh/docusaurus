@@ -34,7 +34,7 @@ jobs:
 
       # Lets the next step tell which build michmesh.com is serving.
       - name: Stamp the build with this commit
-        run: echo "$GITHUB_SHA" > static/version.txt
+        run: echo "$GITHUB_SHA" > build/version.txt
 
       - name: Build
         run: npm run build
