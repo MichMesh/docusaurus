@@ -42,7 +42,7 @@ get radio
 set name <YourRepeaterName>
 set lat <42.7336>
 set lon <-84.5555>
-set owner.info <your_contact_details>
+set owner.info <your_contact_details>|michmesh.com/mcr
 password <your_admin_password>
 
 # 3. Michigan network standards
@@ -126,12 +126,10 @@ set lon <-84.5555>
 Free-text contact details so somebody can reach you about the node: an email address, a Discord handle, an amateur radio callsign, or whatever else will actually reach you. Optional, but a repeater nobody can contact is a repeater nobody can tell you is misbehaving. `|` characters become line breaks.
 
 ```bash path=null start=null
-set owner.info <your_contact_details>
+set owner.info <your_contact_details>|michmesh.com/mcr
 ```
 
-:::tip Link back to this guide
-`michmesh.com/mcr` is a short link to this page. Adding it to your owner info (e.g. `set owner.info <your_contact_details>|michmesh.com/mcr`) points anyone who finds your repeater to the Michigan setup standard.
-:::
+End it with `|michmesh.com/mcr`, a short link to this page, so anyone who looks up your repeater can find the Michigan setup standard. Keep the link in owner info rather than the repeater name: once location is set, adverts only carry the first 23 characters of the name, and the link would crowd out or truncate it.
 
 ### 5. Set an Admin Password {#step-5-password}
 
