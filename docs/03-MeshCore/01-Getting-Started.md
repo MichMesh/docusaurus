@@ -15,12 +15,23 @@ Using the [MeshCore Web Flasher](https://flasher.meshcore.io/) is similar to the
 ## Setting Up Your Device (Companion)
 If your device has a screen, like the Heltec v3/v4 or T114, you will get the bluetooth pin. I suggest paying attention and writing it down because the screen time out on some of these units is quick. If you missed it, simply reset it and it will pop up and give you a new pin. OTHERWISE, the default is 123456.
 
+### Quick Setup by QR (Android) {#quick-setup-by-qr-android}
+
+If you use [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened), connect your radio in the app and scan this code. It sets the Michigan radio preset (910.525 MHz, 62.5 kHz, SF7, CR 5), 2-byte path hashes, and the Michigan [region](./03-Repeater-Setup.md#regions) tree with `mi` as the default scope. The app shows you the settings and asks before applying anything.
+
+![QR code with the Michigan MeshCore radio settings, for scanning with MeshCore Hardened](../../static/img/meshcore-michigan-settings-qr.svg)
+
+The code carries no transmit power or channel keys, so it's safe to print or post. Once it's applied, pick up the manual steps below at setting your name.
+
+### Manual Setup
+
 - Connect via Bluetooth. IF This is a device you previously paired, you'll first want to "forget" the device in your phone's/computer's bluetooth settings.
 - Go to Settings (Cog Icon in Android App)
 - Set your Name. Unlike MeshTastic, there is only a "Long Name".
 - Set your Lat/Long if your node is stationary. Select "Share Position in Advert" if you would like.
 - In Radio Settings, select "Choose Preset". Select USA/Canada (Recommended) if in the US.
 - Tap the "Check Mark" in the upper right (if on Android). This applies the current settings.
+- Default scope (MeshCore app 1.43+, companion firmware 1.15+): go to Settings → Experimental and set the default scope region to `mi`. This keeps your adverts, direct messages and logins scoped to Michigan, so repeaters don't cap them as [unscoped traffic](./03-Repeater-Setup.md#flood-max-unscoped). See [Regions](./03-Repeater-Setup.md#region-companion) for scoping individual channels.
 - Bluetooth Settings - Change it to "Custom" and put in a 6 digit pin. Tap Check mark in upper right (if on Android) then scroll down and reboot. You will need to reconnect to the device (select forget from phone/computers menu first).
 
 :::tip Lost Bluetooth PIN
