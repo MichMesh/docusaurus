@@ -1,7 +1,7 @@
 #!/bin/sh
 # Waits until the live site serves version.txt containing the expected
 # commit, and fails if it never does. Run by the publish workflow after
-# pushing to gh-pages, so a missed webhook delivery, a stopped listener or a
+# committing build/ to master, so a missed webhook delivery, a stopped listener or a
 # broken server config shows up as a failed run instead of a stale site.
 #
 #   scripts/wait-for-deploy.sh <expected sha>
@@ -27,5 +27,5 @@ while [ "$i" -le "$attempts" ]; do
   [ "$i" -le "$attempts" ] && sleep "$interval"
 done
 
-echo "::error title=$site did not update::After $((attempts * interval))s $site still serves '${served:-nothing}', not $expected. Check the webhook's Recent Deliveries on GitHub and 'journalctl -u webhook' on the server."
+echo "::error title=$site did not update::After $((attempts * interval))s $site still serves '${served:-nothing}', not $expected. Check the webhook's Recent Deliveries on GitHub, and 'journalctl -u michmesh-webhook' and 'git -C /var/www/MichMesh status' on the server."
 exit 1

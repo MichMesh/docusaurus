@@ -8,7 +8,10 @@
 # Generated files
 .docusaurus
 .cache-loader
-/static/version.txt
+
+# Webhook listener (created on the server)
+/webhooks/venv-webhook/
+__pycache__/
 
 /webhooks/venv-webhook/
 __pycache__/
