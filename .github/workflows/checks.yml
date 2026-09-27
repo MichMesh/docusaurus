@@ -27,12 +27,8 @@ jobs:
       - name: Check docs source
         run: npm run check:docs
 
-      # Before the build: it reads build/ from git, and the build overwrites it.
-      - name: Check committed build output
-        run: node scripts/check-build.mjs committed
-
       - name: Build
         run: npm run build
 
       - name: Check redirects
-        run: node scripts/check-build.mjs redirects build
+        run: npm run check:build

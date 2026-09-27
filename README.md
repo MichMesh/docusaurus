@@ -1,14 +1,11 @@
 # Docusaurus page for MichMesh
-## How to contribute from a Mac, windows or debian based system
+## How to contribute
 - Fork this repo
-- Clone the repo `git clone git@github.com:YOUR_FORK_/docusaurus.git` 
-- Unix or Mac: 
-    - Run `./run-local.sh` - this will install everything needed to run the dev server so you can see your changes as they are saved.
-    - Once you are happy with your changes, run `./build-and-commit.sh "Your commit message"` to package your changes.
-- Windows (Powershell)
-    - Run `.\run-local.ps1` - this will install everything needed to run the dev server so you can see your changes as they are saved.
-    - Once you are happy with your changes, run `.\build-and-commit.ps1 "Your commit message"` to package your changes.
-- Open a Pull Request (PR) and message yNos on Reticulum, Meshtastic, Signal or Discord letting me know that you've run the build and opened a PR
-## How to contribute from a windows system
-TBD - If you know how to do this, please update this doc or send me the info on how to do it.
-
+- Clone the repo `git clone git@github.com:YOUR_FORK_/docusaurus.git`
+- Preview your changes as you edit:
+    - Unix or Mac: run `./run-local.sh`
+    - Windows (PowerShell): run `.\run-local.ps1`
+    - Either one installs what's needed and starts a dev server that reloads as you save.
+- Commit your changes to `docs/` (or `src/`, `static/`) and open a Pull Request (PR). Don't commit `build/`; it's generated.
+- Every PR is built and checked automatically (see the **Checks** tab): broken links, broken anchors, unfilled placeholders and bad Reticulum hashes fail the check.
+- Once a PR is merged, GitHub Actions builds the site and michmesh.com updates within a couple of minutes. Nobody needs to build or deploy by hand.
