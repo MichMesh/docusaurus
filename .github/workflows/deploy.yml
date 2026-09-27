@@ -1,4 +1,8 @@
-name: Deploy to GitHub Pages
+name: Build and publish site
+
+# Builds the site on every push to master and publishes it to the gh-pages
+# branch. The michmesh.com server deploys gh-pages when GitHub's webhook
+# reports the push.
 
 on:
   push:
@@ -8,9 +12,15 @@ on:
 permissions:
   contents: write
 
+# One publish at a time, in order, so an older build never lands on top of
+# a newer one.
+concurrency:
+  group: publish-site
+  cancel-in-progress: false
+
 jobs:
-  deploy:
-    name: Deploy to GitHub Pages
+  publish:
+    name: Build and publish to gh-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -25,8 +35,11 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+          # Keep gh-pages to a single commit instead of a full copy of the
+          # site per merge; the server's fetch + reset --hard handles it.
+          force_orphan: true
