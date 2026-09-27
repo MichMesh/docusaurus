@@ -5,5 +5,13 @@ We need a way for github to call back to the michmesh server, letting us know we
 - copy `michmesh-webhook.service` into the systemd services dir - `cp michmesh-webhook.service /etc/systemd/system/`
 - start the service to make sure it works - `sudo systemctl start michmesh-webhook` 
 - enable the service to run on next boot - `sudo systemctl enable michmesh-webhook`
+- add the following to nginx.conf
+```
+ location /michmesh-webhook {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+```
 
 
