@@ -1,3 +1,4 @@
 cd /var/www/MichMesh/
 git pull
-git rev-parse HEAD > build/version.txt
+#echo `date ; git rev-parse HEAD | tee build/version.txt`
+
