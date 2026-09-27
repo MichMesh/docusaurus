@@ -42,7 +42,8 @@ for (const root of ROOTS) {
         problems.push(`${at}: leftover ${m[0]} marker`);
       }
       for (const m of line.matchAll(RETICULUM_LINK)) {
-        if (!HASH.test(m[3])) {
+        // A bare scheme with nothing after it ("opens `rrc://` links") is prose.
+        if (m[3] && !HASH.test(m[3])) {
           problems.push(`${at}: ${m[1]}${m[2]} address "${m[3]}" is not a 32-character hex hash`);
         }
       }
