@@ -28,6 +28,9 @@ fi
 if [ -n "$1" ] ; then
   npm run build
   git add docs/*
+  # The live site is served from the committed build/, and every build
+  # writes new hashed asset files that `commit -a` would leave behind.
+  git add build
   git commit -am "$@"
   git push
 else
