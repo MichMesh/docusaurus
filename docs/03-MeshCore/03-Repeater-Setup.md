@@ -294,18 +294,7 @@ region save
 
 ### Companion Settings {#region-companion}
 
-With MeshCore app 1.43+ and companion firmware 1.15+, set **Settings → Experimental → default scope region** to `mi`. The default scope covers adverts, direct messages, logins, and anything a channel scope doesn't, so a companion with it set isn't affected by the unscoped cap.
-
-Channel scopes are set per channel and are separate from the channel name: naming a channel `#grr` doesn't scope it. A practical setup:
-
-| Channel | Scope |
-| --- | --- |
-| `#michigan` | `mi` |
-| `#wmi` | `mi-west` |
-| `#grr` / `#azo` | `grr` / `azo` |
-| Public | your local region for everyday conversation |
-
-Scope narrowly: use the smallest region the conversation needs.
+Companion setup (default scope, discovering regions, and channel scopes) is on [Getting Started](./01-Getting-Started.md#set-your-region), with screenshots for both apps.
 
 ## Claim a Unique Public Key Prefix {#claim-a-unique-public-key-prefix}
 

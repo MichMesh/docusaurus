@@ -40,3 +40,9 @@
   --michmesh-light-gray: #1e1e1e;
   --michmesh-medium-gray: #2a2a2a;
 }
+
+/* Phone screenshots: show at roughly phone size instead of full column width. */
+.phone-shot img {
+  max-width: 360px;
+  width: 100%;
+}
