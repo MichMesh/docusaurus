@@ -294,9 +294,78 @@ region save
 
 ### Companion Settings {#region-companion}
 
-With MeshCore app 1.43+ and companion firmware 1.15+, set **Settings → Experimental → default scope region** to `mi`. The default scope covers adverts, direct messages, logins, and anything a channel scope doesn't, so a companion with it set isn't affected by the unscoped cap.
+Region scopes on a companion need firmware 1.15 or later. Screenshots here were taken with firmware 1.17.1. The setup is the same in either app:
 
-Channel scopes are set per channel and are separate from the channel name: naming a channel `#grr` doesn't scope it. A practical setup:
+- **Set a default scope of `mi`** (required). Adverts, direct messages, logins, and every channel without its own scope go out scoped to Michigan.
+- **Scope individual channels narrower** (optional), for example `#grr` to `grr`.
+
+Discovering regions from repeaters only fills in the app's list of region names, so you can pick them instead of typing them. It doesn't change anything on the radio, and repeaters only answer it from radios that hear them directly. Each repeater answers at most 4 requests every 3 minutes, so if one doesn't reply, wait and try again.
+
+#### MeshCore App {#companion-meshcore-app}
+
+Needs app 1.43 or later. Screenshots are from Android app 1.50.
+
+##### Set the Default Scope {#meshcore-app-default-scope}
+
+1. Open **Settings** (the gear), scroll to **Network Settings**, and tap **Default Region Scope**. App 1.43 had this under **Settings → Experimental Settings** instead.
+
+   <img src={require('../images/meshcore/companion-default-region-scope.png').default} alt="MeshCore app Settings, Network Settings section, with Default Region Scope set to mi" width="360" />
+
+2. If the region list is empty, tap **⋮ → Discover Regions**, then tap the **Discover Regions** button, and tap **Add** next to each region you want in your list.
+
+   <img src={require('../images/meshcore/companion-discover-regions-menu.png').default} alt="Select Region screen with the menu open, showing Clear Scope and Discover Regions" width="360" />
+
+   <img src={require('../images/meshcore/companion-discover-regions-results.png').default} alt="Discover Regions screen listing midwest, mi, mi-west and grr, each with an Add button" width="360" />
+
+   You can also add a region by hand with **+**.
+
+3. Back on **Select Region**, pick `mi`, then tap the **✓** at the top of **Settings** to save it to the radio. Nothing in Settings is saved until you tap **✓**. Once saved, `mi` is marked **default** in the region list.
+
+   <img src={require('../images/meshcore/companion-select-region.png').default} alt="Select Region list with mi selected and marked default" width="360" />
+
+The default scope covers adverts, direct messages, logins, and every channel that doesn't have its own scope, so a companion with it set isn't affected by the [unscoped cap](#flood-max-unscoped).
+
+##### Scope a Channel {#meshcore-app-channel-scope}
+
+A channel with no scope of its own uses the default. Its header shows **↳ Region: mi**, where the arrow means it's inherited:
+
+<img src={require('../images/meshcore/companion-channel-header.png').default} alt="Public channel header showing an inherited Region: mi" width="360" />
+
+To narrow a channel, open it, tap **⋮ → Set Region Scope**, and pick a region. A channel's scope overrides the default, so only set one where you want less than `mi`. **⋮ → Clear Scope** on the same screen puts the channel back on the default.
+
+<img src={require('../images/meshcore/companion-channel-menu.png').default} alt="Channel menu with Set Region Scope" width="360" />
+
+#### MeshCore Hardened {#companion-mch}
+
+Needs [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened) 0.10.11 or later, which saves the scope on the radio. Earlier versions only kept it until the radio rebooted, so update first. Screenshots are from 0.10.11.
+
+##### Set the Default Scope {#mch-default-scope}
+
+1. Open **Settings** and tap **Mesh policies**.
+
+   <img src={require('../images/meshcore/mch-settings-mesh-policies.png').default} alt="MeshCore Hardened Settings, This Node section, with Mesh policies listed" width="360" />
+
+2. Under **Regions**, tap **Discover from repeaters…**, then **Add** each region you want and tap **Done**. You can also type a region name and tap **Add**.
+
+   <img src={require('../images/meshcore/mch-regions-heard.png').default} alt="Regions heard dialog listing grr, mi, mi-west and midwest, each with an Add button" width="360" />
+
+3. Under **Global flood scope**, type `mi` and tap **Set**; there's no separate save. The line above the field reads **The radio's saved default scope is region mi** once it's saved. MCH reads this from the radio each time it connects, so it also shows a default set by another app.
+
+   <img src={require('../images/meshcore/mch-flood-scope-regions.png').default} alt="Mesh policies screen showing the radio's saved default scope is region mi, with the region list below it" width="360" />
+
+**Clear** removes the saved default, and the radio then sends untagged traffic. Don't clear it unless you mean to.
+
+##### Scope a Channel {#mch-channel-scope}
+
+Open the channel, tap **⋮ → Channel settings…**, pick a region under **Region (flood scope)**, and tap **Save**.
+
+<img src={require('../images/meshcore/mch-channel-region.png').default} alt="MeshCore Hardened channel settings with the Region (flood scope) choices None, grr, mi, mi-west and midwest" width="360" />
+
+**None** means the channel has no region of its own and uses the **Global flood scope** (`mi`), the same as a channel with no scope in the MeshCore app. Leave it on **None** unless you want the channel narrower than `mi`.
+
+#### Channel Scopes {#companion-channel-scopes}
+
+Channel scopes are separate from the channel name: naming a channel `#grr` doesn't scope it. A practical setup:
 
 | Channel | Scope |
 | --- | --- |
@@ -305,7 +374,7 @@ Channel scopes are set per channel and are separate from the channel name: namin
 | `#grr` / `#azo` | `grr` / `azo` |
 | Public | your local region for everyday conversation |
 
-Scope narrowly: use the smallest region the conversation needs.
+Scope narrowly: use the smallest region the conversation needs. A scoped message only travels through repeaters that carry that region, so a channel scoped to `grr` won't get far once you leave Grand Rapids. When you travel, switch local channels back to the default.
 
 ## Claim a Unique Public Key Prefix {#claim-a-unique-public-key-prefix}
 
