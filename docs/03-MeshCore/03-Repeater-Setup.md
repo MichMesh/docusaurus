@@ -309,19 +309,35 @@ Needs app 1.43 or later. Screenshots are from Android app 1.50.
 
 1. Open **Settings** (the gear), scroll to **Network Settings**, and tap **Default Region Scope**. App 1.43 had this under **Settings → Experimental Settings** instead.
 
-   <img src={require('../images/meshcore/companion-default-region-scope.png').default} alt="MeshCore app Settings, Network Settings section, with Default Region Scope set to mi" width="360" />
+   <div className="phone-shot">
+
+   ![MeshCore app Settings, Network Settings section, with Default Region Scope set to mi](../images/meshcore/companion-default-region-scope.png)
+
+   </div>
 
 2. If the region list is empty, tap **⋮ → Discover Regions**, then tap the **Discover Regions** button, and tap **Add** next to each region you want in your list.
 
-   <img src={require('../images/meshcore/companion-discover-regions-menu.png').default} alt="Select Region screen with the menu open, showing Clear Scope and Discover Regions" width="360" />
+   <div className="phone-shot">
 
-   <img src={require('../images/meshcore/companion-discover-regions-results.png').default} alt="Discover Regions screen listing midwest, mi, mi-west and grr, each with an Add button" width="360" />
+   ![Select Region screen with the menu open, showing Clear Scope and Discover Regions](../images/meshcore/companion-discover-regions-menu.png)
+
+   </div>
+
+   <div className="phone-shot">
+
+   ![Discover Regions screen listing midwest, mi, mi-west and grr, each with an Add button](../images/meshcore/companion-discover-regions-results.png)
+
+   </div>
 
    You can also add a region by hand with **+**.
 
 3. Back on **Select Region**, pick `mi`, then tap the **✓** at the top of **Settings** to save it to the radio. Nothing in Settings is saved until you tap **✓**. Once saved, `mi` is marked **default** in the region list.
 
-   <img src={require('../images/meshcore/companion-select-region.png').default} alt="Select Region list with mi selected and marked default" width="360" />
+   <div className="phone-shot">
+
+   ![Select Region list with mi selected and marked default](../images/meshcore/companion-select-region.png)
+
+   </div>
 
 The default scope covers adverts, direct messages, logins, and every channel that doesn't have its own scope, so a companion with it set isn't affected by the [unscoped cap](#flood-max-unscoped).
 
@@ -329,11 +345,19 @@ The default scope covers adverts, direct messages, logins, and every channel tha
 
 A channel with no scope of its own uses the default. Its header shows **↳ Region: mi**, where the arrow means it's inherited:
 
-<img src={require('../images/meshcore/companion-channel-header.png').default} alt="Public channel header showing an inherited Region: mi" width="360" />
+<div className="phone-shot">
+
+![Public channel header showing an inherited Region: mi](../images/meshcore/companion-channel-header.png)
+
+</div>
 
 To narrow a channel, open it, tap **⋮ → Set Region Scope**, and pick a region. A channel's scope overrides the default, so only set one where you want less than `mi`. **⋮ → Clear Scope** on the same screen puts the channel back on the default.
 
-<img src={require('../images/meshcore/companion-channel-menu.png').default} alt="Channel menu with Set Region Scope" width="360" />
+<div className="phone-shot">
+
+![Channel menu with Set Region Scope](../images/meshcore/companion-channel-menu.png)
+
+</div>
 
 #### MeshCore Hardened {#companion-mch}
 
@@ -343,15 +367,27 @@ Needs [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened) 0.10.
 
 1. Open **Settings** and tap **Mesh policies**.
 
-   <img src={require('../images/meshcore/mch-settings-mesh-policies.png').default} alt="MeshCore Hardened Settings, This Node section, with Mesh policies listed" width="360" />
+   <div className="phone-shot">
+
+   ![MeshCore Hardened Settings, This Node section, with Mesh policies listed](../images/meshcore/mch-settings-mesh-policies.png)
+
+   </div>
 
 2. Under **Regions**, tap **Discover from repeaters…**, then **Add** each region you want and tap **Done**. You can also type a region name and tap **Add**.
 
-   <img src={require('../images/meshcore/mch-regions-heard.png').default} alt="Regions heard dialog listing grr, mi, mi-west and midwest, each with an Add button" width="360" />
+   <div className="phone-shot">
+
+   ![Regions heard dialog listing grr, mi, mi-west and midwest, each with an Add button](../images/meshcore/mch-regions-heard.png)
+
+   </div>
 
 3. Under **Global flood scope**, type `mi` and tap **Set**; there's no separate save. The line above the field reads **The radio's saved default scope is region mi** once it's saved. MCH reads this from the radio each time it connects, so it also shows a default set by another app.
 
-   <img src={require('../images/meshcore/mch-flood-scope-regions.png').default} alt="Mesh policies screen showing the radio's saved default scope is region mi, with the region list below it" width="360" />
+   <div className="phone-shot">
+
+   ![Mesh policies screen showing the saved default scope on the radio is region mi, with the region list below it](../images/meshcore/mch-flood-scope-regions.png)
+
+   </div>
 
 **Clear** removes the saved default, and the radio then sends untagged traffic. Don't clear it unless you mean to.
 
@@ -359,7 +395,11 @@ Needs [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened) 0.10.
 
 Open the channel, tap **⋮ → Channel settings…**, pick a region under **Region (flood scope)**, and tap **Save**.
 
-<img src={require('../images/meshcore/mch-channel-region.png').default} alt="MeshCore Hardened channel settings with the Region (flood scope) choices None, grr, mi, mi-west and midwest" width="360" />
+<div className="phone-shot">
+
+![MeshCore Hardened channel settings with the Region (flood scope) choices None, grr, mi, mi-west and midwest](../images/meshcore/mch-channel-region.png)
+
+</div>
 
 **None** means the channel has no region of its own and uses the **Global flood scope** (`mi`), the same as a channel with no scope in the MeshCore app. Leave it on **None** unless you want the channel narrower than `mi`.
 
