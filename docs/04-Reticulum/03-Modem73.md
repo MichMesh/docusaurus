@@ -2,7 +2,8 @@
 sidebar_label: Modem73
 ---
 
-# This is still in beta and not fully rolled out. If you're interested in experimenting, feel free to build a node and help make the docs better!
+# This is still in beta and not fully rolled out. 
+If you're interested in experimenting, feel free to build a node and help make the docs better!
 
 ## How to setup Modem73 on Debian.
 This assumes that you have already have a running RNS instance with config under `~/.reticulum/`.
