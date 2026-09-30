@@ -4,7 +4,7 @@ sidebar_label: Getting Started
 # Connect to the Reticulum Network
 ## Clients
 
-No radio needed to get started: each of these can join the network over the internet through a public TCP hub. The public hubs are generally linked together, so any of them should put you on the wider network; MichMesh runs one at `RNS.MichMesh.net`, port `7822`. Once you're on, say hi in the [group chat](./04-Services.md#join-group-chat).
+No radio needed to get started: each of these can join the network over the internet through a public TCP hub. The public hubs are generally linked together, so any of them should put you on the wider network; MichMesh runs one at `RNS.MichMesh.net`, port `7822`. Once you're on, say hi in the [group chat](./05-Services.md#join-group-chat).
 
 ### Web Client (Fastest Way to Try It) {#web-client}
 
