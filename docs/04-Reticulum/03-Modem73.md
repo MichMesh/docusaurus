@@ -7,8 +7,8 @@ If you're interested in experimenting, feel free to build a node and help make t
 
 ## How to setup Modem73 on Debian.
 This assumes that you have already have a running RNS instance with config under `~/.reticulum/`.
-1. Fetch the latest release of Modem73 for your platform from [github](https://github.com/RFnexus/modem73/releases)
-2. Fetch the latest release of Modem73interface from [github](https://github.com/RFnexus/modem73interface/) and save it under `~/.reticulum/interfaces/`
+1. Fetch and install the latest release of Modem73 for your platform from [github](https://github.com/RFnexus/modem73/releases)
+2. Fetch and install the latest release of Modem73interface from [github](https://github.com/RFnexus/modem73interface/) and save it under `~/.reticulum/interfaces/`
 3a. Edit `~/.reticulum/config/` and add the following lines to the `[interfaces]` section.
 ```
   [[MODEM73]]
