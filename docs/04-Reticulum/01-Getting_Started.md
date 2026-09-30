@@ -61,7 +61,7 @@ Optional: under **Settings**, **Enable Transport Mode** lets other Reticulum dev
 Announces from other nodes should start appearing in the announce stream.
 
 ### NomadNet (Terminal) {#nomadnet}
-[NomadNet](https://github.com/markqvist/NomadNet) is a text-based client for messaging, browsing and hosting pages, and it has an RRC client for [Relay Chat](./04-Services.md#relay-chat-rrc). Install it into the same Python environment as Reticulum (see [Install Reticulum](#install) below):
+[NomadNet](https://github.com/markqvist/NomadNet) is a text-based client for messaging, browsing and hosting pages, and it has an RRC client for [Relay Chat](./05-Services.md#relay-chat-rrc). Install it into the same Python environment as Reticulum (see [Install Reticulum](#install) below):
 
 ```bash
 pip install nomadnet
@@ -135,7 +135,7 @@ With `enable_transport` on, your node also relays between them, so devices on yo
     target_port = 7822
 ```
 
-Any public hub works in place of MichMesh's. Restart `rnsd` after any change to the config: `sudo systemctl restart rnsd`. To add radios, see [RNode](./02-RNode.md) and [Other Interfaces](./03-OtherInterfaces.md).
+Any public hub works in place of MichMesh's. Restart `rnsd` after any change to the config: `sudo systemctl restart rnsd`. To add radios, see [RNode](./02-RNode.md) and [Other Interfaces](./04-OtherInterfaces.md).
 
 ## Vocabulary {#vocabulary}
 
