@@ -84,7 +84,7 @@ to have a similar signal is about 250-300mw.
 
 ### Part 15 radios
 There are a few to choose from, depending on your environment. i
-- My favorite is the [LARCSet](https://www.hfsignals.com/index.php/larcset/). When building, add 3 extra wraps to the VFO toroid and you should be good to go. Use another radio to verify you are on the correct frequency. You can also use a digital vfo if you dont want to use the analog one. Tuning the power output is adjusted via a potentiometer on board. Set it to whatever power you need for your antenna. You can use a DigiRig (linked above) for the audio/PTT interface.
+- My favorite is the [LARCSet](https://www.hfsignals.com/index.php/larcset/). When building, add 3 extra wraps to the VFO toroid and you should be good to go. Use another radio to verify you are on the correct frequency. You can also use a [digital vfo](https://www.qrp-labs.com/digivfo.html) if you dont want to use the analog one. Tuning the power output is adjusted via a potentiometer on board. Set it to whatever power you need for your antenna. You can use a DigiRig (linked above) for the audio/PTT interface.
 - My second favorite is the "white button" style uSDX as it has ports on the back to use an AIOC. You can adjust the power output by dialing menu option 8.2 down till you meet the power reqs for your antenna/environment.
 - Same with the `[Tr]uSDX`
 - I know of one person using a [sBITx](https://www.hfsignals.com/index.php/sbitx/), but I cant really speak to what needs to be done to use it.
