@@ -52,4 +52,34 @@ With the little bit of testing I've done so far, the [AIOC - All In One Cable](h
 ![Reticulum mobile transports config screen](../images/reticulum/Reticulum-Mobile-Transports.png)
 9. Send an announce! Does your other test radio or buddy on the other side see your announce? If so, Victory! If not, hit me (yNos) up on Signal or Discord so we can troubleshoot and fix these docs!
 
+## What radios/frequencies are we using Modem73 on?
+Currently there are a couple places we are experimenting, Part 90 commercial channels and part 15 ISM. 
+- For Part 90, a MichMesh member is allowing the use of his unused itinerant frequencies. On UHF/High Band VHF, we are using a few DM1701s with an AIOC cable. There are plans to explore Low Band VHF as there are a few channels allocated down there, but we are still hunting for part 90 compliant gear. 
+- Part 15 HF bands, 6.789 mHz USB and 13.556 mHz USB. 6.798 gives great daytime local coverage and longer distance coverage at night. 13.556 gives national and international coverage during the day and pretty much dries up at night. 
+- Part 15 Caveats: Power! How much power can we run down here? There are a few different interpretations I've read online. Some say 1w , some say 3mw isotropic (free space, no ground losses, spherical cows, etc). From looking at FCC §15.225, we cant exceed 15,848 microvolts/meter at 30 meters. What does that mean? I wasnt sure, so I found my old wireless smart watch charger and tested what it put out. Here's an excerpt from my notes.
+```
+Problem 1:
+Knowing how much power we are allowed to output is a pain because they define it by energy 
+density per meter square at 30m distance from the center of the radiator rather than watts ierp. 
+
+Problem 2:
+I dont have a calibrated field strength meter. 
+
+Solution? Let's test a device that has passed FCC certification to see what it puts out, 
+then make an oscillator with a variable output power amp that we can dial up  the output 
+to match the known and take a measurement of that.
+
+I may not have a calibrated FSM, but I do have a spectrum analyzer, a lora rubber duck
+antenna, and pile of attenuators.
+
+Let's hang the charger on a piece of clothes line at about 10 feet up, then take a 
+measurement from 30m out. 
+
+I then made an adjustable output power oscillator (si5351 and a few mosfets, 
+adjusting bias voltage) and sent a cw tone through a qrp wattmeter, into a 
+resonant half wave antenna at about 10 feet off the ground. The power needed 
+to have a similar signal is about 250-300mw.
+```
+"But that's not what the equations say!" - This test was done in a field up against a forested area, near a river, with the water table being about 6 feet down and the soil being 4ish inches of black soil covering mostly river sand/gravel with a high iron ore content. Insert joke about spherical cows here.
+
 
