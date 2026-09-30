@@ -82,4 +82,11 @@ to have a similar signal is about 250-300mw.
 ```
 "But that's not what the equations say!" - This test was done in a field up against a forested area, near a river, with the water table being about 6 feet down and the soil being 4ish inches of black soil covering mostly river sand/gravel with a high iron ore content. Insert joke about spherical cows here.
 
+### Part 15 radios
+There are a few to choose from, depending on your environment. i
+- My favorite is the [LARCSet](https://www.hfsignals.com/index.php/larcset/). When building, add 3 extra wraps to the VFO toroid and you should be good to go. Use another radio to verify you are on the correct frequency. You can also use a digital vfo if you dont want to use the analog one. Tuning the power output is adjusted via a potentiometer on board. Set it to whatever power you need for your antenna. You can use a DigiRig (linked above) for the audio/PTT interface.
+- My second favorite is the "white button" style uSDX as it has ports on the back to use an AIOC. You can adjust the power output by dialing menu option 8.2 down till you meet the power reqs for your antenna/environment.
+- Same with the `[Tr]uSDX`
+- I know of one person using a [sBITx](https://www.hfsignals.com/index.php/sbitx/), but I cant really speak to what needs to be done to use it.
+Let me know what radio you use, we can add it to the list.
 
