@@ -20,6 +20,9 @@ As of August 2026, the following 'zones' have been onboarded and have activity:
 ## MapMe
 [MapMe](https://mapme.sh) is another Mesh-mapping software that visualizes where your MeshCore network actually works. Connect your device via Bluetooth, enable mapping, and as you move around it automatically logs which hexes have coverage based on packets you receive.
 
+## CoreScope
+[CoreScope](https://github.com/Kpa-clawbot/CoreScope/) is a Self-hosted, open-source MeshCore packet analyzer. Collects MeshCore packets via MQTT, decodes them in real time, and presents a full web UI with live packet feed, interactive maps, channel chat, packet tracing, and per-node analytics. Perfect for those with a homelab server, or even a spare RPI sitting around and want to put it to work.
+
 ## MeshCore Client Apps
 You can find all of the links to the official apps on the [MeshCore](https://meshcore.io) website.
 
@@ -30,3 +33,6 @@ It can join a mesh by scanning a settings QR code. See [Quick Setup by QR](./01-
 
 ### MeshCore One
 [MeshCore One](https://meshcoreone.com) is a third-party client for iPhone, iPad, and Apple Silicon Macs. It is not the official app, and it is open source under the GPLv3. Alongside the usual messages, channels, and QR contact sharing, it leans into diagnostics: trace path, line of sight analysis, RX logging, and remote management of repeaters and room servers. Free on the [App Store](https://apps.apple.com/us/app/meshcore-one/id6757419477), needs iOS 18 or later; source and sideload builds are on [GitHub](https://github.com/Avi0n/MeshCoreOne).
+
+### MeshCore Open
+[MeshCore Open](https://meshcoreopen.org/) is an unofficial, MIT-licensed Flutter app for MeshCore — the open LoRa mesh radio protocol. Pairs to your node over BLE, USB, or TCP from Android, iOS, Linux, macOS, Windows, or web. No internet, no cell service, no accounts. Available of iOS devices via [MeshCore Open TestFligh](https://meshcoreopen.org/install/ios/), and Android [Google Play](https://play.google.com/store/apps/details?id=com.meshcore.meshcore_open).
