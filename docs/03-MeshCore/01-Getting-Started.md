@@ -17,7 +17,7 @@ If your device has a screen, like the Heltec v3/v4 or T114, you will get the blu
 
 ### Quick Setup by QR (Android) {#quick-setup-by-qr-android}
 
-If you use [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened), connect your radio in the app and scan this code. It sets the Michigan radio preset (910.525 MHz, 62.5 kHz, SF7, CR 5), 2-byte path hashes, and the Michigan [region](./03-Repeater-Setup.md#regions) tree with `mi` as the [global flood scope](#mch-default-scope). The app shows you the settings and asks before applying anything.
+If you use [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened), connect your radio in the app and scan this code. It sets the Michigan radio preset (910.525 MHz, 62.5 kHz, SF7, CR 5) and 2-byte path hashes. It doesn't set a region, since [scoping is on hold](#set-your-region). The app shows you the settings and asks before applying anything.
 
 ![QR code with the Michigan MeshCore radio settings, for scanning with MeshCore Hardened](../../static/img/meshcore-michigan-settings-qr.svg)
 
@@ -31,7 +31,7 @@ The code carries no transmit power or channel keys, so it's safe to print or pos
 - Set your Lat/Long if your node is stationary. Select "Share Position in Advert" if you would like.
 - In Radio Settings, select "Choose Preset". Select USA/Canada (Recommended) if in the US.
 - Tap the "Check Mark" in the upper right (if on Android). This applies the current settings.
-- Set your region to `mi`. See [Set Your Region](#set-your-region) below.
+- Leave the region scope blank for now. See [Set Your Region](#set-your-region) below, including how to undo a scope you already set.
 - Bluetooth Settings - Change it to "Custom" and put in a 6 digit pin. Tap Check mark in upper right (if on Android) then scroll down and reboot. You will need to reconnect to the device (select forget from phone/computers menu first).
 
 :::tip Lost Bluetooth PIN
@@ -40,30 +40,41 @@ No need to erase and re-flash. On boards with a user button, hold it down within
 
 ### Set Your Region {#set-your-region}
 
-Michigan repeaters use [regions](./03-Repeater-Setup.md#regions) to decide how far a message floods. You don't need a repeater of your own to set this up; every companion should.
+Michigan repeaters are defining [regions](./03-Repeater-Setup.md#regions), but [scoping is on hold](./03-Repeater-Setup.md#regions-on-hold) until operators agree to move together. For now:
 
-Region scopes on a companion need firmware 1.15 or later. Screenshots here were taken with firmware 1.17.1. The setup is the same in either app:
+- **Don't set a default scope** on your companion, and **don't scope any channels**. Leave both blank.
+- **If you already set either one, undo it** with the steps below. A repeater only passes on a scoped message if it carries that region, so a companion still scoped to `mi` goes quiet beyond any repeater that hasn't defined `mi` yet.
+- **Adding regions to your app's list is fine.** It only saves names in the app, ready for later, and changes nothing on the radio.
 
-- **Set a default scope of `mi`** (required). Adverts, direct messages, logins, and every channel without its own scope go out scoped to Michigan.
-- **Scope individual channels narrower** (optional), for example `#grr` to `grr`.
+Screenshots are from firmware 1.17.1, the MeshCore app 1.50 (Android), and MeshCore Hardened 0.10.11.
 
-Discovering regions from repeaters only fills in the app's list of region names, so you can pick them instead of typing them. It doesn't change anything on the radio, and repeaters only answer it from radios that hear them directly. Each repeater answers at most 4 requests every 3 minutes, so if one doesn't reply, wait and try again.
+#### Undo Region Scoping {#undo-region-scoping}
 
-#### MeshCore App {#companion-meshcore-app}
+##### MeshCore App {#undo-meshcore-app}
 
-Needs app 1.43 or later. Screenshots are from Android app 1.50.
-
-##### Set the Default Scope {#meshcore-app-default-scope}
-
-1. Open **Settings** (the gear), scroll to **Network Settings**, and tap **Default Region Scope**. App 1.43 had this under **Settings → Experimental Settings** instead.
+1. Open **Settings** (the gear) and scroll to **Network Settings**. If **Default Region Scope** shows a region, tap the **✕** next to it, then tap **✓** at the top of **Settings**. Nothing in Settings is saved until you tap **✓**. In app 1.43 this setting is under **Settings → Experimental Settings**.
 
    <div className="phone-shot">
 
-   ![MeshCore app Settings, Network Settings section, with Default Region Scope set to mi](../images/meshcore/companion-default-region-scope.png)
+   ![MeshCore app Settings, Network Settings section, with Default Region Scope set to mi and an X to clear it](../images/meshcore/companion-default-region-scope.png)
 
    </div>
 
-2. If the region list is empty, tap **⋮ → Discover Regions**, then tap the **Discover Regions** button, and tap **Add** next to each region you want in your list.
+2. Check each channel. A channel that sends with a scope shows **Region:** under its name. A **↳** in front means it's following the default you cleared in step 1:
+
+   <div className="phone-shot">
+
+   ![Public channel header showing Region: mi](../images/meshcore/companion-channel-header.png)
+
+   </div>
+
+   If you gave a channel its own scope, open it, tap **⋮ → Set Region Scope**, then **⋮ → Clear Scope**.
+
+   <div className="phone-shot">
+
+   ![Channel menu with Set Region Scope](../images/meshcore/companion-channel-menu.png)
+
+   </div>
 
    <div className="phone-shot">
 
@@ -71,98 +82,51 @@ Needs app 1.43 or later. Screenshots are from Android app 1.50.
 
    </div>
 
-   <div className="phone-shot">
+##### MeshCore Hardened {#undo-mch}
 
-   ![Discover Regions screen listing midwest, mi, mi-west and grr, each with an Add button](../images/meshcore/companion-discover-regions-results.png)
+Update to [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened) 0.10.11 or later first. In earlier versions, **Clear** doesn't remove a default scope saved on the radio.
 
-   </div>
-
-   You can also add a region by hand with **+**.
-
-3. Back on **Select Region**, pick `mi`, then tap the **✓** at the top of **Settings** to save it to the radio. Nothing in Settings is saved until you tap **✓**. Once saved, `mi` is marked **default** in the region list.
+1. Open **Settings → Mesh policies**. Under **Global flood scope**, tap **Clear**. The line above the field changes to **The radio has no saved default scope.**
 
    <div className="phone-shot">
 
-   ![Select Region list with mi selected and marked default](../images/meshcore/companion-select-region.png)
+   ![Mesh policies screen showing the saved default scope on the radio is region mi, with Set and Clear buttons](../images/meshcore/mch-flood-scope-regions.png)
 
    </div>
 
-The default scope covers adverts, direct messages, logins, and every channel that doesn't have its own scope, so a companion with it set isn't affected by the [unscoped cap](./03-Repeater-Setup.md#flood-max-unscoped).
-
-##### Scope a Channel {#meshcore-app-channel-scope}
-
-A channel with no scope of its own uses the default. Its header shows **↳ Region: mi**, where the arrow means it's inherited:
-
-<div className="phone-shot">
-
-![Public channel header showing an inherited Region: mi](../images/meshcore/companion-channel-header.png)
-
-</div>
-
-To narrow a channel, open it, tap **⋮ → Set Region Scope**, and pick a region. A channel's scope overrides the default, so only set one where you want less than `mi`. **⋮ → Clear Scope** on the same screen puts the channel back on the default.
-
-<div className="phone-shot">
-
-![Channel menu with Set Region Scope](../images/meshcore/companion-channel-menu.png)
-
-</div>
-
-#### MeshCore Hardened {#companion-mch}
-
-Needs [MeshCore Hardened](./02-MeshCore-Applications.md#meshcore-hardened) 0.10.11 or later, which saves the scope on the radio. Earlier versions only kept it until the radio rebooted, so update first. Screenshots are from 0.10.11.
-
-##### Set the Default Scope {#mch-default-scope}
-
-1. Open **Settings** and tap **Mesh policies**.
+2. Open each channel, tap **⋮ → Channel settings…**, choose **None** under **Region (flood scope)**, and tap **Save**.
 
    <div className="phone-shot">
 
-   ![MeshCore Hardened Settings, This Node section, with Mesh policies listed](../images/meshcore/mch-settings-mesh-policies.png)
+   ![MeshCore Hardened channel settings with the Region (flood scope) choices None, grr, mi, mi-west and midwest](../images/meshcore/mch-channel-region.png)
 
    </div>
 
-2. Under **Regions**, tap **Discover from repeaters…**, then **Add** each region you want and tap **Done**. You can also type a region name and tap **Add**.
+#### Add Regions to Your App (Optional) {#add-regions-to-app}
 
-   <div className="phone-shot">
+Your app can ask nearby repeaters which regions they carry and save the names, so they're ready to pick once scoping starts. Only repeaters your radio hears directly answer, and each one answers at most 4 requests every 3 minutes, so if one doesn't reply, wait and try again. Needs companion firmware 1.15 or later.
 
-   ![Regions heard dialog listing grr, mi, mi-west and midwest, each with an Add button](../images/meshcore/mch-regions-heard.png)
+- **MeshCore app:** **Settings → Network Settings → Default Region Scope** opens the region list. Tap **⋮ → Discover Regions**, tap the **Discover Regions** button, then tap **Add** next to each region. Back out with the **✕**, not by picking a region: picking one would set it as your default scope.
 
-   </div>
+  <div className="phone-shot">
 
-3. Under **Global flood scope**, type `mi` and tap **Set**; there's no separate save. The line above the field reads **The radio's saved default scope is region mi** once it's saved. MCH reads this from the radio each time it connects, so it also shows a default set by another app.
+  ![Discover Regions screen listing midwest, mi, mi-west and grr, each with an Add button](../images/meshcore/companion-discover-regions-results.png)
 
-   <div className="phone-shot">
+  </div>
 
-   ![Mesh policies screen showing the saved default scope on the radio is region mi, with the region list below it](../images/meshcore/mch-flood-scope-regions.png)
+- **MeshCore Hardened:** **Settings → Mesh policies**, then under **Regions** tap **Discover from repeaters…**, **Add** each region, and tap **Done**. Leave **Global flood scope** blank.
 
-   </div>
+  <div className="phone-shot">
 
-**Clear** removes the saved default, and the radio then sends untagged traffic. Don't clear it unless you mean to.
+  ![MeshCore Hardened Settings, This Node section, with Mesh policies listed](../images/meshcore/mch-settings-mesh-policies.png)
 
-##### Scope a Channel {#mch-channel-scope}
+  </div>
 
-Open the channel, tap **⋮ → Channel settings…**, pick a region under **Region (flood scope)**, and tap **Save**.
+  <div className="phone-shot">
 
-<div className="phone-shot">
+  ![Regions heard dialog listing grr, mi, mi-west and midwest, each with an Add button](../images/meshcore/mch-regions-heard.png)
 
-![MeshCore Hardened channel settings with the Region (flood scope) choices None, grr, mi, mi-west and midwest](../images/meshcore/mch-channel-region.png)
-
-</div>
-
-**None** means the channel has no region of its own and uses the **Global flood scope** (`mi`), the same as a channel with no scope in the MeshCore app. Leave it on **None** unless you want the channel narrower than `mi`.
-
-#### Channel Scopes {#companion-channel-scopes}
-
-Channel scopes are separate from the channel name: naming a channel `#grr` doesn't scope it. A practical setup:
-
-| Channel | Scope |
-| --- | --- |
-| `#michigan` | `mi` |
-| `#wmi` | `mi-west` |
-| `#grr` / `#azo` | `grr` / `azo` |
-| Public | your local region for everyday conversation |
-
-Scope narrowly: use the smallest region the conversation needs. A scoped message only travels through repeaters that carry that region, so a channel scoped to `grr` won't get far once you leave Grand Rapids. When you travel, switch local channels back to the default.
+  </div>
 
 From here, it depends on your personal preference and if you have any sensors attached.
 
