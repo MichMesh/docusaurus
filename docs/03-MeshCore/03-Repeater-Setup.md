@@ -55,10 +55,9 @@ set dutycycle 100
 set loop.detect moderate
 
 # 4. Regions (Grand Rapids example: use your own subregion / local region)
+#    Define them only. Scoping is on hold: no region default, no unscoped cap.
 region def midwest mi mi-west grr
-region default mi
 region save
-set flood.max.unscoped 3
 
 # 5. Delay profile (SUBURBAN shown: pick yours from Delay Profiles)
 set txdelay 0.8
@@ -165,16 +164,14 @@ set loop.detect moderate
 
 ### 7. Set Regions {#step-7-regions}
 
-Tag the repeater with the full region ancestry for the area it serves, set its default scope to `mi`, and cap unscoped floods at 3 hops. See [Regions](#regions) for what to carry.
+Define the full region ancestry for the area the repeater serves. See [Regions](#regions) for what to carry.
 
 ```bash path=null start=null
 region def midwest mi <subregion> <local_region>
-region default mi
 region save
-set flood.max.unscoped 3
 ```
 
-Leave off `<local_region>` if your area doesn't have one yet.
+Leave off `<local_region>` if your area doesn't have one yet. Don't set a default scope or cap unscoped floods: [scoping is on hold](#regions-on-hold). If you already did, [undo it](#undo-scoping).
 
 ### 8. Pick a Delay Profile {#step-8-delay}
 
@@ -200,13 +197,28 @@ reboot
 clock
 get role
 get path.hash.mode
-get flood.max.unscoped
 region
+region default
+get flood.max.unscoped
 ```
+
+`region default` should answer `default scope is <null>` and `get flood.max.unscoped` should answer `> 64`, the firmware default.
 
 ## Regions {#regions}
 
 Regions let traffic be scoped so it only floods as far as it's useful. A repeater forwards scoped traffic only for regions it carries, so the regions you configure decide what your repeater will pass on. Michigan's region names and county assignments come from the draft [Michigan MeshCore Regions RFC](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), developed by Michigan operators.
+
+### Scoping Is On Hold {#regions-on-hold}
+
+:::info
+Some repeaters had already started scoping traffic and others hadn't, so operators agreed to keep the mesh open for now. Until the group decides otherwise:
+
+- **Define regions on repeaters** with `region def` and `region save`, as below.
+- **Don't** set `region default`, set `flood.max.unscoped`, or use `region denyf`.
+- **Don't** set a default scope or channel scopes on companions.
+
+Already changed something? See [Undo Scoping Changes](#undo-scoping) for repeaters and [Undo Region Scoping](./01-Getting-Started.md#undo-region-scoping) for companions.
+:::
 
 ### The Michigan Hierarchy {#region-hierarchy}
 
@@ -255,26 +267,51 @@ Examples:
 | Traverse City | `region def midwest mi mi-north` |
 | Marquette | `region def midwest mi mi-upper` |
 
-### Default Scope: `mi` {#region-default}
+### Undo Scoping Changes {#undo-scoping}
 
-`region default mi` scopes the repeater's own adverts statewide. Every Michigan repeater should carry `mi` and use it as its default: a repeater without `mi` won't forward `mi`-scoped traffic, which leaves anyone who scopes to `mi` with less reach than unscoped users.
-
-### Cap Unscoped Floods {#flood-max-unscoped}
-
-Traffic with no region, which includes everything from a companion that hasn't set a default scope, is forwarded by every repeater no matter which regions it carries. Out-of-state traffic ducting across Lake Michigan is unscoped. Regions do nothing about it on their own.
+If you followed an earlier version of this guide, your repeater may have a default scope or an unscoped cap. Leave the regions you defined in place and run:
 
 ```bash path=null start=null
-set flood.max.unscoped 3
-get flood.max.unscoped
+region default <null>
+set flood.max.unscoped 64
 ```
 
-This drops an unscoped flood once its path already carries 3 hops. A new user's adverts and first messages still reach their local repeaters, but a packet that's been repeated three times before crossing the lake doesn't get a fourth. Companions with a default scope set are unaffected. Requires firmware 1.16.
+Both save immediately, so no reboot is needed. `64` is the firmware default, which means no cap.
 
-Don't block unscoped traffic outright with `region denyf *`. Every new user starts out unscoped, and blocking them silences them until they find a setting they don't know exists.
+If you also blocked unscoped traffic with `region denyf *`, reopen it. Unlike the two commands above, `allowf` needs a `region save`:
 
-:::note Sparse areas
-Where a new user would need more than 3 hops to reach anyone (much of the northern Lower Peninsula and the Upper Peninsula today), it's reasonable to leave the cap at its default until coverage fills in. If you do, say so in the group.
-:::
+```bash path=null start=null
+region allowf *
+region save
+```
+
+Then check it:
+
+```bash path=null start=null
+region default
+get flood.max.unscoped
+region
+```
+
+Expect `default scope is <null>`, `> 64`, and a tree where every line, including the top `*` line, ends in `F`:
+
+```text
+* F
+ midwest F
+  mi F
+   mi-west F
+    grr F
+```
+
+### Default Scope (On Hold) {#region-default}
+
+`region default <region>` would scope the repeater's own adverts to that region. It's [on hold](#regions-on-hold), so don't set it.
+
+### Unscoped Cap (On Hold) {#flood-max-unscoped}
+
+`set flood.max.unscoped <hops>` would drop traffic with no region once it had travelled that many hops. It's [on hold](#regions-on-hold), so leave it at the firmware default of `64`.
+
+Scoped traffic only travels through repeaters that carry its region, so a mesh where some repeaters scope and others don't loses messages in between. That's why these wait until everyone moves together.
 
 ### Repeaters on a Boundary {#region-boundary}
 
@@ -282,19 +319,15 @@ A repeater can carry more than one subregion. A site on the `mi-west` / `mi-cent
 
 - Carry a neighboring subregion only if you serve companions there. Hearing a neighbor's repeater on a good day isn't coverage.
 - A few deliberate bridges per boundary, announced in the group, beat every edge repeater quietly carrying both.
-- On a bridge, set `region default` to the **home** subregion where most of the footprint is, not `mi`. Setting `mi` to "cover both" makes its adverts statewide.
-- Always set `flood.max.unscoped 3` on a bridge. It's where a leaked unscoped flood would pick up a fresh set of hops.
-
 ```bash path=null start=null
 region def midwest mi mi-west grr
 region def midwest mi mi-central
-region default mi-west
 region save
 ```
 
 ### Companion Settings {#region-companion}
 
-Companion setup (default scope, discovering regions, and channel scopes) is on [Getting Started](./01-Getting-Started.md#set-your-region), with screenshots for both apps.
+Companion region setup, and how to undo a default scope or channel scope set earlier, is on [Getting Started](./01-Getting-Started.md#set-your-region), with screenshots for both apps.
 
 ## Claim a Unique Public Key Prefix {#claim-a-unique-public-key-prefix}
 
@@ -486,7 +519,7 @@ How often the repeater floods an advert across the whole mesh, so nodes out of d
 ### flood.max: Flood Hop Limit {#flood-max}
 Drops a flood packet once its recorded path has reached this many hops. Repeater firmware defaults to `64`.
 
-Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it. For unscoped traffic, [`flood.max.unscoped`](#flood-max-unscoped) is what does that.
+Worth knowing before you tune it: a packet's path field holds 64 bytes total, so at `path.hash.mode 1` (2-byte hashes) a flood can only ever carry **32 hops** before it runs out of room. Setting `32` costs nothing and matches what other networks publish, but genuinely bounding flood propagation would need a value well below it. For unscoped traffic, [`flood.max.unscoped`](#flood-max-unscoped) would do that, but it's [on hold](#regions-on-hold).
 
 ## Full Settings Audit {#full-settings-audit}
 
@@ -523,8 +556,11 @@ get public.key
 
 ```bash path=null start=null
 region
+region default
 get flood.max.unscoped
 ```
+
+Every line of `region` should end in `F`, `region default` should be `<null>`, and `flood.max.unscoped` should be `64`. Anything else is left over from scoping; see [Undo Scoping Changes](#undo-scoping).
 
 From the app, **Discover Regions (Scan Local)** should show every nearby configured repeater reporting `mi` and its ancestry.
 
