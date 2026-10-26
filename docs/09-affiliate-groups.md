@@ -1,8 +1,8 @@
 ---
-sidebar_label: Affilate Groups
+sidebar_label: Affiliate Groups
 ---
-
-### We are made up of multiple regional meshes, here are a few:
+# Affiliate Groups
+We are made up of multiple regional meshes, here are a few:
 
 - [WestMichMesh](https://www.westmichmesh.org/)
 - [Muskegon Mesh](https://muskegonmesh.org/)
