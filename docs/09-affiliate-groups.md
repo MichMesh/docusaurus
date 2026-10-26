@@ -1,5 +1,7 @@
 ---
+sidebar_label: Affilate Groups
 ---
+
 ### We are made up of multiple regional meshes, here are a few:
 
 - [WestMichMesh](https://www.westmichmesh.org/)
