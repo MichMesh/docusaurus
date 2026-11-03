@@ -9,4 +9,5 @@ We are made up of multiple regional meshes, here are a few:
 - [KzooMesh](https://kzoomesh.org/)
 - [EastSideMesh](https://eastsidemesh.com/)
 - [ThumbMesh](https://thumbmesh.com/)
+- [NorthernMichMesh](https://northernmichmesh.org/)
 - [DetroitMesh](https://detroitmesh.com/) - Seems to be abandoned?
