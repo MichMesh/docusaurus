@@ -84,10 +84,6 @@ jobs:
           fi
           echo "published=true" >> "$GITHUB_OUTPUT"
 
-      - name: Wait for michmesh.com to serve this build
-        if: steps.publish.outputs.published == 'true'
-        run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
-
 
   deploy-pages:
     name: Deploy to GitHub Pages
@@ -100,3 +96,12 @@ jobs:
       - name: Deploy
         id: deploy
         uses: actions/deploy-pages@v5
+
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts
+
+      # michmesh.com's DNS now points at GitHub Pages, so check the site
+      # after the Pages deploy, not after the commit to master.
+      - name: Wait for michmesh.com to serve this build
+        run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
