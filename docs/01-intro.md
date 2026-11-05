@@ -67,5 +67,5 @@ building toward permanent regional coverage.
 
 ## Get Involved
 
-Please test the howtos and send [yNos](Contact) any updates or screenshots
+Please test the howtos and send [yNos](./08-Contact.md) any updates or screenshots
 as things change.
