@@ -1,0 +1,39 @@
+name: Close stale issues and PRs
+
+# Daily: an issue or PR with no activity for 7 days is labelled "stale" and
+# gets a warning comment; after 14 more days with no activity it is closed.
+# Any comment, push or edit removes the label and restarts the count.
+# Draft PRs and anything labelled "pinned" are never marked stale.
+
+on:
+  schedule:
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v11
+        with:
+          days-before-stale: 7
+          days-before-close: 14
+          stale-issue-label: stale
+          stale-pr-label: stale
+          exempt-draft-pr: true
+          exempt-issue-labels: pinned
+          exempt-pr-labels: pinned
+          stale-issue-message: >
+            This issue has had no activity for 7 days. It will be closed in
+            14 days unless there's a new comment. Add the `pinned` label to
+            keep it open.
+          stale-pr-message: >
+            This PR has had no activity for 7 days. It will be closed in
+            14 days unless there's a new comment or push. Add the `pinned`
+            label to keep it open.
+          close-issue-message: Closed after 21 days with no activity. Reopen it if it's still needed.
+          close-pr-message: Closed after 21 days with no activity. Reopen it if it's still needed.
