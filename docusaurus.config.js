@@ -19,6 +19,9 @@ const config = {
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/',
+  // Pages are built as <path>/index.html, so link to <path>/ directly.
+  // GitHub Pages would otherwise answer every slash-less link with a redirect.
+  trailingSlash: true,
 
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'throw',
