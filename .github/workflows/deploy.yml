@@ -8,6 +8,11 @@ name: Build and publish site
 #
 # Pushes made with GITHUB_TOKEN don't start workflows, so the commit this
 # makes doesn't trigger another run.
+#
+# Moving to GitHub Pages: the same build is also deployed to Pages (the
+# deploy-pages job). Until michmesh.com's DNS points at GitHub, Pages just
+# sits ready and the server keeps serving. After the cutover, the commit to
+# master, the webhook and the server go away and only the Pages deploy stays.
 
 on:
   push:
@@ -16,6 +21,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 # One publish at a time, in order. A run whose commit is no longer the tip
 # of master skips publishing: the run for the newer commit publishes it.
@@ -47,6 +54,11 @@ jobs:
       - name: Check the build is complete
         run: npm run check:build
 
+      - name: Upload the build for GitHub Pages
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: build
+
       - name: Commit build/ to master
         id: publish
         run: |
@@ -72,7 +84,24 @@ jobs:
           fi
           echo "published=true" >> "$GITHUB_OUTPUT"
 
-      - name: Wait for michmesh.com to serve this build
-        if: steps.publish.outputs.published == 'true'
-        run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
 
+  deploy-pages:
+    name: Deploy to GitHub Pages
+    needs: publish
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deploy
+        uses: actions/deploy-pages@v5
+
+      - uses: actions/checkout@v7
+        with:
+          sparse-checkout: scripts
+
+      # michmesh.com's DNS now points at GitHub Pages, so check the site
+      # after the Pages deploy, not after the commit to master.
+      - name: Wait for michmesh.com to serve this build
+        run: scripts/wait-for-deploy.sh "$GITHUB_SHA"
