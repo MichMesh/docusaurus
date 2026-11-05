@@ -1,20 +1,10 @@
-######################################################################################
-### Do not add /build to gitignore, this is the dir that we serve the site out of! ###
-######################################################################################
-
 # Dependencies
 /node_modules
 
-# Generated files
+# Generated files (the site is built and deployed by GitHub Actions)
+/build
 .docusaurus
 .cache-loader
-
-# Webhook listener (created on the server)
-/webhooks/venv-webhook/
-__pycache__/
-
-/webhooks/venv-webhook/
-__pycache__/
 
 # Misc
 .DS_Store
@@ -29,4 +19,3 @@ yarn-error.log*
 
 .claude
 #build-and-commit-mac.sh
-/webhooks/venv-webhook
