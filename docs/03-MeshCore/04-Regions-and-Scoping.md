@@ -4,8 +4,12 @@ sidebar_label: Regions and Scoping
 
 # Regions and Scoping
 
+:::note
+These settings are recommendations, not rules. Each operator decides how to run their own repeater. The region plan comes from draft RFC-001 and is still under discussion, but the mesh works best when nearby repeaters are set up the same way.
+:::
+
 :::info Now: step 1, tagging every repeater
-Michigan is rolling out regions in steps, and step 1 is giving every repeater its region names. Until the next step is announced, your messages travel just as they always have.
+Regions are rolling out in steps, and step 1 is giving every repeater its region names. Until the next step is announced, your messages travel just as they always have.
 
 - **Companion users:** nothing you need to set. Unscoped messages reach everyone. You're welcome to experiment with scoped messages; they only reach as far as repeaters carry their region, so expect gaps while repeaters are still being tagged.
 - **Repeater operators:** define your regions with `region def` and `region save`, and change no other region or scope settings. [Repeater Setup](./03-Repeater-Setup.md#regions-on-hold) has the details.
@@ -49,7 +53,7 @@ Three more things worth knowing:
 
 **Why we don't just block it.** Every new user starts out unscoped. Blocking unscoped messages would silence them until they set a scope they don't know exists yet. That's the wrong trade for a network that wants to grow.
 
-**What other meshes learned.** Where some repeaters were tagged and others weren't, scoped messages got lost in the gaps, and several cities in Poland gave up on scoping for that reason. Some communities tag every repeater before anyone scopes, which is what Michigan is doing.
+**What other meshes learned.** Where some repeaters were tagged and others weren't, scoped messages got lost in the gaps, and several cities in Poland gave up on scoping for that reason. Some communities tag every repeater before anyone scopes, which is the plan here.
 
 ## Why the Names Look Like This {#why-the-names}
 
@@ -70,7 +74,7 @@ When scoping starts, the idea is to pick the smallest region that still reaches 
 
 ## Where Michigan Stands {#where-we-are}
 
-**Every Michigan repeater should be tagged now**, with `midwest`, `mi`, its subregion, and a local region if its area uses one. Regions follow the coverage a repeater actually serves, not a county line. Repeaters change no other region settings. Companions stay unscoped by default, and anyone can experiment with scoped messages.
+**The current recommendation is to tag every Michigan repeater now**, with `midwest`, `mi`, its subregion, and a local region if its area uses one. Regions follow the coverage a repeater actually serves, not a county line. Repeaters change no other region settings. Companions stay unscoped by default, and anyone can experiment with scoped messages.
 
 Repeaters need firmware **1.16 or later**. For repeaters and companions alike, the latest release is best. Update from the [web flasher](https://flasher.meshcore.io/).
 
@@ -209,7 +213,7 @@ MeshCore is still adding region features, so details may change. This page gets 
 
 ## The Rollout {#the-plan}
 
-Michigan is rolling regions out in steps. Each one starts when operators agree the last one is done, and it's announced before it starts.
+Regions are rolling out in steps. Each one starts when operators agree the last one is done, and it's announced before it starts.
 
 1. **Tag every repeater** (now). Every repeater carries all its regions, so nobody gets cut off when scoped messages start.
 2. **Limit how far unscoped messages travel** (next). Companions set a default scope, and every repeater stops passing an unscoped message after it has been repeated 3 times, starting with tall, well-connected sites. Sparse areas, like much of the northern Lower Peninsula and the UP, can leave the limit off until coverage fills in. [What changes](#when-limited) is below.
@@ -247,7 +251,7 @@ When step 2 starts, an unscoped message only travels about three repeaters from 
 | Local, like `#grr` or `#azo` | that local region |
 | Public | your local region, or your subregion if your area doesn't have one |
 
-MeshCore's own guidance suggests setting a broad default scope right away. Michigan recommends it from step 2, so nobody gets cut off while repeaters are still being tagged.
+MeshCore's own guidance suggests setting a broad default scope right away. The rollout plan recommends it from step 2, so nobody gets cut off while repeaters are still being tagged.
 
 ## The Map and Names {#the-map}
 
@@ -262,7 +266,7 @@ Reference boundaries for the five subregions, drawn from county groupings. They'
 
 [Open the map full screen](https://optimetrics.github.io/mesh-region-map/) · [Map source and data](https://github.com/Optimetrics/mesh-region-map)
 
-Michigan follows the draft [RFC-001: Michigan MeshCore Regions](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), a proposal written by Michigan operators:
+These region names come from the draft [RFC-001: Michigan MeshCore Regions](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), a proposal written by Michigan operators and still under discussion:
 
 ```text
 midwest
