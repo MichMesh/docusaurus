@@ -11,10 +11,9 @@
 
 # Webhook listener (created on the server)
 /webhooks/venv-webhook/
+/webhooks/__pycache__/
 __pycache__/
 
-/webhooks/venv-webhook/
-__pycache__/
 
 # Misc
 .DS_Store
