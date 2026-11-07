@@ -3,7 +3,7 @@
 ## linode shell
 - `sudo snap install linode-cli`
 ### get a list of domains
-- `sudo linode-cli domains list
+- `sudo linode-cli domains list`
 ### list entries for the domain michmesh.org
 - `sudo linode-cli domains records-list 3449077`
 
@@ -14,13 +14,13 @@ This will make sure all the env vars are loaded and file perms are setup correct
 
 
 ## Firewall rules
-allow http
+allow http  
 - `sudo ufw allow http`
 - `sudo ufw allow 443/tcp`
-Allow MQTT
+Allow MQTT  
 - `sudo ufw allow 1883/tcp`
 - `sudo ufw allow 8883/tcp`
-Allow RNS
+Allow RNS  
 - `sudo ufw allow 7822/tcp`
 - `sudo ufw allow 7823/tcp`
 
