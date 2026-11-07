@@ -1,0 +1,16 @@
+[Unit]
+Description=Reticulum lxmd
+After=multi-user.target
+Requires=rnsd.service
+After=rnsd.service
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+User=rnsd
+ExecStart=/opt/rnsd/reticulum.venv/bin/python3 /opt/rnsd/reticulum.venv/bin/lxmd --propagation-node
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
