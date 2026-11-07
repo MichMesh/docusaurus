@@ -1,5 +1,3 @@
 gunicorn
-uvicorn
-fastapi
 flask
 gitPython
