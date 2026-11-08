@@ -1,0 +1,9 @@
+outputFile=fwdsvc
+repo="thatSFguy/reticulum-group-chat"
+
+#get the latest file's url
+latestFile=`curl -sL https://api.github.com/repos/thatSFguy/reticulum-group-chat/releases/latest | grep -wo "https.*linux-x86_64\|https.*linux-amd64"`
+
+#get the file, make it exec - if the fetch fails, try it again without throwing all the output in the trash.
+wget -O $outputFile $latestFile -o /dev/null && chmod +x $outputFile || wget -O $outputFile $latestFile
+
