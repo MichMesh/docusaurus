@@ -18,6 +18,10 @@ def webhook_parser(inputDict):
     origin = git.cmd.Git("/opt/rnsd/.nomadnetwork/storage/pages")
     origin.pull
     return 'NomadPages Webhook received and pages pulled', 200
+  elif inputDict["repository"]["full_name"]   == "thatSFguy/reticulum-group-chat":
+    subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/get-latest-fwd-svc"], check=True])
+    subprocess.Popen(["sudo", "systemctl", "start", "reticulum-group-chat"], check=True])
+
   else:
     outputline = "unknown repository/full_name: " + inputDict["repository"]["full_name"]
     subprocess.Popen(['/usr/bin/echo', outputline])
