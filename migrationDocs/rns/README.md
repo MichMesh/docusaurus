@@ -22,8 +22,13 @@
 - copy the systemd file from this dir to /etc/systemd/system/nomadnet.service `sudo cp nomadnet.service /etc/systemd/system/`
 - start/enable the service `sudo systemctl start nomadnet && sudo systemctl enable nomadnet`
 ## Group Chat
-- copy the config from the source machine `ssh ynos@ynos.us "tar -zcvf - .config/fwdsvc" | tar -zxvf - `
-- pull down the latest `curl -o ~/fwdsvc https://github.com/thatSFguy/reticulum-group-chat/releases/download/v1.18.1/fwdsvc-linux-amd64 ; chmod +x ~/fwdsvc`
+- copy the config from the source machine `cd /opt/rnsd; ssh ynos@ynos.us "tar -zcvf - .config/fwdsvc" | tar -zxvf - `
+- pull down the latest `wget https://github.com/thatSFguy/reticulum-group-chat/releases/download/v1.18.1/fwdsvc-linux-amd64 -O /opt/rnsd/fwdsv; chmod +x /opt/rnsd/fwdsvc`
 - copy `reticulum-group-chat.service` to `/etc/systemd/system/` using `sudo cp reticulum-group-chat.service /etc/systemd/system/`
-
+- start/enable the service `sudo systemctl start reticulum-group-chat && sudo systemctl enable reticulum-group-chat`
+## NomadSearch
+- copy the config from the source machine `cd /opt/rnsd/ ; ssh ynos@ynos.us "tar -zcvf - .nomadsearch" | tar -zxvf - `
+- pull the latest nomadsearch `wget -O nomadsearch https://github.com/thatSFguy/reticulum-nomad-search/releases/download/v0.6.0/nomadsearch-v0.6.0-linux-amd64 ; chmod +x nomadsearch`
+- copy the systemd file from this dir to /etc/systemd/system/nomadsearch.service `sudo cp nomadsearch.service /etc/systemd/system/`
+- start/enable the service `sudo systemctl start nomadsearch && sudo systemctl enable nomadsearch`
 

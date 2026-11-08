@@ -1,0 +1,16 @@
+[Unit]
+Description=Nomadsearch Daemon
+Requires=rnsd.service 
+After=rnsd.service 
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=3
+User=rnsd
+ExecStart=/opt/rnsd/nomadsearch run
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
