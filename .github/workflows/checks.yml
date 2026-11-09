@@ -52,3 +52,19 @@ jobs:
       - name: Check redirects
         run: npm run check:build
 
+      - name: Build the NomadNet micron pages
+        run: npm run build:micron
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: scripts/requirements-micron.txt
+
+      - name: Install NomadNet
+        run: pip install -r scripts/requirements-micron.txt
+
+      # Serves the pages from a real NomadNet node on 127.0.0.1 and fetches
+      # each one back. Nothing leaves the runner.
+      - name: Check the micron pages
+        run: python scripts/check-micron.py build/micron.tgz
