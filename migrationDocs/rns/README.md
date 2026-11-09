@@ -21,6 +21,7 @@
 ## Nomadnet
 - copy the systemd file from this dir to /etc/systemd/system/nomadnet.service `sudo cp nomadnet.service /etc/systemd/system/`
 - start/enable the service `sudo systemctl start nomadnet && sudo systemctl enable nomadnet`
+- Part of the docusaurus release is converting the `.md` files into micron pages, we need a little helper script for webhooks to call so we can untar those files into the `.nomadnetwork/storage/pages/` dir. Copy updateNomadnetwork over to `/opt/rnsd/updateNomadnet`
 ## Group Chat
 - copy the config from the source machine `cd /opt/rnsd; ssh ynos@ynos.us "tar -zcvf - .config/fwdsvc" | tar -zxvf - `
 - pull down the latest `wget https://github.com/thatSFguy/reticulum-group-chat/releases/download/v1.18.1/fwdsvc-linux-amd64 -O /opt/rnsd/fwdsv; chmod +x /opt/rnsd/fwdsvc`

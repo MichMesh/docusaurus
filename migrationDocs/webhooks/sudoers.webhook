@@ -1,5 +1,5 @@
-Cmnd_Alias WEBHOOK_RNS   = /opt/rnsd/get-latest-fwdsvc, /opt/other/update_service
-Cmnd_Alias WEBHOOK_ROOT  = /usr/bin/systemctl restart reticulum-group-chat, /usr/bin/systemctl restart nomadsearch, /usr/bin/systemctl restart otherservice
+Cmnd_Alias WEBHOOK_RNS   = /opt/rnsd/get-latest-fwdsvc, /opt/rnsd/updateNomadnet
+Cmnd_Alias WEBHOOK_ROOT  = /usr/bin/systemctl restart reticulum-group-chat, /usr/bin/systemctl restart nomadsearch
 
 webhooks ALL=(rnsd) NOPASSWD: WEBHOOK_RNS
 webhooks ALL=(root) NOPASSWD: WEBHOOK_ROOT

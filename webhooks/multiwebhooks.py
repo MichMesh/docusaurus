@@ -13,6 +13,7 @@ def webhook_parser(inputDict):
     repo = git.Repo("/var/www/michmesh/")
     origin = repo.remotes.origin
     origin.pull()
+    subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/updateNomadnet"])
     return 'Webhook received and script triggered', 200
   elif inputDict["repository"]["full_name"]   == "MichMesh/NomadPages":
     origin = git.cmd.Git("/opt/rnsd/.nomadnetwork/storage/pages")

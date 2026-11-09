@@ -1,0 +1,2 @@
+cd ~/.nomadnetwork/storage/pages
+tar -zxvf /var/www/michmesh/build/micron.tgz
