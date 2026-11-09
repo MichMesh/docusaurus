@@ -10,6 +10,9 @@
 - Every PR is built and checked automatically (see the **Checks** tab): broken links, broken anchors, unfilled placeholders and bad Reticulum hashes fail the check.
 - Once a PR is merged, GitHub Actions builds the site and commits `build/` to `master` ("Publish build for …"). The server pulls on GitHub's webhook and michmesh.com updates within a few minutes. Nobody needs to build or deploy by hand.
 
+## NomadNet pages
+Every publish also builds the docs as NomadNet micron pages, at <https://michmesh.com/micron.tgz>. `https://michmesh.com/version.txt` changes with each publish, so a node can poll it to see when to download again. To host them, unpack the archive into a clean NomadNet `storage/pages` directory and restart the node so it picks up new pages. `index.mu` is the home page. Nothing in the archive is executable, and it has to stay that way: NomadNet runs executable pages as programs.
+
 ## How the site is served
 michmesh.com is served by nginx from `build/` in a checkout of `master` on the server. The listener in [`webhooks/`](webhooks/README.md) runs `git pull` when GitHub reports a push, which is why `build/` stays in git.
 - Commit your changes to `docs/` (or `src/`, `static/`) and open a Pull Request (PR). Don't commit `build/`; it's generated.

@@ -1,0 +1,5 @@
+# Versions the micron pages are checked against. Same pins as
+# reticulum-specifications; check-micron.py runs a real node from these.
+nomadnet==1.4.4
+rns==1.5.7
+lxmf==1.2.1
