@@ -11,11 +11,13 @@ def webhook_parser(inputDict):
   if inputDict["repository"]["full_name"]   == "MichMesh/docusaurus":
     #subprocess.Popen(['/bin/bash', '/var/www/michmesh/webhooks/docusaurus.sh'])
     repo = git.Repo("/var/www/michmesh/")
+    # blow away any local changes so the pull doesnt poop out.
+    repo.git.reset('--hard')
     origin = repo.remotes.origin
     origin.pull()
-    subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/updateNomadnet"])
     return 'Webhook received and script triggered', 200
   elif inputDict["repository"]["full_name"]   == "MichMesh/NomadPages":
+    #subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/updateNomadnet"])
     origin = git.cmd.Git("/opt/rnsd/.nomadnetwork/storage/pages")
     origin.pull
     return 'NomadPages Webhook received and pages pulled', 200
