@@ -20,7 +20,7 @@ def webhook_parser(inputDict):
     origin.pull
     return 'NomadPages Webhook received and pages pulled', 200
   elif inputDict["repository"]["full_name"]   == "thatSFguy/reticulum-group-chat":
-    subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/get-latest-fwd-svc"])
+    subprocess.Popen(["sudo", "-u", "rnsd", "/opt/rnsd/get-latest-fwdsvc"])
     subprocess.Popen(["sudo", "/usr/bin/systemctl", "restart", "reticulum-group-chat"])
     return 'rns fwdsvc Webhook received and binary pulled', 200
 
