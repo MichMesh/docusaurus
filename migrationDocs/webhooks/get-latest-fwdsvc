@@ -1,9 +1,47 @@
-outputFile=fwdsvc
+#!/usr/bin/env bash
+# Install the latest fwdsvc release. Safe to run from a webhook that fires
+# several times per release, and safe to run while fwdsvc is running.
+set -euo pipefail
+
 repo="thatSFguy/reticulum-group-chat"
+asset="fwdsvc-linux-amd64"
+dest="${1:-$HOME/fwdsvc}"
+api="https://api.github.com/repos/$repo/releases/latest"
 
-#get the latest file's url
-latestFile=`curl -sL https://api.github.com/repos/thatSFguy/reticulum-group-chat/releases/latest | grep -wo "https.*linux-x86_64\|https.*linux-amd64"`
+# One release sends several webhook events (created, released, published).
+# Let one run do the work; the others exit at once.
+exec 9>"$dest.lock"
+flock -n 9 || { echo "another update is already running"; exit 0; }
 
-#get the file, make it exec - if the fetch fails, try it again without throwing all the output in the trash.
-wget -O $outputFile $latestFile -o /dev/null && chmod +x $outputFile || wget -O $outputFile $latestFile
+tmp=$(mktemp -d "$(dirname "$dest")/.fwdsvc-update.XXXXXX")
+trap 'rm -rf "$tmp"' EXIT
 
+installed=$("$dest" -version 2>/dev/null | awk '{print $2}' || true)
+
+# The binaries are built after the release is published and arrive about a
+# minute later, so wait for them (up to 10 minutes).
+for attempt in $(seq 1 40); do
+  json=$(curl -fsSL "$api") || json=""
+  tag=$(grep -o '"tag_name": *"[^"]*"' <<<"$json" | head -1 | sed 's/.*"\([^"]*\)"$/\1/')
+  if [ -n "$tag" ] && [ "${tag#v}" = "$installed" ]; then
+    echo "fwdsvc $installed is already the latest release"
+    exit 0
+  fi
+  url=$(grep -o "https://[^\"]*/$asset\"" <<<"$json" | head -1 | tr -d '"')
+  sums=$(grep -o 'https://[^"]*/SHA256SUMS"' <<<"$json" | head -1 | tr -d '"')
+  if [ -n "$url" ] && [ -n "$sums" ] &&
+     curl -fsSL -o "$tmp/$asset" "$url" &&
+     curl -fsSL -o "$tmp/SHA256SUMS" "$sums" &&
+     (cd "$tmp" && grep " $asset\$" SHA256SUMS | sha256sum -c --status -); then
+    chmod +x "$tmp/$asset"
+    # Rename, never overwrite in place: writing over a running binary fails
+    # ("Text file busy"), and a failed write would leave a broken file.
+    mv -f "$tmp/$asset" "$dest"
+    echo "installed fwdsvc $tag (was ${installed:-none}); restart the service to use it"
+    exit 0
+  fi
+  echo "release ${tag:-?}: binaries not ready yet (attempt $attempt/40)"
+  sleep 15
+done
+echo "gave up waiting for the release binaries" >&2
+exit 1

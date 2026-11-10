@@ -1,14 +1,3 @@
-//Request URL: https://www.michmesh.net/webhooks
-//Request method: POST
-//Accept: */*
-//Content-Type: application/json
-//User-Agent: GitHub-Hookshot/be5de60
-//X-Github-Delivery: a4b82650-dcb1-11f1-899a-dfd2e4b86be0
-//X-Github-Event: workflow_run
-//X-Github-Hook-Id: 709632376
-//X-Github-Hook-Installation-Target-Id: 1230484497
-//X-Github-Hook-Installation-Target-Type: repository
-
 {
   "action": "completed",
   "workflow_run": {
