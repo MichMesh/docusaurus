@@ -5,6 +5,10 @@ sidebar_label: Repeater Setup
 
 So you've decided to run a repeater. Nice. This guide gets a MeshCore repeater online, tagged with the right Michigan regions, tuned, and verified.
 
+:::note
+These settings are recommendations, not rules. Each operator decides how to run their own repeater. The region plan comes from draft RFC-001 and is still under discussion, but the mesh works best when nearby repeaters are set up the same way.
+:::
+
 - **[Quick Start](#quick-start)**: every command a new Michigan repeater needs, in order. Start here.
 - **[Step-by-Step Setup](#step-by-step-setup)**: the same steps explained one at a time.
 - **[Regions](#regions)**: which regions to carry and why.
@@ -45,7 +49,7 @@ set lon <-84.5555>
 set owner.info <your_contact_details>|michmesh.com/mcr
 password <your_admin_password>
 
-# 3. Michigan network standards
+# 3. Recommended Michigan network settings
 set path.hash.mode 1
 set advert.interval 240
 set flood.advert.interval 24
@@ -128,7 +132,7 @@ Free-text contact details so somebody can reach you about the node: an email add
 set owner.info <your_contact_details>|michmesh.com/mcr
 ```
 
-End it with `|michmesh.com/mcr`, a short link to this page, so anyone who looks up your repeater can find the Michigan setup standard. Keep the link in owner info rather than the repeater name: once location is set, adverts only carry the first 23 characters of the name, and the link would crowd out or truncate it.
+End it with `|michmesh.com/mcr`, a short link to this page, so anyone who looks up your repeater can find the Michigan setup guide. Keep the link in owner info rather than the repeater name: once location is set, adverts only carry the first 23 characters of the name, and the link would crowd out or truncate it.
 
 ### 5. Set an Admin Password {#step-5-password}
 
@@ -140,9 +144,9 @@ password <your_admin_password>
 
 Leave `guest.password` alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status.
 
-### 6. Apply Michigan Network Standards {#step-6-standards}
+### 6. Apply Recommended Michigan Settings {#step-6-standards}
 
-These apply to every Michigan repeater regardless of location or height.
+These are recommended for every Michigan repeater regardless of location or height.
 
 ```bash path=null start=null
 set path.hash.mode 1
@@ -154,7 +158,7 @@ set dutycycle 100
 set loop.detect moderate
 ```
 
-- [**path.hash.mode 1**](#path-hash-mode): 2-byte path hashes. Michigan standard since May 20, 2026; set it on your companion too.
+- [**path.hash.mode 1**](#path-hash-mode): 2-byte path hashes. Recommended for Michigan since May 20, 2026; set it on your companion too.
 - [**advert.interval 240**](#advert-interval): local advert every 4 hours (neighbors only)
 - [**flood.advert.interval 24**](#flood-advert-interval): network-wide advert every 24 hours
 - [**flood.max 32**](#flood-max): drops floods past 32 hops to match `path.hash.mode 1`
@@ -211,7 +215,7 @@ Regions let traffic be scoped so it only floods as far as it's useful. A repeate
 ### Scoping Is On Hold {#regions-on-hold}
 
 :::info
-Some repeaters had already started scoping traffic and others hadn't, so operators agreed to keep the mesh open for now. Until the group decides otherwise:
+Some repeaters had already started scoping traffic and others hadn't, so the recommendation for now is to keep the mesh open. Until that changes:
 
 - **Define regions on repeaters** with `region def` and `region save`, as below.
 - **Don't** set `region default`, set `flood.max.unscoped`, or use `region denyf`.
@@ -470,8 +474,8 @@ set rxdelay 3
 
 ### path.hash.mode: Path ID Size {#path-hash-mode}
 
-:::note Michigan Standard
-Michigan settled on `path.hash.mode 1` as of May 20, 2026. Make sure to set this on any repeater, and on your companion too. It sets the ID size on the packets your node floods, including the advert the rest of the mesh uses to learn a path back to you. It has no effect on what your node receives.
+:::note Recommended for Michigan
+`path.hash.mode 1` has been recommended for Michigan since May 20, 2026. Make sure to set this on any repeater, and on your companion too. It sets the ID size on the packets your node floods, including the advert the rest of the mesh uses to learn a path back to you. It has no effect on what your node receives.
 :::
 
 Every node has a short ID taken from its public key. As a packet floods across the mesh, each repeater that relays it stamps its own ID into the packet, building up a record of the route it took. That record is what lets the mesh learn a path back. `path.hash.mode` sets how many bytes long your ID is in that record.
