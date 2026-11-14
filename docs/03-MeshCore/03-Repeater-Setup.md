@@ -3,15 +3,19 @@ sidebar_label: Repeater Setup
 ---
 # Repeater Setup Guide
 
-So you've decided to run a repeater. Nice. This guide gets a MeshCore repeater online, tagged with the right Michigan regions, tuned, and verified.
+So you've decided to run a repeater. Nice. This guide walks through MeshCore repeater setup using **MichMesh's recommended settings for operators who choose to participate** in its regional coordination plan.
 
-- **[Quick Start](#quick-start)**: every command a new Michigan repeater needs, in order. Start here.
+- **[Quick Start](#quick-start)**: the recommended setup commands for a repeater following this plan, in order. Start here.
 - **[Step-by-Step Setup](#step-by-step-setup)**: the same steps explained one at a time.
 - **[Regions](#regions)**: which regions to carry and why.
 - **[Claim a Unique Public Key Prefix](#claim-a-unique-public-key-prefix)**: do this before the repeater goes on the air.
 - **[Delay Profiles](#delay-profiles)**: pick one that matches the repeater's height.
 - **[Settings Reference](#settings-reference)**: what each setting does.
 - **[Full Settings Audit](#full-settings-audit)**: check everything before and after a field install.
+
+:::note Voluntary guidance, not statewide requirements
+This guide presents **MichMesh's technical recommendations for participating operators**, not rules adopted on behalf of all Michigan repeaters. MichMesh is not a Michigan government agency, regulator, or rule-making authority. Independent repeater owners decide whether to adopt this plan, subject to applicable laws and regulations. The commands below are examples of **this recommended configuration**, not universal requirements.
+:::
 
 ## Before You Start
 
@@ -30,7 +34,7 @@ The MeshCore CLI uses **spaces**, not `=`. Typing `set path.hash.mode = 1` can s
 
 ## Quick Start {#quick-start}
 
-The full setup for a new repeater on firmware 1.16 or later. Replace everything in `<angle brackets>`, and swap the region line for your area (see [Pick Your Regions](#pick-your-regions)). Each block links to a step below that explains it.
+The recommended setup for a repeater **participating in MichMesh's plan** on firmware 1.16 or later. Replace everything in `<angle brackets>`, and adjust the region line for your coverage area (see [Pick Your Regions](#pick-your-regions)). Each block links to a step below that explains it.
 
 ```bash path=null start=null
 # 1. Confirm firmware and radio (expect role = Repeater, 910.525 / 62.5 / 7 / 5)
@@ -45,7 +49,7 @@ set lon <-84.5555>
 set owner.info <your_contact_details>|michmesh.com/mcr
 password <your_admin_password>
 
-# 3. Michigan network standards
+# 3. MichMesh recommended network settings
 set path.hash.mode 1
 set advert.interval 240
 set flood.advert.interval 24
@@ -89,7 +93,7 @@ get role
 
 ### 2. Verify Radio Settings {#step-2-radio}
 
-Read back the radio configuration and confirm it matches the Michigan preset. If you selected **USA/Canada (Recommended)** in the [web flasher](https://flasher.meshcore.io/), it already does:
+Read back the radio configuration and confirm it matches the radio preset used in this guide. If you selected **USA/Canada (Recommended)** in the [web flasher](https://flasher.meshcore.io/), it already does:
 
 | Setting | Value |
 | --- | --- |
@@ -128,7 +132,7 @@ Free-text contact details so somebody can reach you about the node: an email add
 set owner.info <your_contact_details>|michmesh.com/mcr
 ```
 
-End it with `|michmesh.com/mcr`, a short link to this page, so anyone who looks up your repeater can find the Michigan setup standard. Keep the link in owner info rather than the repeater name: once location is set, adverts only carry the first 23 characters of the name, and the link would crowd out or truncate it.
+If you choose to include `|michmesh.com/mcr`, it provides a short link to this page so others can find MichMesh's setup recommendations. Keep the link in owner info rather than the repeater name: once location is set, adverts only carry the first 23 characters of the name, and the link would crowd out or truncate it.
 
 ### 5. Set an Admin Password {#step-5-password}
 
@@ -140,9 +144,9 @@ password <your_admin_password>
 
 Leave `guest.password` alone on purpose. It defaults to blank, which is what lets community members log in as guests and query repeater status.
 
-### 6. Apply Michigan Network Standards {#step-6-standards}
+### 6. Apply MichMesh Recommended Network Settings {#step-6-standards}
 
-These apply to every Michigan repeater regardless of location or height.
+For operators following this plan, MichMesh recommends the settings below regardless of repeater location or height. Independent operators are not required to adopt them.
 
 ```bash path=null start=null
 set path.hash.mode 1
@@ -154,7 +158,7 @@ set dutycycle 100
 set loop.detect moderate
 ```
 
-- [**path.hash.mode 1**](#path-hash-mode): 2-byte path hashes. Michigan standard since May 20, 2026; set it on your companion too.
+- [**path.hash.mode 1**](#path-hash-mode): 2-byte path hashes. recommended by MichMesh since May 20, 2026; MichMesh also recommends it on companions.
 - [**advert.interval 240**](#advert-interval): local advert every 4 hours (neighbors only)
 - [**flood.advert.interval 24**](#flood-advert-interval): network-wide advert every 24 hours
 - [**flood.max 32**](#flood-max): drops floods past 32 hops to match `path.hash.mode 1`
@@ -164,7 +168,7 @@ set loop.detect moderate
 
 ### 7. Set Regions {#step-7-regions}
 
-Define the full region ancestry for the area the repeater serves. See [Regions](#regions) for what to carry.
+If participating in MichMesh's plan, define its recommended region names for the repeater's actual coverage. See [Regions](#regions) for the naming scheme.
 
 ```bash path=null start=null
 region def midwest mi <subregion> <local_region>
@@ -206,12 +210,12 @@ get flood.max.unscoped
 
 ## Regions {#regions}
 
-Regions let traffic be scoped so it only floods as far as it's useful. A repeater forwards scoped traffic only for regions it carries, so the regions you configure decide what your repeater will pass on. Michigan's region names and county assignments come from the draft [Michigan MeshCore Regions RFC](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), developed by Michigan operators.
+Regions let traffic be scoped so it only floods as far as it's useful. A repeater forwards scoped traffic only for regions it carries, so the regions you configure decide what your repeater will pass on. MichMesh's proposed region names and county assignments come from the draft [Michigan MeshCore Regions RFC](https://github.com/MichMesh/MC-Regional-Infrastructure-Planning), developed by Michigan operators.
 
 ### Scoping Is On Hold {#regions-on-hold}
 
 :::info
-Some repeaters had already started scoping traffic and others hadn't, so operators agreed to keep the mesh open for now. Until the group decides otherwise:
+Some participating repeaters had already started scoping traffic while others had not, so MichMesh recommends retaining unscoped forwarding for now. For repeaters following this plan, until participants coordinate a change:
 
 - **Define regions on repeaters** with `region def` and `region save`, as below.
 - **Don't** set `region default`, set `flood.max.unscoped`, or use `region denyf`.
@@ -220,7 +224,7 @@ Some repeaters had already started scoping traffic and others hadn't, so operato
 Already changed something? See [Undo Scoping Changes](#undo-scoping) for repeaters and [Undo Region Scoping](./01-Getting-Started.md#undo-region-scoping) for companions.
 :::
 
-### The Michigan Hierarchy {#region-hierarchy}
+### Proposed MichMesh Region Hierarchy {#region-hierarchy}
 
 ```text
 midwest
@@ -244,7 +248,7 @@ Local regions marked *example* aren't settled yet. Check with operators near you
 
 ### Pick Your Regions {#pick-your-regions}
 
-A repeater carries **every level** above it: `midwest`, `mi`, its subregion, and its local region if there is one. MeshCore does not inherit regions, so each one has to be configured. Find your county below for a default subregion:
+Under MichMesh's proposed configuration, a participating repeater defines **every applicable level** above its local region: `midwest`, `mi`, its subregion, and a local region if one is used. MeshCore does not inherit regions, so each one has to be configured. Find your county below for a default subregion:
 
 | Subregion | Counties |
 | --- | --- |
@@ -254,7 +258,7 @@ A repeater carries **every level** above it: `midwest`, `mi`, its subregion, and
 | `mi-north` | Alcona, Alpena, Antrim, Benzie, Charlevoix, Cheboygan, Clare, Crawford, Emmet, Grand Traverse, Kalkaska, Lake, Leelanau, Manistee, Mason, Mecosta, Missaukee, Montmorency, Osceola, Oscoda, Otsego, Presque Isle, Roscommon, Wexford |
 | `mi-upper` | Alger, Baraga, Chippewa, Delta, Dickinson, Gogebic, Houghton, Iron, Keweenaw, Luce, Mackinac, Marquette, Menominee, Ontonagon, Schoolcraft |
 
-The county table is a starting point, not a border. A repeater carries the subregion of the area it **actually covers**: a hilltop site in Ionia County whose footprint is mostly Grand Rapids belongs in `mi-west` and `grr`. If operators in your area have agreed on something different, that agreement wins.
+The county table is a starting point, not a border. A repeater carries the subregion of the area it **actually covers**: a hilltop site in Ionia County whose footprint is mostly Grand Rapids belongs in `mi-west` and `grr`. Operators can choose configurations appropriate to their own infrastructure; coordination with neighbors can improve interoperability.
 
 Examples:
 
@@ -311,14 +315,14 @@ Expect `default scope is <null>`, `> 64`, and a tree where every line, including
 
 `set flood.max.unscoped <hops>` would drop traffic with no region once it had travelled that many hops. It's [on hold](#regions-on-hold), so leave it at the firmware default of `64`.
 
-Scoped traffic only travels through repeaters that carry its region, so a mesh where some repeaters scope and others don't loses messages in between. That's why these wait until everyone moves together.
+Scoped traffic only travels through repeaters that carry its region, so inconsistent regional configurations can interrupt message delivery. MichMesh recommends coordinating these changes among participating operators to reduce that risk.
 
 ### Repeaters on a Boundary {#region-boundary}
 
-A repeater can carry more than one subregion. A site on the `mi-west` / `mi-central` line that really serves both can carry both, and then it forwards traffic scoped to either. That makes it a **bridge**, and bridges are a network decision, not a site decision:
+A repeater can carry more than one subregion. A site on the `mi-west` / `mi-central` line that really serves both can carry both, and then it forwards traffic scoped to either. That makes it a **bridge**. For participants in a coordinated forwarding plan, discussing bridge settings with neighboring operators can improve predictability; independent repeater owners retain control of their own sites:
 
 - Carry a neighboring subregion only if you serve companions there. Hearing a neighbor's repeater on a good day isn't coverage.
-- A few deliberate bridges per boundary, announced in the group, beat every edge repeater quietly carrying both.
+- A few deliberately coordinated bridges per boundary may be easier to document and troubleshoot than unannounced overlapping configurations.
 ```bash path=null start=null
 region def midwest mi mi-west grr
 region def midwest mi mi-central
@@ -470,8 +474,8 @@ set rxdelay 3
 
 ### path.hash.mode: Path ID Size {#path-hash-mode}
 
-:::note Michigan Standard
-Michigan settled on `path.hash.mode 1` as of May 20, 2026. Make sure to set this on any repeater, and on your companion too. It sets the ID size on the packets your node floods, including the advert the rest of the mesh uses to learn a path back to you. It has no effect on what your node receives.
+:::note MichMesh recommendation
+MichMesh has recommended `path.hash.mode 1` since May 20, 2026 for repeaters participating in its configuration plan, and recommends it on companions too. This is not a statewide requirement. It sets the ID size on the packets your node floods, including the advert the rest of the mesh uses to learn a path back to you. It has no effect on what your node receives.
 :::
 
 Every node has a short ID taken from its public key. As a packet floods across the mesh, each repeater that relays it stamps its own ID into the packet, building up a record of the route it took. That record is what lets the mesh learn a path back. `path.hash.mode` sets how many bytes long your ID is in that record.
